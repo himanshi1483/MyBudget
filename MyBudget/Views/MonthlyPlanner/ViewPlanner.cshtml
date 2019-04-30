@@ -1,0 +1,738 @@
+﻿@model MyBudget.Models.MonthlyPlannerViewModel
+@{
+    /**/
+
+    ViewBag.Title = "ViewPlanner";
+}
+@*<!-- Vendor CSS -->
+    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Theme/assets/vendor/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/Theme/assets/vendor/magnific-popup/magnific-popup.css" />
+    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
+    <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="~/Theme/assets/vendor/select2/select2.css" />
+    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css" />
+    <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="~/Theme/assets/vendor/select2/select2.css" />
+    <link rel="stylesheet" href="~/Theme/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="~/Theme/assets/stylesheets/theme.css" />
+
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="~/Theme/assets/stylesheets/skins/default.css" />
+
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="~/Theme/assets/stylesheets/theme-custom.css">
+
+    <!-- Head Libs -->
+    <script src="~/Theme/assets/vendor/modernizr/modernizr.js"></script>*@
+<style>
+    .datepicker {
+        z-index: 99999 !important; /* has to be larger than 1050 */
+    }
+
+    .btn, .dropdown-menu {
+        font-size: 13px !important;
+    }
+</style>
+@*<section class="panel panel-featured-left panel-featured-info">
+    <div class="panel-body">
+        <div class="widget-summary widget-summary-xs">
+            <div class="widget-summary-col widget-summary-col-icon">
+                <div class="summary-icon bg-info">
+                    <i class="fa fa-life-ring"></i>
+                </div>
+            </div>
+            <div class="widget-summary-col">
+                <div class="summary">
+                    <h4 class="title"> <a href="@Url.Action("Create")">Create New Plan</a></h4>
+
+                </div>
+                <div class="summary-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="panel">
+    <div class="panel-body">
+        <div class="form-group col-lg-8">
+            <label class="col-md-2 control-label">Select Month/Year</label>
+            <div class="col-md-3">
+                <select class="form-control input-sm mb-md" style="font-size:13px !important" multiple="multiple" data-plugin-multiselect id="ms_example2">
+                    @foreach (var item in Enum.GetNames(typeof(MyBudget.Utility.Enumerations.Month)))
+                    {
+                        <option value="@item">@item</option>
+                    }
+                    @Html.HiddenFor(x => x.ForMonth)
+                </select>
+            </div>
+            <div class="finYearDiv col-md-3">
+                @Html.HiddenFor(x => x.FinancialYear)
+            </div>
+
+        </div>
+
+    </div>
+</section>*@
+<section class="panel">
+    <header class="panel-heading">
+
+        <div class="panel-actions">
+            @*<a href="@Url.Action("Create", "IncomeDetails")" class="btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>*@
+            <a href="#incomeModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
+
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+        <div class="modal-block modal-block-primary mfp-hide" id="incomeModal" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Income</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Create", "IncomeDetails", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+
+                                        @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActualAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ActualAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Credit Date</label>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                            @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ForMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EnumDropDownListFor(x => x.ForMonth, "Month", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.FinancialYear, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FinancialYear, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="Create" class="btn btn-success" />
+
+                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                </div>
+                                @*<div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        </div>
+                                    </div>*@
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <h2 class="panel-title">Income Details</h2>
+    </header>
+
+
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped mb-none" id="incomeTable">
+            <thead>
+                <tr>
+                    @* <th> </th> *@
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Sub-Category
+                    </th>
+                    <th>
+                        Expected Amount
+                    </th>
+                    <th>
+                        Actual Amount
+                    </th>
+                    <th>
+                        Month
+                    </th>
+                    <th>
+                        Financial Year
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 1))
+                {
+                    <tr>
+
+
+                        @*<td class="incomeId"></td>*@
+                        <td class="CategoryId">@item.CategoryName</td>
+                        <td class="subCategoryId">@item.SubCategoryName</td>
+                        <td> &#x20B9 @item.ExpectedAmount</td>
+                        <td class="actualAmount"> &#x20B9 @item.ActualAmount</td>
+                        <td class="month">@item.ForMonth</td>
+                        <td class="finYear">@item.FinancialYear</td>
+                        <td class="actions">
+                            <a href="@Url.Action("Edit", "IncomeDetails", new { id = @item.IncomeId })"><i class="fa fa-pencil"></i></a>
+                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
+                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            @*<a class="Edit" href="javascript:;">Edit</a>
+                                <a class="Update" href="javascript:;" style="display:none">Update</a>
+                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                                <a class="Delete" href="javascript:;">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    @*<th></th>*@
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+<!-- end: page -->
+<hr />
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#expModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
+
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+
+        <h2 class="panel-title">Expense Details</h2>
+    </header>
+
+    <div class="panel-body">
+        <div class="modal-block modal-block-primary mfp-hide" id="expModal" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Expense</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Create", "ExpenseDetails", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+
+                                        @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActualAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ActualAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Credit Date</label>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            @Html.EditorFor(model => model.DebitDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                            @Html.ValidationMessageFor(model => model.DebitDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ForMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EnumDropDownListFor(x => x.ForMonth, "Month", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.FinancialYear, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FinancialYear, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="Create" class="btn btn-success" />
+
+                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                </div>
+                                @*<div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        </div>
+                                    </div>*@
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <table id="expenseTable" class="table table-bordered table-striped mb-none" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Sub-Category
+                    </th>
+                    <th>
+                        Expected Amount
+                    </th>
+                    <th>
+                        Actual Amount
+                    </th>
+                    <th>
+                        Month
+                    </th>
+                    <th>
+                        Financial Year
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 2))
+                {
+                    <tr>
+                        <td>@item.CategoryName</td>
+                        <td>@item.SubCategoryName</td>
+                        <td> &#x20B9 @item.ExpectedAmount</td>
+                        <td> &#x20B9 @item.ActualAmount</td>
+                        <td>@item.ForMonth</td>
+                        <td>@item.FinancialYear</td>
+                        <td class="actions">
+                            <a href="@Url.Action("Edit", "ExpenseDetails", new { id = @item.ExpenseId })"><i class="fa fa-pencil"></i></a>
+                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
+                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            @*<a class="Edit" href="javascript:;">Edit</a>
+                                <a class="Update" href="javascript:;" style="display:none">Update</a>
+                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                                <a class="Delete" href="javascript:;">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+<hr />
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#savingsModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
+
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+        <h2 class="panel-title">Savings Details</h2>
+    </header>
+
+    <div class="panel-body">
+
+        <div class="modal-block modal-block-primary mfp-hide" id="savingsModal" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Expense</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Create", "SavingsDetails", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+
+                                        @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActualAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ActualAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Credit Date</label>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ForMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EnumDropDownListFor(x => x.ForMonth, "Month", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.FinancialYear, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FinancialYear, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="Create" class="btn btn-success" />
+
+                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                </div>
+                                @*<div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        </div>
+                                    </div>*@
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <table id="savingsTable" class="table table-bordered table-striped mb-none" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Sub-Category
+                    </th>
+                    <th>
+                        Expected Amount
+                    </th>
+                    <th>
+                        Actual Amount
+                    </th>
+                    <th>
+                        Month
+                    </th>
+                    <th>
+                        Financial Year
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 3))
+                {
+                    <tr>
+                        <td>@item.CategoryName</td>
+                        <td>@item.SubCategoryName</td>
+                        <td> &#x20B9 @item.ExpectedAmount</td>
+                        <td> &#x20B9 @item.ActualAmount</td>
+                        <td>@item.ForMonth</td>
+                        <td>@item.FinancialYear</td>
+                        <td class="actions">
+                            <a href="@Url.Action("Edit", "SavingsDetails", new { id = @item.SavingsId })"><i class="fa fa-pencil"></i></a>
+                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
+                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            @*<a class="Edit" href="javascript:;">Edit</a>
+                                <a class="Update" href="javascript:;" style="display:none">Update</a>
+                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                                <a class="Delete" href="javascript:;">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+<hr />
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#investModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
+
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+        <h2 class="panel-title">Investment Details</h2>
+    </header>
+
+    <div class="panel-body">
+
+        <div class="modal-block modal-block-primary mfp-hide" id="investModal" tabindex="-1">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Investments</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Create", "InvestmentDetails", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+
+                                        @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActualAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ActualAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Credit Date</label>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            @Html.EditorFor(model => model.DebitDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                            @Html.ValidationMessageFor(model => model.DebitDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ForMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EnumDropDownListFor(x => x.ForMonth, "Month", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.FinancialYear, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FinancialYear, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="Create" class="btn btn-success" />
+
+                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                </div>
+                                @*<div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        </div>
+                                    </div>*@
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <table id="investTable" class="table table-bordered table-striped mb-none" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Sub-Category
+                    </th>
+                    <th>
+                        Expected Amount
+                    </th>
+                    <th>
+                        Actual Amount
+                    </th>
+                    <th>
+                        Month
+                    </th>
+                    <th>
+                        Financial Year
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 4))
+                {
+                    <tr>
+                        <td>@item.CategoryName</td>
+                        <td>@item.SubCategoryName</td>
+                        <td> &#x20B9 @item.ExpectedAmount</td>
+                        <td> &#x20B9 @item.ActualAmount</td>
+                        <td>@item.ForMonth</td>
+                        <td>@item.FinancialYear</td>
+                        <td class="actions">
+                            <a href="@Url.Action("Edit", "InvestmentDetails", new { id = @item.InvestmentId })"><i class="fa fa-pencil"></i></a>
+                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
+                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            @*<a class="Edit" href="javascript:;">Edit</a>
+                                <a class="Update" href="javascript:;" style="display:none">Update</a>
+                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                                <a class="Delete" href="javascript:;">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</section>
+
+@*<script src="~/Theme/assets/vendor/jquery/jquery.js"></script>
+    <script src="~/Theme/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/Theme/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Theme/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Theme/assets/vendor/select2/select2.js"></script>
+    <script src="~/Theme/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+
+@*<script src="~/Theme/assets/vendor/magnific-popup/magnific-popup.js"></script>
+    <script src="~/Theme/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+    <script src="~/Theme/assets/javascripts/forms/examples.advanced.form.js"></script>*@
+

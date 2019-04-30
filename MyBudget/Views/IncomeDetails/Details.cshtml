@@ -1,0 +1,58 @@
+﻿@model MyBudget.Models.IncomeDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>IncomeDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubCategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreditDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreditDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ForMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ForMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinancialYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinancialYear)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IncomeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

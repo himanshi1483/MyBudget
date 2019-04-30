@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MyBudget.Models.IncomeDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubCategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreditDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ForMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinancialYear)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubCategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreditDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ForMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinancialYear)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IncomeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IncomeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IncomeId })
+        </td>
+    </tr>
+}
+
+</table>

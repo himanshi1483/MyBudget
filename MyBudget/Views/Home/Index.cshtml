@@ -1,0 +1,164 @@
+﻿@model MyBudget.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
+
+<!-- start: page -->
+<div class="row">
+    <div class="col-md-6 col-lg-12 col-xl-6">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                    <div class="row">
+                        <a href="@Url.Action("Index", "MonthlyPlanner")" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block">Monthly Planner</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-6 col-lg-12 col-xl-6">
+        <div class="row">
+            <div class="col-md-12 col-lg-6 col-xl-6">
+                <section class="panel panel-featured-left panel-featured-primary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-success">
+                                    <i class="fa fa-usd"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Current Balance</h4>
+                                    <div class="info">
+                                        <strong class="amount">&#8377 @Model.TotalBalance</strong>
+                                        @*<span class="text-primary">(14 unread)</span>*@
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">(view all)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-12 col-lg-6 col-xl-6">
+                <section class="panel panel-featured-left panel-featured-secondary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-primary">
+                                    <i class="fa fa-usd"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Current Investments</h4>
+                                    <div class="info">
+                                        <strong class="amount">&#8377 @Model.TotalInvestment</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">(withdraw)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-12 col-lg-6 col-xl-6">
+                <section class="panel panel-featured-left panel-featured-tertiary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-danger">
+                                    <i class="fa fa-usd"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Current Liabilities</h4>
+                                    <div class="info">
+                                        <strong class="amount">&#8377 @Model.TotalLiability</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">(statement)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-12 col-lg-6 col-xl-6">
+                <section class="panel panel-featured-left panel-featured-quartenary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-quartenary">
+                                    <i class="fa fa-usd"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Current Expenses</h4>
+                                    <div class="info">
+                                        <strong class="amount">&#8377 @Model.TotalExpense</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">(report)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <section class="panel">
+                <h4 class="mb-md">Bank Accounts</h4>
+                @foreach (var item in Model.BankAccounts.Where(x=>x.AccountType == MyBudget.Utility.Enumerations.AccountType.Savings))
+                {
+                    <div class="col-lg-3">
+                        <section class="panel">
+                            <div class="panel-body" style="background-color:dodgerblue;color:white">
+                                @*<div class="pull-right h6 mb-none"> <a href="/bankaccounts/Edit/@item.AccountId"><i class="fa fa-edit"></i></a> <a href="/bankaccounts/Delete/@item.AccountId"><i class="fa fa-bitbucket"></i></a></div>*@
+
+                                <div class="h5 text-bold mb-none">@Html.DisplayFor(modelItem => item.BankName)</div>
+                                <div class="text-md mb-none pull-left">  &#x20B9  @Html.DisplayFor(modelItem => item.Balance)</div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                }
+            </section>
+        </div>
+        <div class="row">
+            <section class="panel">
+                <h4 class="mb-md">Credit Card</h4>
+                @foreach (var item in Model.BankAccounts.Where(x => x.AccountType == MyBudget.Utility.Enumerations.AccountType.CreditCard))
+                {
+                    <div class="col-lg-3">
+                        <section class="panel">
+                            <div class="panel-body" style="background-color:crimson;color:white">
+                                @*<div class="pull-right h6 mb-none"> <a href="/bankaccounts/Edit/@item.AccountId"><i class="fa fa-edit"></i></a> <a href="/bankaccounts/Delete/@item.AccountId"><i class="fa fa-bitbucket"></i></a></div>*@
+
+                                <div class="h5 text-bold mb-none">@Html.DisplayFor(modelItem => item.BankName)</div>
+                                <div class="text-md mb-none pull-left">  &#x20B9  @Html.DisplayFor(modelItem => item.Balance)</div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- end: page -->

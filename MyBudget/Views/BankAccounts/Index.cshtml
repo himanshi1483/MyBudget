@@ -1,0 +1,109 @@
+﻿@model IEnumerable<MyBudget.Models.BankAccounts>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    a, .btn-link
+    {
+        color:lightblue !important;
+    }
+</style>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<section class="panel" style="display:none">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+
+        <h2 class="panel-title">Rows with Details</h2>
+    </header>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped mb-none" id="datatable-details">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BankName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Balance)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="gradeX">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AccountId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.AccountId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AccountId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</section>
+<section class="panel">
+    <h4 class="mb-md">Bank Accounts</h4>
+    @foreach (var item in Model.Where(x => x.AccountType == MyBudget.Utility.Enumerations.AccountType.Savings))
+    {
+        <div class="col-lg-3">
+            <section class="panel">
+                <div class="panel-body" style="background-color:dodgerblue;color:white">
+                    <div class="pull-right h6 mb-none"> <a href="/bankaccounts/Edit/@item.AccountId"><i class="fa fa-edit"></i></a> <a href="/bankaccounts/Delete/@item.AccountId"><i class="fa fa-bitbucket"></i></a></div>
+
+                    <div class="h5 text-bold mb-none">@Html.DisplayFor(modelItem => item.BankName)</div>
+                    <div class="text-md mb-none pull-left">  &#x20B9  @Html.DisplayFor(modelItem => item.Balance)</div>
+
+                </div>
+            </section>
+
+        </div>
+    }
+    @foreach (var item in Model.Where(x => x.AccountType == MyBudget.Utility.Enumerations.AccountType.CreditCard))
+    {
+        <div class="col-lg-3">
+            <section class="panel">
+                <div class="panel-body" style="background-color:crimson;color:white">
+                    <div class="pull-right h6 mb-none"> <a href="/bankaccounts/Edit/@item.AccountId"><i class="fa fa-edit"></i></a> <a href="/bankaccounts/Delete/@item.AccountId"><i class="fa fa-bitbucket"></i></a></div>
+
+                    <div class="h5 text-bold mb-none">@Html.DisplayFor(modelItem => item.BankName)</div>
+                    <div class="text-md mb-none pull-left">  &#x20B9  @Html.DisplayFor(modelItem => item.Balance)</div>
+
+                </div>
+            </section>
+
+        </div>
+    }
+</section>
+<!-- end: page -->
+			

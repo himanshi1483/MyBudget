@@ -1,0 +1,58 @@
+﻿@model MyBudget.Models.MonthlyPlannerViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Create";
+}
+@if (ViewBag.Message != null)
+{
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+
+            <h2 class="panel-title">Alerts</h2>
+        </header>
+        <div class="panel-body">
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>@ViewBag.Message</strong>
+            </div>
+        </div>
+    </section>
+}
+@using (Html.BeginForm())
+{
+
+    <section class="panel">
+        <div class="panel-body">
+            <div class="form-group col-lg-8">
+                <label class="col-md-2 control-label">Select Month/Year</label>
+                <div class="col-md-3">
+                    @*<select class="form-control input-sm mb-md" style="font-size:13px !important" multiple="multiple" data-plugin-multiselect id="ForMonth">
+                            @foreach (var item in Enum.GetNames(typeof(MyBudget.Utility.Enumerations.Month)))
+                            {
+                                <option value="@item">@item</option>
+                            }
+                            @Html.HiddenFor(x => x.ForMonth)
+                        </select>*@
+                    @Html.EnumDropDownListFor(x => x.ForMonth, "Month", new { @class = "form-control input-sm mb-md" })
+                </div>
+                <div class="finYearDiv1 col-md-3">
+                    @Html.DropDownListFor(x => x.FinancialYear, new SelectList(ViewBag.Years, "value", "text"), new { @class = "form-control input-sm mb-md" })
+                    @*<select class="form-control input-sm mb-md" id="FinancialYear">
+                            @foreach (var item in ViewBag.Years)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>*@
+                </div>
+            </div>
+            <div class="form-group col-lg-4">
+                <button class="btn btn-primary" type="submit">Create</button>
+            </div>
+        </div>
+    </section>
+}
