@@ -13,7 +13,7 @@ namespace MyBudget.Models
         public List<ExpenseDetail> ExpenseDetails { get; set; }
         public List<SavingsDetail> SavingsDetails { get; set; }
         public List<InvestmentDetail> InvestmentDetails { get; set; }
-        public List<MonthlyPlan> MonthlyPlanList { get; set; }
+        public List<MonthlyPlan> PlanList { get; set; }
         public List<MonthlyPlannerViewModel> _MonthlyList { get; set; }
         public int IncomeId { get; set; }
         public int ExpenseId { get; set; }

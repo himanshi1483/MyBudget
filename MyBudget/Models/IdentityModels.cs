@@ -44,6 +44,6 @@ namespace MyBudget.Models
 
         public System.Data.Entity.DbSet<MyBudget.Models.BankAccounts> BankAccounts { get; set; }
         public System.Data.Entity.DbSet<MyBudget.Models.MonthlyPlan> MonthlyPlans { get; set; }
-
+        public System.Data.Entity.DbSet<MyBudget.Models.SMSData> SMSData { get; set; }
     }
 }
