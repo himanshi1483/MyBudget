@@ -1,0 +1,46 @@
+﻿@model MyBudget.Models.MonthlyPlannerViewModel
+
+@{
+    ViewBag.Title = "ListIndex";
+}
+
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            @*<a href="@Url.Action("Create", "IncomeDetails")" class="btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>*@
+            @*<a href="#incomeModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>*@
+            <a href="#" class="fa fa-caret-down"></a>
+            <a href="#" class="fa fa-times"></a>
+        </div>
+        <h2 class="panel-title">Planner</h2>
+    </header>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped mb-none" id="planTable">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Financial Year</th>
+                    <th>View/Edit</th>
+                    @*<th>Edit</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PlanList)
+                {
+                    <tr>
+                        <td>@item.ForMonth</td>
+                        <td>@item.FinancialYear</td>
+                        @*<td>
+                            <a href="@Url.Action("ViewPlanner", "MonthlyPlanner", new { planId = @item.PlanId })"><i class="fa fa-eye"></i></a>
+                        </td>*@
+                        <td>
+                            <a href="@Url.Action("Edit", "MonthlyPlanner", new { planId = @item.PlanId })">View/Edit</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

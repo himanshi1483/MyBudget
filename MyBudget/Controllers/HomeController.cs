@@ -1,4 +1,5 @@
 ﻿using MyBudget.Models;
+using MyBudget.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace MyBudget.Controllers
         public ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+          //  ModelData.TrainData();
+            //GmailSettings gs = new GmailSettings();
+           // GmailSettings.GetMail();
             DashboardViewModel model = new DashboardViewModel();
             var _incomeDetails = db.IncomeDetails.ToList();
             var _expenseDetails = db.ExpenseDetails.ToList();

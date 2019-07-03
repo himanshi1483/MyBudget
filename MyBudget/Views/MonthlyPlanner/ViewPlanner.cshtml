@@ -28,6 +28,7 @@
     <!-- Head Libs -->
     <script src="~/Theme/assets/vendor/modernizr/modernizr.js"></script>*@
 <style>
+
     .datepicker {
         z-index: 99999 !important; /* has to be larger than 1050 */
     }
@@ -37,53 +38,51 @@
     }
 </style>
 @*<section class="panel panel-featured-left panel-featured-info">
-    <div class="panel-body">
-        <div class="widget-summary widget-summary-xs">
-            <div class="widget-summary-col widget-summary-col-icon">
-                <div class="summary-icon bg-info">
-                    <i class="fa fa-life-ring"></i>
+        <div class="panel-body">
+            <div class="widget-summary widget-summary-xs">
+                <div class="widget-summary-col widget-summary-col-icon">
+                    <div class="summary-icon bg-info">
+                        <i class="fa fa-life-ring"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="widget-summary-col">
-                <div class="summary">
-                    <h4 class="title"> <a href="@Url.Action("Create")">Create New Plan</a></h4>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title"> <a href="@Url.Action("Create")">Create New Plan</a></h4>
 
-                </div>
-                <div class="summary-footer">
+                    </div>
+                    <div class="summary-footer">
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="panel">
-    <div class="panel-body">
-        <div class="form-group col-lg-8">
-            <label class="col-md-2 control-label">Select Month/Year</label>
-            <div class="col-md-3">
-                <select class="form-control input-sm mb-md" style="font-size:13px !important" multiple="multiple" data-plugin-multiselect id="ms_example2">
-                    @foreach (var item in Enum.GetNames(typeof(MyBudget.Utility.Enumerations.Month)))
-                    {
-                        <option value="@item">@item</option>
-                    }
-                    @Html.HiddenFor(x => x.ForMonth)
-                </select>
-            </div>
-            <div class="finYearDiv col-md-3">
-                @Html.HiddenFor(x => x.FinancialYear)
+    </section>
+    <section class="panel">
+        <div class="panel-body">
+            <div class="form-group col-lg-8">
+                <label class="col-md-2 control-label">Select Month/Year</label>
+                <div class="col-md-3">
+                    <select class="form-control input-sm mb-md" style="font-size:13px !important" multiple="multiple" data-plugin-multiselect id="ms_example2">
+                        @foreach (var item in Enum.GetNames(typeof(MyBudget.Utility.Enumerations.Month)))
+                        {
+                            <option value="@item">@item</option>
+                        }
+                        @Html.HiddenFor(x => x.ForMonth)
+                    </select>
+                </div>
+                <div class="finYearDiv col-md-3">
+                    @Html.HiddenFor(x => x.FinancialYear)
+                </div>
+
             </div>
 
         </div>
-
-    </div>
-</section>*@
+    </section>*@
 <section class="panel">
     <header class="panel-heading">
-
         <div class="panel-actions">
             @*<a href="@Url.Action("Create", "IncomeDetails")" class="btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>*@
             <a href="#incomeModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
@@ -101,14 +100,11 @@
                             @Html.AntiForgeryToken()
 
                             <div class="form-horizontal">
-
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
-
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -119,7 +115,6 @@
                                         @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
 
                                 @*<div class="form-group">
                                         @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -147,7 +142,6 @@
                                         @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
@@ -157,7 +151,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-
                                     <button class="btn btn-default modal-dismiss">Cancel</button>
                                 </div>
                                 @*<div class="form-group">
@@ -168,16 +161,14 @@
                             </div>
                         }
                     </div>
-
                 </div>
             </div>
         </div>
         <h2 class="panel-title">Income Details</h2>
     </header>
 
-
     <div class="panel-body">
-
+        <table id="incTable"></table>
         <table class="table table-bordered table-striped mb-none" id="incomeTable">
             <thead>
                 <tr>
@@ -207,7 +198,6 @@
                 @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 1))
                 {
                     <tr>
-
 
                         @*<td class="incomeId"></td>*@
                         <td class="CategoryId">@item.CategoryName</td>
@@ -249,14 +239,11 @@
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#expModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
-
         <h2 class="panel-title">Expense Details</h2>
     </header>
-
     <div class="panel-body">
         <div class="modal-block modal-block-primary mfp-hide" id="expModal" tabindex="-1">
             <div class="modal-dialog">
@@ -272,14 +259,11 @@
                             @Html.AntiForgeryToken()
 
                             <div class="form-horizontal">
-
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
-
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -290,7 +274,6 @@
                                         @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
 
                                 @*<div class="form-group">
                                         @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -318,7 +301,6 @@
                                         @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
@@ -328,7 +310,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-
                                     <button class="btn btn-default modal-dismiss">Cancel</button>
                                 </div>
                                 @*<div class="form-group">
@@ -339,11 +320,9 @@
                             </div>
                         }
                     </div>
-
                 </div>
             </div>
         </div>
-
         <table id="expenseTable" class="table table-bordered table-striped mb-none" style="width:100%">
             <thead>
                 <tr>
@@ -409,15 +388,12 @@
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#savingsModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
         <h2 class="panel-title">Savings Details</h2>
     </header>
-
     <div class="panel-body">
-
         <div class="modal-block modal-block-primary mfp-hide" id="savingsModal" tabindex="-1">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -432,14 +408,11 @@
                             @Html.AntiForgeryToken()
 
                             <div class="form-horizontal">
-
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
-
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -450,7 +423,6 @@
                                         @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
 
                                 @*<div class="form-group">
                                         @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -478,7 +450,6 @@
                                         @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
@@ -488,7 +459,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-
                                     <button class="btn btn-default modal-dismiss">Cancel</button>
                                 </div>
                                 @*<div class="form-group">
@@ -499,11 +469,9 @@
                             </div>
                         }
                     </div>
-
                 </div>
             </div>
         </div>
-
         <table id="savingsTable" class="table table-bordered table-striped mb-none" style="width:100%">
             <thead>
                 <tr>
@@ -569,15 +537,12 @@
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#investModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
         <h2 class="panel-title">Investment Details</h2>
     </header>
-
     <div class="panel-body">
-
         <div class="modal-block modal-block-primary mfp-hide" id="investModal" tabindex="-1">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -592,14 +557,11 @@
                             @Html.AntiForgeryToken()
 
                             <div class="form-horizontal">
-
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
-
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -610,7 +572,6 @@
                                         @Html.ValidationMessageFor(model => model.ActualAmount, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
 
                                 @*<div class="form-group">
                                         @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -638,7 +599,6 @@
                                         @Html.ValidationMessageFor(model => model.ForMonth, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.FinancialYear, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
@@ -648,7 +608,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-
                                     <button class="btn btn-default modal-dismiss">Cancel</button>
                                 </div>
                                 @*<div class="form-group">
@@ -659,7 +618,6 @@
                             </div>
                         }
                     </div>
-
                 </div>
             </div>
         </div>
@@ -721,18 +679,141 @@
                 </tr>
             </tfoot>
         </table>
-
     </div>
 </section>
+<script type="text/javascript" src="/Scripts/jqxcore.js"></script>
+<script type="text/javascript" src="/Scripts/jqxbuttons.js"></script>
+<script type="text/javascript" src="/Scripts/jqxscrollbar.js"></script>
+<script type="text/javascript" src="/Scriptss/jqxdata.js"></script>
+<script type="text/javascript" src="/Scripts/jqxdatatable.js"></script>
+@*<script type="text/javascript" src="/Scripts/demos.js"></script>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var source =
+        {
+            dataType: "json",
+            dataFields: [
+                { name: 'Category', type: 'string' },
+                { name: 'Sub-Category', type: 'string' },
+                { name: 'ExpectedAmount', type: 'double' },
+                { name: 'ActualAmount', type: 'double' },
+                { name: 'Month', type: 'string' },
+                { name: 'FinancialYear', type: 'string' }
+            ],
+            id: 'IncomeDetailsId',
+            url: url
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
 
-@*<script src="~/Theme/assets/vendor/jquery/jquery.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="~/Theme/assets/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="~/Theme/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="~/Theme/assets/vendor/select2/select2.js"></script>
-    <script src="~/Theme/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+        //var ordersSource =
+        //{
+        //    dataFields: [
+        //        { name: 'Category', type: 'string' },
+        //        { name: 'Sub-Category', type: 'string' },
+        //        { name: 'ExpectedAmount', type: 'double' },
+        //        { name: 'ActualAmount', type: 'double' },
+        //        { name: 'Month', type: 'string' },
+        //        { name: 'FinancialYear', type: 'string' }
+        //    ],
+        //    root: "IncomeDetails",
+        //    record: "IncomeDetail",
+        //    dataType: "json",
+        //    id: 'IncomeId',
+        //    url: orderdetailsurl,
+        //    addRow: function (rowID, rowData, position, commit) {
+        //        // synchronize with the server - send insert command
+        //        // call commit with parameter true if the synchronization with the server is successful
+        //        // and with parameter false if the synchronization failed.
+        //        // you can pass additional argument to the commit callback which represents the new ID if it is generated from a DB.
+        //        commit(true);
+        //    },
+        //    updateRow: function (rowID, rowData, commit) {
+        //        // synchronize with the server - send update command
+        //        // call commit with parameter true if the synchronization with the server is successful
+        //        // and with parameter false if the synchronization failed.
+        //        commit(true);
+        //    },
+        //    deleteRow: function (rowID, commit) {
+        //        // synchronize with the server - send delete command
+        //        // call commit with parameter true if the synchronization with the server is successful
+        //        // and with parameter false if the synchronization failed.
+        //        commit(true);
+        //    }
+        //};
 
-@*<script src="~/Theme/assets/vendor/magnific-popup/magnific-popup.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-    <script src="~/Theme/assets/javascripts/forms/examples.advanced.form.js"></script>*@
+        //var dataAdapter = new $.jqx.dataAdapter(ordersSource, {
+        //    loadComplete: function () {
+        //        // data is loaded.
+        //    }
+        //});
 
+
+        $("#incTable").jqxDataTable(
+            {
+                width: getWidth("dataTable"),
+                source: dataAdapter,
+                pageable: true,
+                sortable: true,
+                altRows: true,
+                ready: function () {
+                    // called when the DataTable is loaded.
+                    // init jqxWindow widgets.
+                    $("#category").jqxInput({ disabled: true, width: 150, height: 30 });
+                    $("#subCategory").jqxNumberInput({ spinButtons: true, inputMode: 'simple', width: 150, height: 30 });
+                    var countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burma", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic", "Congo, Republic of the", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Greenland", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Mongolia", "Morocco", "Monaco", "Mozambique", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Samoa", "San Marino", " Sao Tome", "Saudi Arabia", "Senegal", "Serbia and Montenegro", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
+                    $("#expectedAmount").jqxInput({ source: countries, width: 150, height: 30 });
+                    $("#actualAmount").jqxDateTimeInput({ formatString: 'd', width: 150, height: 30 });
+                    $("#month").jqxButton({ height: 30, width: 80 });
+                    $("#financialYear").jqxButton({ height: 30, width: 80 });
+                    $("#cancel").mousedown(function () {
+                        // close jqxWindow.
+                        $("#dialog").jqxWindow('close');
+                    });
+                    $("#save").mousedown(function () {
+                        // close jqxWindow.
+                        $("#dialog").jqxWindow('close');
+                        // update edited row.
+                        var editRow = parseInt($("#dialog").attr('data-row'));
+                        var rowData = {
+                            IncomeId: $("#incomeId").val(), Freight: $("#freight").val(),
+                            ShipCountry: $("#shipCountry").val(), ShippedDate: $("#shipDate").val()
+                        };
+                        $("#incTable").jqxDataTable('updateRow', editRow, rowData);
+                    });
+                    $("#dialog").on('close', function () {
+                        // enable jqxDataTable.
+                        $("#incTable").jqxDataTable({ disabled: false });
+                    });
+
+                    $("#dialog").jqxWindow({
+                        resizable: false,
+                        position: { left: $("#incomeTable").offset().left + 75, top: $("#incTable").offset().top + 35 },
+                        width: 270, height: 230,
+                        autoOpen: false
+                    });
+                    $("#dialog").css('visibility', 'visible');
+                },
+                pagerButtonsCount: 8,
+                columns: [
+                    { text: 'Order ID', editable: false, dataField: 'OrderID', width: 200 },
+                    { text: 'Freight', dataField: 'Freight', cellsFormat: 'f2', cellsAlign: 'right', align: 'right', width: 200 },
+                    { text: 'Ship Country', dataField: 'ShipCountry', width: 150 },
+                    { text: 'Shipped Date', dataField: 'ShippedDate', cellsAlign: 'right', align: 'right', cellsFormat: 'd' }
+                ]
+            });
+        $("#incTable").on('rowDoubleClick', function (event) {
+            var args = event.args;
+            var index = args.index;
+            var row = args.row;
+            // update the widgets inside jqxWindow.
+            $("#dialog").jqxWindow('setTitle', "Edit Row: " + row.OrderID);
+            $("#dialog").jqxWindow('open');
+            $("#dialog").attr('data-row', index);
+            $("#incomeTable").jqxDataTable({ disabled: true });
+            $("#incomeId").val(row.IncomeId);
+            $("#freight").val(row.Freight);
+            $("#shipCountry").val(row.ShipCountry);
+            $("#shipDate").val(row.ShippedDate);
+        });
+    });
+</script>
