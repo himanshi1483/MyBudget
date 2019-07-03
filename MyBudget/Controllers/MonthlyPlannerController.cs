@@ -96,11 +96,14 @@ namespace MyBudget.Controllers
                     ExpectedAmount = y.y.ExpectedAmount
                 }).ToList();
 
+            var _monthlyPlan = db.MonthlyPlans.ToList();
+
             var model = new MonthlyPlannerViewModel();
             model._MonthlyList = _incomeData;
             model._MonthlyList.AddRange(_expenseData);
             model._MonthlyList.AddRange(_savingsData);
             model._MonthlyList.AddRange(_investmentData);
+            model.MonthlyPlanList = _monthlyPlan;
             return View("Index",model);
         }
 

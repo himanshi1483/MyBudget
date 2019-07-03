@@ -746,17 +746,20 @@
                 "ForMonth": month,
                 "FinancialYear": year
             };
-            alert(model);
+            alert(3);
+            var jData = JSON.stringify(model);
+            console.log(jData);
             $.ajax({
                 type: "POST",
                 url: "/MonthlyPlanner/View",
-                data: JSON.stringify(model),
+                data: { "ForMonth": "July", "FinancialYear": "2019-2020" },
                 dataType: "json",
-                contentType: 'application/json; charset=utf-8',
+                contentType: 'application/json',
                 success: function () {
                     alert(1);
                 },
                 error: function (httpRequest, textStatus, errorThrown) {  // detailed error messsage
+                    alert(2);
                     alert("Error: " + textStatus + " " + errorThrown + " " + httpRequest);
                 }
 
