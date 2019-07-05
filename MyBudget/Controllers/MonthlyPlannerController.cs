@@ -24,10 +24,13 @@ namespace MyBudget.Controllers
             var _expenseDetails = db.ExpenseDetails.ToList();
             var _savingDetails = db.SavingsDetails.ToList();
             var _investmentDetails = db.InvestmentDetails.ToList();
-            var items = db.SubCategories.Where(x => x.ParentCategoryId == 1).ToList();
+            var items = db.SubCategories.ToList();
             if (items != null)
             {
-                ViewBag.SubCategories = items;
+                ViewBag.SubCategories1 = items.Where(x => x.ParentCategoryId == 1);
+                ViewBag.SubCategories2 = items.Where(x => x.ParentCategoryId == 2);
+                ViewBag.SubCategories3 = items.Where(x => x.ParentCategoryId == 3);
+                ViewBag.SubCategories4 = items.Where(x => x.ParentCategoryId == 4);
             }
             var categories = db.Categories.Join(db.SubCategories, x => x.CategoryId, y => y.ParentCategoryId,
                 (x, y) => new { x, y }).Select(y => new MonthlyPlannerViewModel
@@ -103,15 +106,30 @@ namespace MyBudget.Controllers
             model._MonthlyList.AddRange(_expenseData);
             model._MonthlyList.AddRange(_savingsData);
             model._MonthlyList.AddRange(_investmentData);
-            model.MonthlyPlanList = _monthlyPlan;
+            model.PlanList = _monthlyPlan;
+          
             return View("Index",model);
         }
 
         public ActionResult ListIndex()
         {
+            ViewBag.Years = new SelectList(Enumerable.Range(DateTime.Today.Year, 20).Select(x =>
+                                 new SelectListItem()
+                                 {
+                                     Text = x.ToString() + "-" + (x + 1).ToString(),
+                                     Value = x.ToString() + "-" + (x + 1).ToString()
+                                 }), "Value", "Text");
             var model = new MonthlyPlannerViewModel();
             var list = db.MonthlyPlans.ToList();
             model.PlanList = list;
+            var items = db.SubCategories.ToList();
+            if (items != null)
+            {
+                ViewBag.SubCategories1 = items.Where(x => x.ParentCategoryId == 1);
+                ViewBag.SubCategories2 = items.Where(x => x.ParentCategoryId == 2);
+                ViewBag.SubCategories3 = items.Where(x => x.ParentCategoryId == 3);
+                ViewBag.SubCategories4 = items.Where(x => x.ParentCategoryId == 4);
+            }
             return View(model);
         }
 
@@ -120,10 +138,13 @@ namespace MyBudget.Controllers
             var _plan = db.MonthlyPlans.Find(planId);
             model.ForMonth = _plan.ForMonth;
             model.FinancialYear = _plan.FinancialYear;
-            var items = db.SubCategories.Where(x => x.ParentCategoryId == 1).ToList();
+            var items = db.SubCategories.ToList();
             if (items != null)
             {
-                ViewBag.SubCategories = items;
+                ViewBag.SubCategories1 = items.Where(x => x.ParentCategoryId == 1);
+                ViewBag.SubCategories2 = items.Where(x => x.ParentCategoryId == 2);
+                ViewBag.SubCategories3 = items.Where(x => x.ParentCategoryId == 3);
+                ViewBag.SubCategories4 = items.Where(x => x.ParentCategoryId == 4);
             }
 
             ViewBag.Years = new SelectList(Enumerable.Range(DateTime.Today.Year, 20).Select(x =>

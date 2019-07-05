@@ -3,44 +3,78 @@
 @{
     ViewBag.Title = "ListIndex";
 }
+<h3>Monthly Planner</h3>
 
-<section class="panel">
-    <header class="panel-heading">
-        <div class="panel-actions">
-            @*<a href="@Url.Action("Create", "IncomeDetails")" class="btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>*@
-            @*<a href="#incomeModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>*@
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+@if (ViewBag.Message != null)
+{
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+
+            <h2 class="panel-title">Alerts</h2>
+        </header>
+        <div class="panel-body">
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>@ViewBag.Message</strong>
+            </div>
         </div>
-        <h2 class="panel-title">Planner</h2>
-    </header>
-    <div class="panel-body">
-        <table class="table table-bordered table-striped mb-none" id="planTable">
-            <thead>
+    </section>
+}
+@using (Html.BeginForm("Create", "MonthlyPlanner", FormMethod.Post))
+{
+
+    <section class="panel">
+        @*<div class="panel-heading">Create New Monthly Planner</div>*@
+        <div class="panel-body">
+            <div class="col-md-12">
+                <label class="col-md-2 control-label" style="padding-top: 8px;">Create New Monthly Planner</label>
+
+                @*<label class="col-md-2 control-label" style="padding-top: 8px;">Select Month/Year</label>*@
+                <div class="col-md-3">
+                    @Html.EnumDropDownListFor(x => x.ForMonth, "Month", new { @class = "form-control input-sm mb-md" })
+                </div>
+                <div class="finYearDiv1 col-md-3">
+                    @Html.DropDownListFor(x => x.FinancialYear, new SelectList(ViewBag.Years, "value", "text"), new { @class = "form-control input-sm mb-md" })
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" type="submit">Create</button>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+}
+
+<div class="content-panel">
+
+    <table class="table table-bordered table-striped mb-none" id="planTable">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Financial Year</th>
+                <th>View/Edit</th>
+                @*<th>Edit</th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PlanList)
+            {
                 <tr>
-                    <th>Month</th>
-                    <th>Financial Year</th>
-                    <th>View/Edit</th>
-                    @*<th>Edit</th>*@
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.PlanList)
-                {
-                    <tr>
-                        <td>@item.ForMonth</td>
-                        <td>@item.FinancialYear</td>
-                        @*<td>
+                    <td>@item.ForMonth</td>
+                    <td>@item.FinancialYear</td>
+                    @*<td>
                             <a href="@Url.Action("ViewPlanner", "MonthlyPlanner", new { planId = @item.PlanId })"><i class="fa fa-eye"></i></a>
                         </td>*@
-                        <td>
-                            <a href="@Url.Action("Edit", "MonthlyPlanner", new { planId = @item.PlanId })">View/Edit</a>
-                        </td>
-                    </tr>
+                    <td>
+                        <a href="@Url.Action("Edit", "MonthlyPlanner", new { planId = @item.PlanId })">View/Edit</a>
+                    </td>
+                </tr>
 
-                }
-            </tbody>
-        </table>
-    </div>
-</section>
-
+            }
+        </tbody>
+    </table>
+</div>

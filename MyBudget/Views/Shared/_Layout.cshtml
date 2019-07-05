@@ -4,417 +4,409 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @*@Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")*@
-    <!-- Web Fonts  -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/magnific-popup/magnific-popup.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
-    <!-- Specific Page Vendor CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/vendor/select2/select2.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/pnotify/pnotify.custom.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
-    @*<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
-        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/1.10.19/css/dataTables.jqueryui.min.css" rel="stylesheet" />*@
-    <!-- Specific Page Vendor CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/morris/morris.css" />
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/stylesheets/theme.css" />
-    <!-- Skin CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/stylesheets/skins/default.css" />
-    <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/stylesheets/theme-custom.css">
-    <!-- Head Libs -->
-    <script src="~/Theme/assets/vendor/modernizr/modernizr.js"></script>
+    <!-- Favicons -->
+    <link href="~/Theme2/Dashio/img/favicon.png" rel="icon">
+    <link href="~/Theme2/Dashio/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Theme2/Dashio/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/Theme2/Dashio/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Theme2/Dashio/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme2/Dashio/lib/gritter/css/jquery.gritter.css" />
+    <!-- Custom styles for this template -->
+    <link href="~/Theme2/Dashio/css/style.css" rel="stylesheet">
+    <link href="~/Theme2/Dashio/css/style-responsive.css" rel="stylesheet">
+    <script src="~/Theme2/Dashio/lib/chart-master/Chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Theme2/Dashio/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme2/Dashio/lib/bootstrap-datepicker/css/datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme2/Dashio/lib/bootstrap-daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Theme2/Dashio/lib/bootstrap-timepicker/compiled/timepicker.css" />
+    
+    <link href="~/Theme2/Dashio/lib/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet" />
+    <!-- =======================================================
+      Template Name: Dashio
+      Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+      Author: TemplateMag.com
+      License: https://templatemag.com/license/
+    ======================================================= -->
 </head>
+
 <body>
-    <section class="body">
-        <!-- start: header -->
-        <header class="header">
-            <div class="logo-container">
-                <a href="../" class="logo">
-                    My Budget
-                    @*<img src="~/Theme/assets/images/logo.png" height="35" alt="JSOFT Admin" />*@
-                </a>
-                <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
-                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-                </div>
+    <section id="container">
+        <!-- **********************************************************************************************************************************************************
+            TOP BAR CONTENT & NOTIFICATIONS
+            *********************************************************************************************************************************************************** -->
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
             </div>
-            <!-- start: search & user box -->
-            <div class="header-right">
-                <form action="pages-search-results.html" class="search nav-form">
-                    <div class="input-group input-search">
-                        <input type="text" class="form-control" name="q" id="q" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </form>
-                <span class="separator"></span>
-                <ul class="notifications">
-                    <li>
-                        <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
+            <!--logo start-->
+            <a href="index.html" class="logo"><b>My<span>BUDGET</span></b></a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <ul class="nav top-menu">
+                    <!-- settings start -->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                             <i class="fa fa-tasks"></i>
-                            <span class="badge">3</span>
+                            <span class="badge bg-theme">4</span>
                         </a>
-                        <div class="dropdown-menu notification-menu large">
-                            <div class="notification-title">
-                                <span class="pull-right label label-default">3</span>
-                                Tasks
-                            </div>
-                            <div class="content">
-                                <ul>
-                                    <li>
-                                        <p class="clearfix mb-xs">
-                                            <span class="message pull-left">Generating Sales Report</span>
-                                            <span class="message pull-right text-dark">60%</span>
-                                        </p>
-                                        <div class="progress progress-xs light">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p class="clearfix mb-xs">
-                                            <span class="message pull-left">Importing Contacts</span>
-                                            <span class="message pull-right text-dark">98%</span>
-                                        </p>
-                                        <div class="progress progress-xs light">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100" style="width: 98%;"></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p class="clearfix mb-xs">
-                                            <span class="message pull-left">Uploading something big</span>
-                                            <span class="message pull-right text-dark">33%</span>
-                                        </p>
-                                        <div class="progress progress-xs light mb-xs">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;"></div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
-                            <i class="fa fa-envelope"></i>
-                            <span class="badge">4</span>
-                        </a>
-                        <div class="dropdown-menu notification-menu">
-                            <div class="notification-title">
-                                <span class="pull-right label label-default">230</span>
-                                Messages
-                            </div>
-                            <div class="content">
-                                <ul>
-                                    <li>
-                                        <a href="#" class="clearfix">
-                                            <figure class="image">
-                                                <img src="~/Theme/assets/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle" />
-                                            </figure>
-                                            <span class="title">Joseph Doe</span>
-                                            <span class="message">Lorem ipsum dolor sit.</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="clearfix">
-                                            <figure class="image">
-                                                <img src="~/Theme/assets/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" />
-                                            </figure>
-                                            <span class="title">Joseph Junior</span>
-                                            <span class="message truncate">Truncated message. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lacinia orci. Proin vestibulum eget risus non luctus. Nunc cursus lacinia lacinia. Nulla molestie malesuada est ac tincidunt. Quisque eget convallis diam, nec venenatis risus. Vestibulum blandit faucibus est et malesuada. Sed interdum cursus dui nec venenatis. Pellentesque non nisi lobortis, rutrum eros ut, convallis nisi. Sed tellus turpis, dignissim sit amet tristique quis, pretium id est. Sed aliquam diam diam, sit amet faucibus tellus ultricies eu. Aliquam lacinia nibh a metus bibendum, eu commodo eros commodo. Sed commodo molestie elit, a molestie lacus porttitor id. Donec facilisis varius sapien, ac fringilla velit porttitor et. Nam tincidunt gravida dui, sed pharetra odio pharetra nec. Duis consectetur venenatis pharetra. Vestibulum egestas nisi quis elementum elementum.</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="clearfix">
-                                            <figure class="image">
-                                                <img src="~/Theme/assets/images/!sample-user.jpg" alt="Joe Junior" class="img-circle" />
-                                            </figure>
-                                            <span class="title">Joe Junior</span>
-                                            <span class="message">Lorem ipsum dolor sit.</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="clearfix">
-                                            <figure class="image">
-                                                <img src="~/Theme/assets/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle" />
-                                            </figure>
-                                            <span class="title">Joseph Junior</span>
-                                            <span class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet lacinia orci. Proin vestibulum eget risus non luctus. Nunc cursus lacinia lacinia. Nulla molestie malesuada est ac tincidunt. Quisque eget convallis diam.</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <hr />
-                                <div class="text-right">
-                                    <a href="#" class="view-more">View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
-                            <i class="fa fa-bell"></i>
-                            <span class="badge">3</span>
-                        </a>
-                        <div class="dropdown-menu notification-menu">
-                            <div class="notification-title">
-                                <span class="pull-right label label-default">3</span>
-                                Alerts
-                            </div>
-                            <div class="content">
-                                <ul>
-                                    <li>
-                                        <a href="#" class="clearfix">
-                                            <div class="image">
-                                                <i class="fa fa-thumbs-down bg-danger"></i>
-                                            </div>
-                                            <span class="title">Server is Down!</span>
-                                            <span class="message">Just now</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="clearfix">
-                                            <div class="image">
-                                                <i class="fa fa-lock bg-warning"></i>
-                                            </div>
-                                            <span class="title">User Locked</span>
-                                            <span class="message">15 minutes ago</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="clearfix">
-                                            <div class="image">
-                                                <i class="fa fa-signal bg-success"></i>
-                                            </div>
-                                            <span class="title">Connection Restaured</span>
-                                            <span class="message">10/10/2014</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <hr />
-                                <div class="text-right">
-                                    <a href="#" class="view-more">View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <span class="separator"></span>
-                <div id="userbox" class="userbox">
-                    <a href="#" data-toggle="dropdown">
-                        <figure class="profile-picture">
-                            <img src="~/Theme/assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
-                        </figure>
-                        <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
-                            <span class="name">John Doe Junior</span>
-                            <span class="role">administrator</span>
-                        </div>
-                        <i class="fa custom-caret"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <ul class="list-unstyled">
-                            <li class="divider"></li>
+                        <ul class="dropdown-menu extended tasks-bar">
+                            <div class="notify-arrow notify-arrow-green"></div>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+                                <p class="green">You have 4 pending tasks</p>
                             </li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Dashio Admin Panel</div>
+                                        <div class="percent">40%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </a>
                             </li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Database Update</div>
+                                        <div class="percent">60%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Product Development</div>
+                                        <div class="percent">80%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            <span class="sr-only">80% Complete</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <div class="task-info">
+                                        <div class="desc">Payments Sent</div>
+                                        <div class="percent">70%</div>
+                                    </div>
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                            <span class="sr-only">70% Complete (Important)</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="external">
+                                <a href="#">See All Tasks</a>
                             </li>
                         </ul>
-                    </div>
-                </div>
+                    </li>
+                    <!-- settings end -->
+                    <!-- inbox dropdown start-->
+                    <li id="header_inbox_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge bg-theme">5</span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div class="notify-arrow notify-arrow-green"></div>
+                            <li>
+                                <p class="green">You have 5 new messages</p>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="img/ui-zac.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from">Zac Snider</span>
+                                        <span class="time">Just now</span>
+                                    </span>
+                                    <span class="message">
+                                        Hi mate, how is everything?
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="img/ui-divya.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from">Divya Manian</span>
+                                        <span class="time">40 mins.</span>
+                                    </span>
+                                    <span class="message">
+                                        Hi, I need your help with this.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="img/ui-danro.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from">Dan Rogers</span>
+                                        <span class="time">2 hrs.</span>
+                                    </span>
+                                    <span class="message">
+                                        Love your new Dashboard.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="img/ui-sherman.jpg"></span>
+                                    <span class="subject">
+                                        <span class="from">Dj Sherman</span>
+                                        <span class="time">4 hrs.</span>
+                                    </span>
+                                    <span class="message">
+                                        Please, answer asap.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">See all messages</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- inbox dropdown end -->
+                    <!-- notification dropdown start-->
+                    <li id="header_notification_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="badge bg-warning">7</span>
+                        </a>
+                        <ul class="dropdown-menu extended notification">
+                            <div class="notify-arrow notify-arrow-yellow"></div>
+                            <li>
+                                <p class="yellow">You have 7 new notifications</p>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                    Server Overloaded.
+                                    <span class="small italic">4 mins.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="label label-warning"><i class="fa fa-bell"></i></span>
+                                    Memory #2 Not Responding.
+                                    <span class="small italic">30 mins.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                    Disk Space Reached 85%.
+                                    <span class="small italic">2 hrs.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="label label-success"><i class="fa fa-plus"></i></span>
+                                    New User Registered.
+                                    <span class="small italic">3 hrs.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#">See all notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- notification dropdown end -->
+                </ul>
+                <!--  notification end -->
             </div>
-            <!-- en-->
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="login.html">Logout</a></li>
+                </ul>
+            </div>
         </header>
-        <div class="inner-wrapper">
-            <!-- start: sidebar -->
-            <aside id="sidebar-left" class="sidebar-left" style="width:230px !important;">
-                <div class="sidebar-header">
-                    <div class="sidebar-title">
-                        Navigation
-                    </div>
-                    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
-                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-                    </div>
-                </div>
-                <div class="nano">
-                    <div class="nano-content">
-                        <nav id="menu" class="nav-main" role="navigation">
-                            <ul class="nav nav-main">
-                                <li class="nav-active">
-                                    <a href="@Url.Action("Index", "Home")">
-                                        <i class="fa fa-home" aria-hidden="true"></i>
-                                        <span>Dashboard</span>
-                                    </a>
-                                </li>
-                                <li class="nav-parent">
-                                    <a>
-                                        <i class="fa fa-copy" aria-hidden="true"></i>
-                                        <span>Monthly Planner</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a href="@Url.Action("ListIndex", "MonthlyPlanner")">
-                                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                <span>Planner Index</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Create", "MonthlyPlanner")">
-                                                @*<span class="pull-right label label-primary">182</span>*@
-                                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                <span>Create Planner</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Edit", "MonthlyPlanner")">
-                                                @*<span class="pull-right label label-primary">182</span>*@
-                                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                <span>View/Edit Planner</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "IncomeDetails")">
-                                        @*<span class="pull-right label label-primary">182</span>*@
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        <span>Income Details</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "ExpenseDetails")">
-                                        @*<span class="pull-right label label-primary">182</span>*@
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        <span>Expense Details</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "SavingsDetails")">
-                                        @*<span class="pull-right label label-primary">182</span>*@
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        <span>Savings Details</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "InvestmentDetails")">
-                                        @*<span class="pull-right label label-primary">182</span>*@
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        <span>Investment Details</span>
-                                    </a>
-                                </li>
-                                <li class="nav-parent">
-                                    <a>
-                                        <i class="fa fa-copy" aria-hidden="true"></i>
-                                        <span>Master Data</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a href="@Url.Action("Index", "Categories")">
-                                                Categories
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Index", "SubCategories")">
-                                                Sub-Categories
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Index", "BankAccounts")">
-                                                Bank Accounts
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </aside>
-            <!-- end: sidebar -->
-            <section role="main" class="content-body">
-                @*<div class="navbar navbar-inverse navbar-fixed-top">
-                        <div class="container">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                @Html.ActionLink("My Budget", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                            </div>
-                            <div class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
-                                    <li>@Html.ActionLink("Sub Categories", "Index", "SubCategories")</li>
-                                    <li>@Html.ActionLink("Income Details", "Index", "IncomeDetails")</li>
-                                    <li>@Html.ActionLink("Expense Details", "Index", "ExpenseDetails")</li>
-                                    <li>@Html.ActionLink("Savings Details", "Index", "SavingsDetails")</li>
-                                    <li>@Html.ActionLink("Investments Details", "Index", "InvestmentDetails")</li>
-                                </ul>
-                                @Html.Partial("_LoginPartial")
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container body-content">
+        <!--header end-->
+        <!-- **********************************************************************************************************************************************************
+            MAIN SIDEBAR MENU
+            *********************************************************************************************************************************************************** -->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+                    <h5 class="centered">Sam Soffes</h5>
+                    <li class="mt">
+                        <a class="active" href="@Url.Action("Index", "Home")">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-desktop"></i>
+                            <span>Monthly Planner</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="@Url.Action("ListIndex", "MonthlyPlanner")">Planner Lists</a></li>
+                            <li>@*<a href="@Url.Action("Create", "MonthlyPlanner")">Create Planner</a>*@</li>
+                            <li>@*<a href="@Url.Action("ViewPlanner", "MonthlyPlanner")">View/Edit Planner</a>*@</li>
 
-                        <hr />
-                        <footer>
-                            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-                        </footer>
-                    </div>*@
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-cogs"></i>
+                            <span>Details</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="@Url.Action("Index", "IncomeDetails")">Incomes</a></li>
+                            <li><a href="@Url.Action("Index", "ExpensDetails")">Expenses</a></li>
+                            <li><a href="@Url.Action("Index", "SavingsDetails")">Savings</a></li>
+                            <li><a href="@Url.Action("Index", "InvestmentDetails")">Investments</a></li>
+                            @*<li><a href="dropzone.html">Dropzone File Upload</a></li>
+                                <li><a href="inline_editor.html">Inline Editor</a></li>
+                                <li><a href="file_upload.html">Multiple File Upload</a></li>*@
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-book"></i>
+                            <span>Master Data</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="@Url.Action("Index", "Categories")">Categories</a></li>
+                            <li><a href="@Url.Action("Index", "SubCategories")">Sub-Categories</a></li>
+                            <li><a href="@Url.Action("Index", "BankAccounts")">Bank Acoounts</a></li>
+                            @*<li><a href="profile.html">Profile</a></li>
+                                <li><a href="invoice.html">Invoice</a></li>
+                                <li><a href="pricing_table.html">Pricing Table</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="404.html">404 Error</a></li>
+                                <li><a href="500.html">500 Error</a></li>*@
+                        </ul>
+                    </li>
+
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!-- **********************************************************************************************************************************************************
+            MAIN CONTENT
+            *********************************************************************************************************************************************************** -->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
                 @RenderBody()
+
             </section>
-        </div>
+        </section>
+        <!--main content end-->
+        <!--footer start-->
+        <footer class="site-footer">
+            <div class="text-center">
+                <p>
+                    &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+                </p>
+                <div class="credits">
+                    <!--
+                      You are NOT allowed to delete the credit link to TemplateMag with free version.
+                      You can delete the credit link only if you bought the pro version.
+                      Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
+                      Licensing information: https://templatemag.com/license/
+                    -->
+                    Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
+                </div>
+                <a href="index.html#" class="go-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
+            </div>
+        </footer>
+        <!--footer end-->
     </section>
-    <!-- Vendor -->
-    <script src="~/Theme/assets/vendor/jquery/jquery.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="~/Theme/assets/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="~/Theme/assets/vendor/nanoscroller/nanoscroller.js"></script>
-    <script src="~/Theme/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="~/Theme/assets/vendor/magnific-popup/magnific-popup.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-    @*<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.jqueryui.min.js"></script>*@
-    <!-- Specific Page Vendor -->
-    <script src="~/Theme/assets/vendor/pnotify/pnotify.custom.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-appear/jquery.appear.js"></script>
-    <script src="~/Theme/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
-    <script src="~/Theme/assets/vendor/flot/jquery.flot.js"></script>
-    <script src="~/Theme/assets/vendor/flot-tooltip/jquery.flot.tooltip.js"></script>
-    <script src="~/Theme/assets/vendor/flot/jquery.flot.pie.js"></script>
-    <script src="~/Theme/assets/vendor/flot/jquery.flot.categories.js"></script>
-    <script src="~/Theme/assets/vendor/flot/jquery.flot.resize.js"></script>
-    <script src="~/Theme/assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
-    <script src="~/Theme/assets/vendor/raphael/raphael.js"></script>
-    <script src="~/Theme/assets/vendor/morris/morris.js"></script>
-    <script src="~/Theme/assets/vendor/gauge/gauge.js"></script>
-    <script src="~/Theme/assets/vendor/snap-svg/snap.svg.js"></script>
-    <script src="~/Theme/assets/vendor/liquid-meter/liquid.meter.js"></script>
-    <script src="~/Theme/assets/vendor/select2/select2.js"></script>
+    <script src="~/Theme2/Dashio/lib/jquery/jquery.min.js"></script>
+    <script src="~/Theme2/Dashio/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="~/Theme2/Dashio/lib/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="~/Theme2/Dashio/lib/jquery.scrollTo.min.js"></script>
+    <script src="~/Theme2/Dashio/lib/jquery.nicescroll.js" type="text/javascript"></script>
+    <!--common script for all pages-->
+    <script src="~/Theme2/Dashio/lib/common-scripts.js"></script>
+    <script src="~/Theme2/Dashio/lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/bootstrap-daterangepicker/date.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/bootstrap-daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+    <script src="~/Theme2/Dashio/lib/advanced-form-components.js"></script>
     <script src="~/Theme/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
     <script src="~/Theme/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
     <script src="~/Theme/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-    <!-- Theme Base, Components and Settings -->
-    <script src="~/Theme/assets/javascripts/theme.js"></script>
-    <!-- Theme Custom -->
-    <script src="~/Theme/assets/javascripts/theme.custom.js"></script>
-    <!-- Theme Initialization Files -->
-    <script src="~/Theme/assets/javascripts/theme.init.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Theme2/Dashio/lib/advanced-datatable/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/advanced-datatable/js/DT_bootstrap.js"></script>
 
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="~/Theme2/Dashio/lib/gritter-conf.js"></script>
+    <!--script for this page-->
+    <script src="~/Theme2/Dashio/lib/sparkline-chart.js"></script>
+    <script src="~/Theme2/Dashio/lib/zabuto_calendar.js"></script>
+
+
+    @*<script type="text/javascript">
+            $(document).ready(function() {
+              $("#date-popover").popover({
+                html: true,
+                trigger: "manual"
+              });
+              $("#date-popover").hide();
+              $("#date-popover").click(function(e) {
+                $(this).hide();
+              });
+
+              $("#my-calendar").zabuto_calendar({
+                action: function() {
+                  return myDateFunction(this.id, false);
+                },
+                action_nav: function() {
+                  return myNavFunction(this.id);
+                },
+                ajax: {
+                  url: "show_data.php?action=1",
+                  modal: true
+                },
+                legend: [{
+                    type: "text",
+                    label: "Special event",
+                    badge: "00"
+                  },
+                  {
+                    type: "block",
+                    label: "Regular event",
+                  }
+                ]
+              });
+            });
+
+            function myNavFunction(id) {
+              $("#date-popover").hide();
+              var nav = $("#" + id).data("navigation");
+              var to = $("#" + id).data("to");
+              console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+            }
+        </script>*@
     <!-- Examples -->
     @*<script src="~/Theme/assets/javascripts/tables/examples.datatables.editable.js"></script>*@
     @RenderSection("scripts", required: false)
@@ -668,36 +660,36 @@
         });
     </script>
     <script>
-        $('.modal-with-form').magnificPopup({
-            type: 'inline',
-            preloader: false,
-            //   focus: '#name',
-            modal: true,
+        //$('.modal-with-form').magnificPopup({
+        //    type: 'inline',
+        //    preloader: false,
+        //    //   focus: '#name',
+        //    modal: true,
 
-            // When elemened is focused, some mobile browsers in some cases zoom in
-            // It looks not nice, so we disable it:
-            callbacks: {
-                beforeOpen: function () {
-                    if ($(window).width() < 700) {
-                        this.st.focus = false;
-                    }
-                }
-            }
-        });
+        //    // When elemened is focused, some mobile browsers in some cases zoom in
+        //    // It looks not nice, so we disable it:
+        //    callbacks: {
+        //        beforeOpen: function () {
+        //            if ($(window).width() < 700) {
+        //                this.st.focus = false;
+        //            }
+        //        }
+        //    }
+        //});
 
     </script>
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $('input[type=datetime]').datepicker({
-                dateFormat: "dd/M/yy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-10:+30"
-            });
+        //$(document).ready(function () {
+        //    $('input[type=datetime]').datepicker({
+        //        dateFormat: "dd/M/yy",
+        //        changeMonth: true,
+        //        changeYear: true,
+        //        yearRange: "-10:+30"
+        //    });
 
 
-        });
+        //});
            @*function viewPlan() {
                var month = $("#ForMonth").val();
                var year = $("#FinancialYear").val();
@@ -763,7 +755,7 @@
 
         select.appendTo('.finYearDiv');
     </script>
-    <script src="~/Theme/assets/javascripts/ui-elements/examples.modals.js"></script>
+    @*<script src="~/Theme/assets/javascripts/ui-elements/examples.modals.js"></script>*@
     @*<script>
             alert($(".finYearDiv select option:selected").text);
             $("#FinancialYear").val($(".finYearDiv select option:selected").text);

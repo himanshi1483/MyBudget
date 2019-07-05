@@ -1,32 +1,21 @@
 ﻿@model MyBudget.Models.MonthlyPlannerViewModel
+    @using MyBudget.Models
 @{
     /**/
 
     ViewBag.Title = "ViewPlanner";
 }
-@*<!-- Vendor CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/magnific-popup/magnific-popup.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
-    <!-- Specific Page Vendor CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/vendor/select2/select2.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css" />
-    <!-- Specific Page Vendor CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/vendor/select2/select2.css" />
-    <link rel="stylesheet" href="~/Theme/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
-
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/stylesheets/theme.css" />
-
-    <!-- Skin CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/stylesheets/skins/default.css" />
-
-    <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="~/Theme/assets/stylesheets/theme-custom.css">
-
-    <!-- Head Libs -->
-    <script src="~/Theme/assets/vendor/modernizr/modernizr.js"></script>*@
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    var items = db.SubCategories.ToList();
+    if (items != null)
+    {
+        ViewBag.SubCategories1 = items.Where(x => x.ParentCategoryId == 1);
+        ViewBag.SubCategories2 = items.Where(x => x.ParentCategoryId == 2);
+        ViewBag.SubCategories3 = items.Where(x => x.ParentCategoryId == 3);
+        ViewBag.SubCategories4 = items.Where(x => x.ParentCategoryId == 4);
+    }
+}
 <style>
 
     .datepicker {
@@ -78,15 +67,14 @@
 
         </div>
     </section>*@
-<section class="panel">
+<section class="panel" style="margin-top:50px !important">
     <header class="panel-heading">
         <div class="panel-actions">
-            @*<a href="@Url.Action("Create", "IncomeDetails")" class="btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>*@
-            <a href="#incomeModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+            <button class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#incomeModal">
+                Create
+            </button>
         </div>
-        <div class="modal-block modal-block-primary mfp-hide" id="incomeModal" tabindex="-1">
+        <div class="modal fade" id="incomeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -104,7 +92,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories1, "SubCategoryId", "Name"))
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -151,7 +139,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                                 @*<div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
@@ -164,6 +152,7 @@
                 </div>
             </div>
         </div>
+
         <h2 class="panel-title">Income Details</h2>
     </header>
 
@@ -197,24 +186,26 @@
             <tbody>
                 @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 1))
                 {
+
                     <tr>
 
                         @*<td class="incomeId"></td>*@
-                        <td class="CategoryId">@item.CategoryName</td>
+                        <td class="CategoryId"> @item.CategoryName</td>
                         <td class="subCategoryId">@item.SubCategoryName</td>
                         <td> &#x20B9 @item.ExpectedAmount</td>
                         <td class="actualAmount"> &#x20B9 @item.ActualAmount</td>
                         <td class="month">@item.ForMonth</td>
                         <td class="finYear">@item.FinancialYear</td>
                         <td class="actions">
-                            <a href="@Url.Action("Edit", "IncomeDetails", new { id = @item.IncomeId })"><i class="fa fa-pencil"></i></a>
-                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
-                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                            @*<a class="Edit" href="javascript:;">Edit</a>
-                                <a class="Update" href="javascript:;" style="display:none">Update</a>
-                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
-                                <a class="Delete" href="javascript:;">Delete</a>*@
+                            @*<a href="@Url.Action("Edit", "IncomeDetails", new { id = @item.IncomeId })"><i class="fa fa-pencil"></i></a>*@
+                            <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.IncomeId" data-target="#incomeModal2-@item.IncomeId">
+                                Edit
+                            </button>
+                            <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
+
+
                         </td>
+                        @Html.Partial("_EditIncome", @item)
                     </tr>
                 }
             </tbody>
@@ -231,6 +222,7 @@
                 </tr>
             </tfoot>
         </table>
+
     </div>
 </section>
 <!-- end: page -->
@@ -238,14 +230,14 @@
 <section class="panel">
     <header class="panel-heading">
         <div class="panel-actions">
-            <a href="#expModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+            <button class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#expModal">
+                Create
+            </button>
         </div>
         <h2 class="panel-title">Expense Details</h2>
     </header>
     <div class="panel-body">
-        <div class="modal-block modal-block-primary mfp-hide" id="expModal" tabindex="-1">
+        <div class="modal fade" id="expModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -263,7 +255,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories2, "SubCategoryId", "Name"))
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -310,7 +302,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                                 @*<div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
@@ -358,15 +350,18 @@
                         <td>@item.ForMonth</td>
                         <td>@item.FinancialYear</td>
                         <td class="actions">
-                            <a href="@Url.Action("Edit", "ExpenseDetails", new { id = @item.ExpenseId })"><i class="fa fa-pencil"></i></a>
-                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
-                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            @*<a href="@Url.Action("Edit", "ExpenseDetails", new { id = @item.ExpenseId })"><i class="fa fa-pencil"></i></a>*@
+                            <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.ExpenseId" data-target="#expModal2-@item.ExpenseId">
+                                Edit
+                            </button>
+                            <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
                             @*<a class="Edit" href="javascript:;">Edit</a>
-                                <a class="Update" href="javascript:;" style="display:none">Update</a>
-                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
-                                <a class="Delete" href="javascript:;">Delete</a>*@
+                    <a class="Update" href="javascript:;" style="display:none">Update</a>
+                    <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                    <a class="Delete" href="javascript:;">Delete</a>*@
                         </td>
                     </tr>
+                    @Html.Partial("_EditExpense", @item)
                 }
             </tbody>
             <tfoot>
@@ -387,14 +382,14 @@
 <section class="panel">
     <header class="panel-heading">
         <div class="panel-actions">
-            <a href="#savingsModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+            <button class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#savingsModal">
+                Create
+            </button>
         </div>
         <h2 class="panel-title">Savings Details</h2>
     </header>
     <div class="panel-body">
-        <div class="modal-block modal-block-primary mfp-hide" id="savingsModal" tabindex="-1">
+        <div class="modal fade" id="savingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -412,7 +407,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories3, "SubCategoryId", "Name"))
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -459,7 +454,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                                 @*<div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
@@ -507,15 +502,14 @@
                         <td>@item.ForMonth</td>
                         <td>@item.FinancialYear</td>
                         <td class="actions">
-                            <a href="@Url.Action("Edit", "SavingsDetails", new { id = @item.SavingsId })"><i class="fa fa-pencil"></i></a>
-                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
-                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                            @*<a class="Edit" href="javascript:;">Edit</a>
-                                <a class="Update" href="javascript:;" style="display:none">Update</a>
-                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
-                                <a class="Delete" href="javascript:;">Delete</a>*@
+                            @*<a href="@Url.Action("Edit", "SavingsDetails", new { id = @item.SavingsId })"><i class="fa fa-pencil"></i></a>*@
+                            <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.SavingsId" data-target="#savingsModal2-@item.SavingsId">
+                                Edit
+                            </button>
+                            <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
+                    @Html.Partial("_EditSavings", @item)
                 }
             </tbody>
             <tfoot>
@@ -536,14 +530,14 @@
 <section class="panel">
     <header class="panel-heading">
         <div class="panel-actions">
-            <a href="#investModal" class="modal-with-form btn btn-sm btn-link" style="width:60px !important; color: midnightblue !important ;padding-bottom:32px !important">Create</a>
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+            <button class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#investModal">
+                Create
+            </button>
         </div>
         <h2 class="panel-title">Investment Details</h2>
     </header>
     <div class="panel-body">
-        <div class="modal-block modal-block-primary mfp-hide" id="investModal" tabindex="-1">
+        <div class="modal fade" id="investModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -561,7 +555,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories, "SubCategoryId", "Name"))
+                                        @Html.DropDownList("SubCategoryId", new SelectList(ViewBag.SubCategories4, "SubCategoryId", "Name"))
                                         @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -608,7 +602,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Create" class="btn btn-success" />
-                                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                                 @*<div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
@@ -656,15 +650,15 @@
                         <td>@item.ForMonth</td>
                         <td>@item.FinancialYear</td>
                         <td class="actions">
-                            <a href="@Url.Action("Edit", "InvestmentDetails", new { id = @item.InvestmentId })"><i class="fa fa-pencil"></i></a>
-                            @*<a  class="editIncomeModal modal-with-form btn btn-sm btn-link" data-id="@item.IncomeId"><i class="fa fa-pencil"></i></a>*@
-                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                            @*<a class="Edit" href="javascript:;">Edit</a>
-                                <a class="Update" href="javascript:;" style="display:none">Update</a>
-                                <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
-                                <a class="Delete" href="javascript:;">Delete</a>*@
+                            @*<a href="@Url.Action("Edit", "InvestmentDetails", new { id = @item.InvestmentId })"><i class="fa fa-pencil"></i></a>*@
+
+                            <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.InvestmentId" data-target="#investModal2-@item.InvestmentId">
+                                Edit
+                            </button>
+                            <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
+                    @Html.Partial("_EditInvestment", @item)
                 }
             </tbody>
             <tfoot>
@@ -681,139 +675,140 @@
         </table>
     </div>
 </section>
-<script type="text/javascript" src="/Scripts/jqxcore.js"></script>
-<script type="text/javascript" src="/Scripts/jqxbuttons.js"></script>
-<script type="text/javascript" src="/Scripts/jqxscrollbar.js"></script>
-<script type="text/javascript" src="/Scriptss/jqxdata.js"></script>
-<script type="text/javascript" src="/Scripts/jqxdatatable.js"></script>
+@*<script type="text/javascript" src="/Scripts/jqxcore.js"></script>
+    <script type="text/javascript" src="/Scripts/jqxbuttons.js"></script>
+    <script type="text/javascript" src="/Scripts/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="/Scripts/jqxdata.js"></script>
+    <script type="text/javascript" src="/Scripts/jqxdatatable.js"></script>*@
 @*<script type="text/javascript" src="/Scripts/demos.js"></script>*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        var source =
-        {
-            dataType: "json",
-            dataFields: [
-                { name: 'Category', type: 'string' },
-                { name: 'Sub-Category', type: 'string' },
-                { name: 'ExpectedAmount', type: 'double' },
-                { name: 'ActualAmount', type: 'double' },
-                { name: 'Month', type: 'string' },
-                { name: 'FinancialYear', type: 'string' }
-            ],
-            id: 'IncomeDetailsId',
-            url: url
-        };
-        var dataAdapter = new $.jqx.dataAdapter(source);
 
-        //var ordersSource =
-        //{
-        //    dataFields: [
-        //        { name: 'Category', type: 'string' },
-        //        { name: 'Sub-Category', type: 'string' },
-        //        { name: 'ExpectedAmount', type: 'double' },
-        //        { name: 'ActualAmount', type: 'double' },
-        //        { name: 'Month', type: 'string' },
-        //        { name: 'FinancialYear', type: 'string' }
-        //    ],
-        //    root: "IncomeDetails",
-        //    record: "IncomeDetail",
-        //    dataType: "json",
-        //    id: 'IncomeId',
-        //    url: orderdetailsurl,
-        //    addRow: function (rowID, rowData, position, commit) {
-        //        // synchronize with the server - send insert command
-        //        // call commit with parameter true if the synchronization with the server is successful
-        //        // and with parameter false if the synchronization failed.
-        //        // you can pass additional argument to the commit callback which represents the new ID if it is generated from a DB.
-        //        commit(true);
-        //    },
-        //    updateRow: function (rowID, rowData, commit) {
-        //        // synchronize with the server - send update command
-        //        // call commit with parameter true if the synchronization with the server is successful
-        //        // and with parameter false if the synchronization failed.
-        //        commit(true);
-        //    },
-        //    deleteRow: function (rowID, commit) {
-        //        // synchronize with the server - send delete command
-        //        // call commit with parameter true if the synchronization with the server is successful
-        //        // and with parameter false if the synchronization failed.
-        //        commit(true);
-        //    }
-        //};
-
-        //var dataAdapter = new $.jqx.dataAdapter(ordersSource, {
-        //    loadComplete: function () {
-        //        // data is loaded.
-        //    }
-        //});
-
-
-        $("#incTable").jqxDataTable(
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            var source =
             {
-                width: getWidth("dataTable"),
-                source: dataAdapter,
-                pageable: true,
-                sortable: true,
-                altRows: true,
-                ready: function () {
-                    // called when the DataTable is loaded.
-                    // init jqxWindow widgets.
-                    $("#category").jqxInput({ disabled: true, width: 150, height: 30 });
-                    $("#subCategory").jqxNumberInput({ spinButtons: true, inputMode: 'simple', width: 150, height: 30 });
-                    var countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burma", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic", "Congo, Republic of the", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Greenland", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Mongolia", "Morocco", "Monaco", "Mozambique", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Samoa", "San Marino", " Sao Tome", "Saudi Arabia", "Senegal", "Serbia and Montenegro", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
-                    $("#expectedAmount").jqxInput({ source: countries, width: 150, height: 30 });
-                    $("#actualAmount").jqxDateTimeInput({ formatString: 'd', width: 150, height: 30 });
-                    $("#month").jqxButton({ height: 30, width: 80 });
-                    $("#financialYear").jqxButton({ height: 30, width: 80 });
-                    $("#cancel").mousedown(function () {
-                        // close jqxWindow.
-                        $("#dialog").jqxWindow('close');
-                    });
-                    $("#save").mousedown(function () {
-                        // close jqxWindow.
-                        $("#dialog").jqxWindow('close');
-                        // update edited row.
-                        var editRow = parseInt($("#dialog").attr('data-row'));
-                        var rowData = {
-                            IncomeId: $("#incomeId").val(), Freight: $("#freight").val(),
-                            ShipCountry: $("#shipCountry").val(), ShippedDate: $("#shipDate").val()
-                        };
-                        $("#incTable").jqxDataTable('updateRow', editRow, rowData);
-                    });
-                    $("#dialog").on('close', function () {
-                        // enable jqxDataTable.
-                        $("#incTable").jqxDataTable({ disabled: false });
-                    });
+                dataType: "json",
+                dataFields: [
+                    { name: 'Category', type: 'string' },
+                    { name: 'Sub-Category', type: 'string' },
+                    { name: 'ExpectedAmount', type: 'double' },
+                    { name: 'ActualAmount', type: 'double' },
+                    { name: 'Month', type: 'string' },
+                    { name: 'FinancialYear', type: 'string' }
+                ],
+                id: 'IncomeDetailsId',
+                url: url
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
 
-                    $("#dialog").jqxWindow({
-                        resizable: false,
-                        position: { left: $("#incomeTable").offset().left + 75, top: $("#incTable").offset().top + 35 },
-                        width: 270, height: 230,
-                        autoOpen: false
-                    });
-                    $("#dialog").css('visibility', 'visible');
-                },
-                pagerButtonsCount: 8,
-                columns: [
-                    { text: 'Order ID', editable: false, dataField: 'OrderID', width: 200 },
-                    { text: 'Freight', dataField: 'Freight', cellsFormat: 'f2', cellsAlign: 'right', align: 'right', width: 200 },
-                    { text: 'Ship Country', dataField: 'ShipCountry', width: 150 },
-                    { text: 'Shipped Date', dataField: 'ShippedDate', cellsAlign: 'right', align: 'right', cellsFormat: 'd' }
-                ]
+            //var ordersSource =
+            //{
+            //    dataFields: [
+            //        { name: 'Category', type: 'string' },
+            //        { name: 'Sub-Category', type: 'string' },
+            //        { name: 'ExpectedAmount', type: 'double' },
+            //        { name: 'ActualAmount', type: 'double' },
+            //        { name: 'Month', type: 'string' },
+            //        { name: 'FinancialYear', type: 'string' }
+            //    ],
+            //    root: "IncomeDetails",
+            //    record: "IncomeDetail",
+            //    dataType: "json",
+            //    id: 'IncomeId',
+            //    url: orderdetailsurl,
+            //    addRow: function (rowID, rowData, position, commit) {
+            //        // synchronize with the server - send insert command
+            //        // call commit with parameter true if the synchronization with the server is successful
+            //        // and with parameter false if the synchronization failed.
+            //        // you can pass additional argument to the commit callback which represents the new ID if it is generated from a DB.
+            //        commit(true);
+            //    },
+            //    updateRow: function (rowID, rowData, commit) {
+            //        // synchronize with the server - send update command
+            //        // call commit with parameter true if the synchronization with the server is successful
+            //        // and with parameter false if the synchronization failed.
+            //        commit(true);
+            //    },
+            //    deleteRow: function (rowID, commit) {
+            //        // synchronize with the server - send delete command
+            //        // call commit with parameter true if the synchronization with the server is successful
+            //        // and with parameter false if the synchronization failed.
+            //        commit(true);
+            //    }
+            //};
+
+            //var dataAdapter = new $.jqx.dataAdapter(ordersSource, {
+            //    loadComplete: function () {
+            //        // data is loaded.
+            //    }
+            //});
+
+
+            $("#incTable").jqxDataTable(
+                {
+                    width: getWidth("dataTable"),
+                    source: dataAdapter,
+                    pageable: true,
+                    sortable: true,
+                    altRows: true,
+                    ready: function () {
+                        // called when the DataTable is loaded.
+                        // init jqxWindow widgets.
+                        $("#category").jqxInput({ disabled: true, width: 150, height: 30 });
+                        $("#subCategory").jqxNumberInput({ spinButtons: true, inputMode: 'simple', width: 150, height: 30 });
+                        var countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burma", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic", "Congo, Republic of the", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Greenland", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Mongolia", "Morocco", "Monaco", "Mozambique", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Samoa", "San Marino", " Sao Tome", "Saudi Arabia", "Senegal", "Serbia and Montenegro", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
+                        $("#expectedAmount").jqxInput({ source: countries, width: 150, height: 30 });
+                        $("#actualAmount").jqxDateTimeInput({ formatString: 'd', width: 150, height: 30 });
+                        $("#month").jqxButton({ height: 30, width: 80 });
+                        $("#financialYear").jqxButton({ height: 30, width: 80 });
+                        $("#cancel").mousedown(function () {
+                            // close jqxWindow.
+                            $("#dialog").jqxWindow('close');
+                        });
+                        $("#save").mousedown(function () {
+                            // close jqxWindow.
+                            $("#dialog").jqxWindow('close');
+                            // update edited row.
+                            var editRow = parseInt($("#dialog").attr('data-row'));
+                            var rowData = {
+                                IncomeId: $("#incomeId").val(), Freight: $("#freight").val(),
+                                ShipCountry: $("#shipCountry").val(), ShippedDate: $("#shipDate").val()
+                            };
+                            $("#incTable").jqxDataTable('updateRow', editRow, rowData);
+                        });
+                        $("#dialog").on('close', function () {
+                            // enable jqxDataTable.
+                            $("#incTable").jqxDataTable({ disabled: false });
+                        });
+
+                        $("#dialog").jqxWindow({
+                            resizable: false,
+                            position: { left: $("#incomeTable").offset().left + 75, top: $("#incTable").offset().top + 35 },
+                            width: 270, height: 230,
+                            autoOpen: false
+                        });
+                        $("#dialog").css('visibility', 'visible');
+                    },
+                    pagerButtonsCount: 8,
+                    columns: [
+                        { text: 'Order ID', editable: false, dataField: 'OrderID', width: 200 },
+                        { text: 'Freight', dataField: 'Freight', cellsFormat: 'f2', cellsAlign: 'right', align: 'right', width: 200 },
+                        { text: 'Ship Country', dataField: 'ShipCountry', width: 150 },
+                        { text: 'Shipped Date', dataField: 'ShippedDate', cellsAlign: 'right', align: 'right', cellsFormat: 'd' }
+                    ]
+                });
+            $("#incTable").on('rowDoubleClick', function (event) {
+                var args = event.args;
+                var index = args.index;
+                var row = args.row;
+                // update the widgets inside jqxWindow.
+                $("#dialog").jqxWindow('setTitle', "Edit Row: " + row.OrderID);
+                $("#dialog").jqxWindow('open');
+                $("#dialog").attr('data-row', index);
+                $("#incomeTable").jqxDataTable({ disabled: true });
+                $("#incomeId").val(row.IncomeId);
+                $("#freight").val(row.Freight);
+                $("#shipCountry").val(row.ShipCountry);
+                $("#shipDate").val(row.ShippedDate);
             });
-        $("#incTable").on('rowDoubleClick', function (event) {
-            var args = event.args;
-            var index = args.index;
-            var row = args.row;
-            // update the widgets inside jqxWindow.
-            $("#dialog").jqxWindow('setTitle', "Edit Row: " + row.OrderID);
-            $("#dialog").jqxWindow('open');
-            $("#dialog").attr('data-row', index);
-            $("#incomeTable").jqxDataTable({ disabled: true });
-            $("#incomeId").val(row.IncomeId);
-            $("#freight").val(row.Freight);
-            $("#shipCountry").val(row.ShipCountry);
-            $("#shipDate").val(row.ShippedDate);
         });
-    });
-</script>
+    </script>*@

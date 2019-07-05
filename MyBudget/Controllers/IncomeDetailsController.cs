@@ -138,7 +138,7 @@ namespace MyBudget.Controllers
             {
                 return HttpNotFound();
             }
-            return View(incomeDetail);
+            return PartialView("_EditIncome", incomeDetail);
         }
 
         // POST: IncomeDetails/Edit/5
@@ -154,7 +154,7 @@ namespace MyBudget.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(incomeDetail);
+            return View("ListIndex");
         }
 
         // GET: IncomeDetails/Delete/5

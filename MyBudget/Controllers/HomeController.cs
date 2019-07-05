@@ -34,7 +34,8 @@ namespace MyBudget.Controllers
             model.BankAccounts = _bankAccounts;
             model.TotalBalance = _bankAccounts.Where(x => x.AccountType == Utility.Enumerations.AccountType.Savings).Sum(x => x.Balance);
             model.TotalLiability = _bankAccounts.Where(x => x.AccountType == Utility.Enumerations.AccountType.CreditCard).Sum(x => x.Balance);
-
+            var list = db.MonthlyPlans.Take<MonthlyPlan>(3).ToList();
+            model.PlanList = list;
             return View(model);
         }
 

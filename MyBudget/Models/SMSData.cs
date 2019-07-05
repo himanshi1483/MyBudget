@@ -13,6 +13,9 @@ namespace MyBudget.Models
         public int Id { get; set; }
         public string SMSText { get; set; }
         public DateTime? Date { get; set; }
+        public string BankName { get; set; }
+        public string TransactionType { get; set; }
+        public string Amount { get; set; }
         public string Label { get; set; }
     }
 
