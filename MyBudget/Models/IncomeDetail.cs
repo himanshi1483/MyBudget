@@ -29,7 +29,7 @@ namespace MyBudget.Models
         public int SubCategoryId { get; set; }
         [NotMapped]
         public string SubCategoryName { get; set; }
-
+        public int MonthsPassed { get; set; }
         public DateTime DebitDate { get; set; }
         public Month ForMonth { get; set; }
         public string FinancialYear { get; set; }
@@ -44,7 +44,8 @@ namespace MyBudget.Models
         public DateTime Date { get; set; }
         [NotMapped]
         public string SubCategoryName { get; set; }
-
+        public int MonthsPassed { get; set; }
+        public double AmountAccumulated { get; set; }
         public Month ForMonth { get; set; }
         public string FinancialYear { get; set; }
     }
@@ -57,7 +58,8 @@ namespace MyBudget.Models
         public int SubCategoryId { get; set; }
         [NotMapped]
         public string SubCategoryName { get; set; }
-
+        public int MonthsPassed { get; set; }
+        public double AmountAccumulated { get; set; }
         public DateTime DebitDate { get; set; }
         public Month ForMonth { get; set; }
         public string FinancialYear { get; set; }

@@ -18,6 +18,9 @@ namespace MyBudget.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
+        [NotMapped]
+        public int TotalDurationInMonths { get; set; }
+
         public int ParentCategoryId { get; set; }
         [NotMapped]
         public string ParentCategoryName { get; set; }

@@ -69,6 +69,21 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isRecurring = db.SubCategories.Where(x => x.SubCategoryId == investmentDetail.SubCategoryId).FirstOrDefault();
+                if (isRecurring.StartDate != null && isRecurring.EndDate != null)
+                {
+                    var yearsDiff = DateTime.Today.Year - isRecurring.StartDate.Value.Year;
+                    if (yearsDiff == 0)
+                        investmentDetail.MonthsPassed = DateTime.Today.Month - isRecurring.StartDate.Value.Month;
+                    else
+                        investmentDetail.MonthsPassed = (yearsDiff * 12) + (DateTime.Today.Month - isRecurring.StartDate.Value.Month);
+
+                }
+                else if (isRecurring.Frequency == Utility.Enumerations.Frequency.Once)
+                {
+                    investmentDetail.MonthsPassed = 1;
+                }
+                investmentDetail.AmountAccumulated = isRecurring.ExpectedAmount * investmentDetail.MonthsPassed;
                 db.InvestmentDetails.Add(investmentDetail);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -106,11 +121,26 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isRecurring = db.SubCategories.Where(x => x.SubCategoryId == investmentDetail.SubCategoryId).FirstOrDefault();
+                if (isRecurring.StartDate != null && isRecurring.EndDate != null)
+                {
+                    var yearsDiff = DateTime.Today.Year - isRecurring.StartDate.Value.Year;
+                    if (yearsDiff == 0)
+                        investmentDetail.MonthsPassed = DateTime.Today.Month - isRecurring.StartDate.Value.Month;
+                    else
+                        investmentDetail.MonthsPassed = (yearsDiff*12)+(DateTime.Today.Month - isRecurring.StartDate.Value.Month);
+
+                }
+                else if(isRecurring.Frequency == Utility.Enumerations.Frequency.Once)
+                {
+                    investmentDetail.MonthsPassed = 1;
+                }
+                investmentDetail.AmountAccumulated = isRecurring.ExpectedAmount * investmentDetail.MonthsPassed;
                 db.Entry(investmentDetail).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListIndex", "MonthlyPlanner");
             }
-            return View(investmentDetail);
+            return RedirectToAction("ListIndex", "MonthlyPlanner");
         }
 
         // GET: InvestmentDetails/Delete/5

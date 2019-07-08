@@ -69,6 +69,17 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isRecurring = db.SubCategories.Where(x => x.SubCategoryId == expenseDetail.SubCategoryId).FirstOrDefault();
+                if (isRecurring.StartDate != null && isRecurring.EndDate != null)
+                {
+                    var yearsDiff = DateTime.Today.Year - isRecurring.StartDate.Value.Year;
+                    if (yearsDiff == 0)
+                        expenseDetail.MonthsPassed = DateTime.Today.Month - isRecurring.StartDate.Value.Month;
+                    else
+                        expenseDetail.MonthsPassed = (yearsDiff * 12) + (DateTime.Today.Month - isRecurring.StartDate.Value.Month);
+
+                }
+               // expenseDetail.AmountAccumulated = isRecurring.ExpectedAmount * savingsDetail.MonthsPassed;
                 db.ExpenseDetails.Add(expenseDetail);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -108,9 +119,9 @@ namespace MyBudget.Controllers
             {
                 db.Entry(expenseDetail).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListIndex", "MonthlyPlanner");
             }
-            return View(expenseDetail);
+            return RedirectToAction("ListIndex", "MonthlyPlanner");
         }
 
         // GET: ExpenseDetails/Delete/5

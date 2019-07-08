@@ -22,15 +22,21 @@ namespace MyBudget.Controllers
             var _savingDetails = db.SavingsDetails.ToList();
             var _investmentDetails = db.InvestmentDetails.ToList();
             var _bankAccounts = db.BankAccounts.ToList();
-            var totalIncome = _incomeDetails.Sum(x => x.ActualAmount);
+            var totalIncomeThisMonth = _incomeDetails.Sum(x => x.ActualAmount);
+            var totalExpenseThisMonth = _expenseDetails.Sum(x => x.ActualAmount);
+            var totalSavingsThisMonth = _savingDetails.Sum(x => x.ActualAmount);
+            var totalInvestmentsThisMonth = _investmentDetails.Sum(x => x.ActualAmount);
             var totalExpense = _expenseDetails.Sum(x => x.ActualAmount);
-            var totalSavings = _savingDetails.Sum(x => x.ActualAmount);
-            var totalInvestments = _investmentDetails.Sum(x => x.ActualAmount);
+            var totalSavings = _savingDetails.Sum(x => x.AmountAccumulated);
+            var totalInvestments = _investmentDetails.Sum(x => x.AmountAccumulated);
 
-            model.TotalIncome = totalIncome;
+            model.TotalIncome = totalIncomeThisMonth;
             model.TotalExpense = totalExpense;
             model.TotalInvestment = totalInvestments;
             model.TotalSavings = totalSavings;
+            model.TotalExpenseThisMonth = totalExpenseThisMonth;
+            model.TotalInvestmentThisMonth = totalInvestmentsThisMonth;
+            model.TotalSavingsThisMonth = totalSavingsThisMonth;
             model.BankAccounts = _bankAccounts;
             model.TotalBalance = _bankAccounts.Where(x => x.AccountType == Utility.Enumerations.AccountType.Savings).Sum(x => x.Balance);
             model.TotalLiability = _bankAccounts.Where(x => x.AccountType == Utility.Enumerations.AccountType.CreditCard).Sum(x => x.Balance);

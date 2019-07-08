@@ -124,7 +124,7 @@
                     @*<p>@DateTime.Now.Date</p>*@
                     <footer>
                         <div>
-                        
+
                             <h3>&#8377 @Model.TotalLiability</h3>
                         </div>
                     </footer>
@@ -138,10 +138,69 @@
                     <div class="green-header">
                         <h5>Total Investments</h5>
                     </div>
+                    <p><i class="fa fa-dollar"></i></p>
+                    <p><b>Mutual Funds, Insurance, PPF</b></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="small mt">This Month</p>
+                            <p style="font-size:20px !important">&#8377 @Model.TotalInvestmentThisMonth</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">Total Uptill Now</p>
+                            <p style="font-size:20px !important">&#8377 @Model.TotalInvestment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col-md-4 -->
+        </div>
+        <!-- /row -->
+
+        <div class="row">
+            <!-- TWITTER PANEL -->
+            <div class="col-md-4 col-sm-4 mb">
+                <!-- REVENUE PANEL -->
+                <div class="green-panel pn">
+                    <div class="green-header">
+                        <h5>Total Savings</h5>
+                        <h6 style="color:aliceblue">This Month</h6>
+                    </div>
                     <div class="chart mt">
                         <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
                     </div>
-                    <p class="mt" style="font-size:24px !important;margin-top:35px !important"><b>&#8377 @Model.TotalInvestment</b><br /></p>
+                    <p class="mt" style="font-size:24px !important;margin-top:35px !important"><b>&#8377 @Model.TotalSavings</b><br /></p>
+                </div>
+            </div>
+            <!-- /col-md-4 -->
+            <div class="col-md-4 mb">
+                <!-- WHITE PANEL - TOP USER -->
+                <div class="white-panel pn">
+                    <div class="white-header">
+                        <h5>Total Savings</h5>
+                    </div>
+                    <p><i class="fa fa-money"></i></p>
+                    <p><b>RD, Liquid</b></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="small mt">This Month</p>
+                            <p style="font-size:20px !important">&#8377 @Model.TotalSavingsThisMonth</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">Total Uptill Now</p>
+                            <p style="font-size:20px !important">&#8377 @Model.TotalSavings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col-md-4 -->
+            <div class="col-md-4 mb">
+                <!-- INSTAGRAM PANEL -->
+                <div class="instagram-panel pn">
+                    <i class="fa fa-instagram fa-4x"></i>
+                    <p>
+                        THISISYOU<br /> 5 min. ago
+                    </p>
+                    <p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
                 </div>
             </div>
             <!-- /col-md-4 -->
@@ -193,50 +252,6 @@
             </div>
             <!-- /col-md-8  -->
         </div>
-        <div class="row">
-            <!-- TWITTER PANEL -->
-            <div class="col-md-4 mb">
-                <div class="twitter-panel pn">
-                    <i class="fa fa-twitter fa-4x"></i>
-                    <p>Dashio is here! Take a look and enjoy this new Bootstrap Dashboard theme.</p>
-                    <p class="user">Alvrz_is</p>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-            <div class="col-md-4 mb">
-                <!-- WHITE PANEL - TOP USER -->
-                <div class="white-panel pn">
-                    <div class="white-header">
-                        <h5>TOP USER</h5>
-                    </div>
-                    <p><img src="img/ui-zac.jpg" class="img-circle" width="50"></p>
-                    <p><b>Zac Snider</b></p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="small mt">MEMBER SINCE</p>
-                            <p>2012</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="small mt">TOTAL SPEND</p>
-                            <p>$ 47,60</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-            <div class="col-md-4 mb">
-                <!-- INSTAGRAM PANEL -->
-                <div class="instagram-panel pn">
-                    <i class="fa fa-instagram fa-4x"></i>
-                    <p>
-                        THISISYOU<br /> 5 min. ago
-                    </p>
-                    <p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-        </div>
-        <!-- /row -->
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                 <div class="product-panel-2 pn">

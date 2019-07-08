@@ -152,9 +152,9 @@ namespace MyBudget.Controllers
             {
                 db.Entry(incomeDetail).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListIndex", "MonthlyPlanner");
             }
-            return View("ListIndex");
+            return RedirectToAction("ListIndex", "MonthlyPlanner");
         }
 
         // GET: IncomeDetails/Delete/5

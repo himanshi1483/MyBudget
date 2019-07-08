@@ -69,6 +69,21 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isRecurring = db.SubCategories.Where(x => x.SubCategoryId == savingsDetail.SubCategoryId).FirstOrDefault();
+                if (isRecurring.StartDate != null && isRecurring.EndDate != null)
+                {
+                    var yearsDiff = DateTime.Today.Year - isRecurring.StartDate.Value.Year;
+                    if (yearsDiff == 0)
+                        savingsDetail.MonthsPassed = DateTime.Today.Month - isRecurring.StartDate.Value.Month;
+                    else
+                        savingsDetail.MonthsPassed = (yearsDiff * 12) + (DateTime.Today.Month - isRecurring.StartDate.Value.Month);
+
+                }
+                else if (isRecurring.Frequency == Utility.Enumerations.Frequency.Once)
+                {
+                    savingsDetail.MonthsPassed = 1;
+                }
+                savingsDetail.AmountAccumulated = isRecurring.ExpectedAmount * savingsDetail.MonthsPassed;
                 db.SavingsDetails.Add(savingsDetail);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -106,11 +121,26 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isRecurring = db.SubCategories.Where(x => x.SubCategoryId == savingsDetail.SubCategoryId).FirstOrDefault();
+                if (isRecurring.StartDate != null && isRecurring.EndDate != null)
+                {
+                    var yearsDiff = DateTime.Today.Year - isRecurring.StartDate.Value.Year;
+                    if (yearsDiff == 0)
+                        savingsDetail.MonthsPassed = DateTime.Today.Month - isRecurring.StartDate.Value.Month;
+                    else
+                        savingsDetail.MonthsPassed = (yearsDiff * 12) + (DateTime.Today.Month - isRecurring.StartDate.Value.Month);
+
+                }
+                else if (isRecurring.Frequency == Utility.Enumerations.Frequency.Once)
+                {
+                    savingsDetail.MonthsPassed = 1;
+                }
+                savingsDetail.AmountAccumulated = isRecurring.ExpectedAmount * savingsDetail.MonthsPassed;
                 db.Entry(savingsDetail).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListIndex", "MonthlyPlanner");
             }
-            return View(savingsDetail);
+            return RedirectToAction("ListIndex", "MonthlyPlanner");
         }
 
         // GET: SavingsDetails/Delete/5
