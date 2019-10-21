@@ -36,6 +36,7 @@ namespace MyBudget.Models
 
         public string FinancialYear { get; set; }
         public Month ForMonth { get; set; }
+        public int planId { get; set; }
     }
 
     public class MonthlyPlan

@@ -146,13 +146,13 @@ namespace MyBudget.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IncomeId,ActualAmount,SubCategoryId,CreditDate,ForMonth,FinancialYear")] IncomeDetail incomeDetail)
+        public ActionResult Edit(IncomeDetail incomeDetail)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(incomeDetail).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ListIndex", "MonthlyPlanner");
+                return RedirectToAction("Edit", "MonthlyPlanner", new { planId = incomeDetail.planId});
             }
             return RedirectToAction("ListIndex", "MonthlyPlanner");
         }

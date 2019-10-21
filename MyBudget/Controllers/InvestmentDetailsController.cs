@@ -117,7 +117,7 @@ namespace MyBudget.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "InvestmentId,ActualAmount,SubCategoryId,DebitDate,ForMonth,FinancialYear")] InvestmentDetail investmentDetail)
+        public async Task<ActionResult> Edit(InvestmentDetail investmentDetail)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +138,7 @@ namespace MyBudget.Controllers
                 investmentDetail.AmountAccumulated = isRecurring.ExpectedAmount * investmentDetail.MonthsPassed;
                 db.Entry(investmentDetail).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("ListIndex", "MonthlyPlanner");
+                return RedirectToAction("Edit", "MonthlyPlanner", new { planId = });
             }
             return RedirectToAction("ListIndex", "MonthlyPlanner");
         }

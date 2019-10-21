@@ -19,6 +19,9 @@ namespace MyBudget.Models
         public DateTime CreditDate { get; set; }
         public Month ForMonth { get; set; }
         public string FinancialYear { get; set; }
+
+        [NotMapped]
+        public int planId { get; set; }
     }
 
     public class ExpenseDetail
@@ -33,6 +36,8 @@ namespace MyBudget.Models
         public DateTime DebitDate { get; set; }
         public Month ForMonth { get; set; }
         public string FinancialYear { get; set; }
+        [NotMapped]
+        public int planId { get; set; }
     }
 
     public class SavingsDetail
@@ -48,6 +53,8 @@ namespace MyBudget.Models
         public double AmountAccumulated { get; set; }
         public Month ForMonth { get; set; }
         public string FinancialYear { get; set; }
+        [NotMapped]
+        public int planId { get; set; }
     }
 
     public class InvestmentDetail
@@ -63,5 +70,7 @@ namespace MyBudget.Models
         public DateTime DebitDate { get; set; }
         public Month ForMonth { get; set; }
         public string FinancialYear { get; set; }
+        [NotMapped]
+        public int planId { get; set; }
     }
 }

@@ -485,7 +485,9 @@ namespace MyBudget.Controllers
                     CreditDate = y.x.CreditDate,
                     FinancialYear = y.x.FinancialYear,
                     ForMonth = y.x.ForMonth,
-                    ExpectedAmount = y.y.ExpectedAmount
+                    ExpectedAmount = y.y.ExpectedAmount,
+                    planId = planId.Value
+
                 }).ToList();
             var _expenseData = _expenseDetails.Join(categories, x => x.SubCategoryId, y => y.SubCategoryId, (x, y) => new { x, y }).Select
                 (y => new MonthlyPlannerViewModel
@@ -499,7 +501,8 @@ namespace MyBudget.Controllers
                     DebitDate = y.x.DebitDate,
                     FinancialYear = y.x.FinancialYear,
                     ForMonth = y.x.ForMonth,
-                    ExpectedAmount = y.y.ExpectedAmount
+                    ExpectedAmount = y.y.ExpectedAmount,
+                    planId = planId.Value
                 }).ToList();
             var _savingsData = _savingDetails.Join(categories, x => x.SubCategoryId, y => y.SubCategoryId, (x, y) => new { x, y }).Select
                 (y => new MonthlyPlannerViewModel
@@ -513,7 +516,8 @@ namespace MyBudget.Controllers
                     DebitDate = y.x.Date,
                     FinancialYear = y.x.FinancialYear,
                     ForMonth = y.x.ForMonth,
-                    ExpectedAmount = y.y.ExpectedAmount
+                    ExpectedAmount = y.y.ExpectedAmount,
+                    planId = planId.Value
                 }).ToList();
             var _investmentData = _investmentDetails.Join(categories, x => x.SubCategoryId, y => y.SubCategoryId, (x, y) => new { x, y }).Select
                 (y => new MonthlyPlannerViewModel
@@ -527,14 +531,15 @@ namespace MyBudget.Controllers
                     DebitDate = y.x.DebitDate,
                     FinancialYear = y.x.FinancialYear,
                     ForMonth = y.x.ForMonth,
-                    ExpectedAmount = y.y.ExpectedAmount
+                    ExpectedAmount = y.y.ExpectedAmount,
+                    planId = planId.Value
                 }).ToList();
 
             model._MonthlyList = _incomeData;
             model._MonthlyList.AddRange(_expenseData);
             model._MonthlyList.AddRange(_savingsData);
             model._MonthlyList.AddRange(_investmentData);
-
+          
             return View("ViewPlanner", model);
         }
     }
