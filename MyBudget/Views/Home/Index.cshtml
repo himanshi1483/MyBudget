@@ -4,465 +4,362 @@
     ViewBag.Title = "Home Page";
 }
 <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
+<!-- BEGIN DASHBOARD STATS 1-->
+<h1 class="page-title">
+    My Finance Dashboard
+    @*<small>statistics, charts, recent events and reports</small>*@
+</h1>
 <div class="row">
-    @*<div class="col-lg-8 col-md-8 col-sm-8 mb">
-        <div class="steps pn">
-            <input id='op1' name='op1' type='checkbox' checked />
-            <label for='op1'>July 2019</label>
-            <input id='op2' name='op2' type='checkbox' />
-            <label for='op2'>June 2019</label>
-            <input id='op3' name='op3' type='checkbox' />
-            <label for='op3'>May 2019</label>
-            <input type='submit' value='All Done!' id='submit' />
-        </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    INR  <span data-counter="counterup" data-value="@Model.TotalBalance">0</span>
+                </div>
+                <div class="desc"> Total Liquid Balance </div>
+            </div>
+        </a>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 mb">
-        <div class="steps pn">
-            <input id='op1' name='op1' type='checkbox' checked />
-            <label for='op1'>Update Profile</label>
-            <input id='op2' name='op2' type='checkbox' />
-            <label for='op2'>Contact Paul</label>
-            <input id='op3' name='op3' type='checkbox' />
-            <label for='op3'>Enjoy Life</label>
-            <input type='submit' value='All Done!' id='submit' />
-        </div>
-    </div>*@
-    <div class="col-lg-9 main-chart">
-        <!--CUSTOM CHART START -->
-        <div class="border-head">
-            <h3>Expenses This Month</h3>
-        </div>
-        <div class="custom-bar-chart">
-            <ul class="y-axis">
-                <li><span>10.000</span></li>
-                <li><span>8.000</span></li>
-                <li><span>6.000</span></li>
-                <li><span>4.000</span></li>
-                <li><span>2.000</span></li>
-                <li><span>0</span></li>
-            </ul>
-            <div class="bar">
-                <div class="title">JAN</div>
-                <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
             </div>
-            <div class="bar ">
-                <div class="title">FEB</div>
-                <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
-            </div>
-            <div class="bar ">
-                <div class="title">MAR</div>
-                <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
-            </div>
-            <div class="bar ">
-                <div class="title">APR</div>
-                <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
-            </div>
-            <div class="bar">
-                <div class="title">MAY</div>
-                <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
-            </div>
-            <div class="bar ">
-                <div class="title">JUN</div>
-                <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
-            </div>
-            <div class="bar">
-                <div class="title">JUL</div>
-                <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-            </div>
-        </div>
-        <!--custom chart end-->
-        <div class="row mt">
-            <!-- SERVER STATUS PANELS -->
-            <div class="col-md-4 col-sm-4 mb">
-                <div class="grey-panel pn donut-chart">
-                    <div class="grey-header">
-                        <h5>Total Balance</h5>
-                    </div>
-                    <canvas id="serverstatus01" height="120" width="120"></canvas>
-                    <script>
-                        var doughnutData = [{
-                            value: 70,
-                            color: "#FF6B6B"
-                        },
-                        {
-                            value: 30,
-                            color: "#fdfdfd"
-                        }
-                        ];
-                        var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-                    </script>
-                    <div class="row">
-                        @*<div class="col-sm-6 col-xs-6 goleft">
-                            <p>Usage<br />Increase:</p>
-                        </div>*@
-                        <div class="col-sm-12 col-xs-6">
-                            <h2 style="font-size:28px !important">&#8377 @Model.TotalBalance</h2>
-                        </div>
-                    </div>
+            <div class="details">
+                <div class="number">
+                    INR   <span data-counter="counterup" data-value="@Model.TotalLiability">0</span>
                 </div>
-                <!-- /grey-panel -->
+                <div class="desc"> Total Credit Card Due </div>
             </div>
-            <!-- /col-md-4-->
-            <div class="col-md-4 col-sm-4 mb">
-                <div class="darkblue-panel pn">
-                    <div class="darkblue-header">
-                        <h5>Outstanding Liabilities</h5>
-                    </div>
-                    <canvas id="serverstatus02" height="120" width="120"></canvas>
-                    <script>
-                        var doughnutData = [{
-                            value: 60,
-                            color: "#1c9ca7"
-                        },
-                        {
-                            value: 40,
-                            color: "#f68275"
-                        }
-                        ];
-                        var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-                    </script>
-                    @*<p>@DateTime.Now.Date</p>*@
-                    <footer>
-                        <div>
-
-                            <h3>&#8377 @Model.TotalLiability</h3>
-                        </div>
-                    </footer>
-                </div>
-                <!--  /darkblue panel -->
-            </div>
-            <!-- /col-md-4 -->
-            <div class="col-md-4 col-sm-4 mb">
-                <!-- REVENUE PANEL -->
-                <div class="green-panel pn">
-                    <div class="green-header">
-                        <h5>Total Investments</h5>
-                    </div>
-                    <p><i class="fa fa-dollar"></i></p>
-                    <p><b>Mutual Funds, Insurance, PPF</b></p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="small mt">This Month</p>
-                            <p style="font-size:20px !important">&#8377 @Model.TotalInvestmentThisMonth</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="small mt">Total Uptill Now</p>
-                            <p style="font-size:20px !important">&#8377 @Model.TotalInvestment</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-        </div>
-        <!-- /row -->
-
-        <div class="row">
-            <!-- TWITTER PANEL -->
-            <div class="col-md-4 col-sm-4 mb">
-                <!-- REVENUE PANEL -->
-                <div class="green-panel pn">
-                    <div class="green-header">
-                        <h5>Total Savings</h5>
-                        <h6 style="color:aliceblue">Fixed Savings</h6>
-                    </div>
-                    <div class="chart mt">
-                        <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
-                    </div>
-                    <p class="mt" style="font-size:24px !important;margin-top:35px !important"><b>&#8377 @Model.TotalOneTimeSavings</b><br /></p>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-            <div class="col-md-4 mb">
-                <!-- WHITE PANEL - TOP USER -->
-                <div class="white-panel pn">
-                    <div class="white-header">
-                        <h5>Total Savings</h5>
-                    </div>
-                    <p><i class="fa fa-money"></i></p>
-                    <p><b>RD, Liquid</b></p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="small mt">This Month</p>
-                            <p style="font-size:20px !important">&#8377 @Model.TotalSavingsThisMonth</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="small mt">Total Uptill Now</p>
-                            <p style="font-size:20px !important">&#8377 @Model.TotalSavings</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-            <div class="col-md-4 mb">
-                <!-- INSTAGRAM PANEL -->
-                <div class="instagram-panel pn">
-                    <i class="fa fa-instagram fa-4x"></i>
-                    <p>
-                        THISISYOU<br /> 5 min. ago
-                    </p>
-                    <p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-        </div>
-        <!-- /row -->
-        <div class="row">
-            <!-- WEATHER PANEL -->
-            <div class="col-md-4 col-sm-4 mb">
-                <div class="steps pn">
-                    <div class="grey-header">
-                        <h5>Monthly Planner</h5>
-                    </div>
-                    @foreach (var item in Model.PlanList)
-                    {
-                        <input id='op1' name='op1' type='checkbox' checked />
-                        <label for='op1'><a href="@Url.Action("Edit", "MonthlyPlanner", new { planId = @item.PlanId })">@item.ForMonth - @item.FinancialYear</a></label>
-                    }
-                    <div style="padding-top:5px;text-align:right;padding-right:5px"><a href="@Url.Action("ListIndex", "MonthlyPlanner")">View All</a></div>
-                </div>
-            </div>
-            <!-- /col-md-4-->
-            <!-- DIRECT MESSAGE PANEL -->
-            <div class="col-md-8 mb">
-                <div class="message-p pn">
-                    <div class="message-header">
-                        <h5>DIRECT MESSAGE</h5>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 centered hidden-sm hidden-xs">
-                            <img src="img/ui-danro.jpg" class="img-circle" width="65">
-                        </div>
-                        <div class="col-md-9">
-                            <p>
-                                <name>Dan Rogers</name>
-                                sent you a message.
-                            </p>
-                            <p class="small">3 hours ago</p>
-                            <p class="message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                            <form class="form-inline" role="form">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="exampleInputText" placeholder="Reply Dan">
-                                </div>
-                                <button type="submit" class="btn btn-default">Send</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Message Panel-->
-            </div>
-            <!-- /col-md-8  -->
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <div class="product-panel-2 pn">
-                    <div class="badge badge-hot">HOT</div>
-                    <img src="img/product.jpg" width="200" alt="">
-                    <h5 class="mt">Flat Pack Heritage</h5>
-                    <h6>TOTAL SALES: 1388</h6>
-                    <button class="btn btn-small btn-theme04">FULL REPORT</button>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-            <!--  PROFILE 02 PANEL -->
-            <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <div class="content-panel pn">
-                    <div id="profile-02">
-                        <div class="user">
-                            <img src="img/friends/fr-06.jpg" class="img-circle" width="80">
-                            <h4>DJ SHERMAN</h4>
-                        </div>
-                    </div>
-                    <div class="pr2-social centered">
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                    </div>
-                </div>
-                <!-- /panel -->
-            </div>
-            <!--/ col-md-4 -->
-            <div class="col-md-4 col-sm-4 mb">
-                <div class="green-panel pn">
-                    <div class="green-header">
-                        <h5>DISK SPACE</h5>
-                    </div>
-                    <canvas id="serverstatus03" height="120" width="120"></canvas>
-                    <script>
-                        var doughnutData = [{
-                            value: 60,
-                            color: "#2b2b2b"
-                        },
-                        {
-                            value: 40,
-                            color: "#fffffd"
-                        }
-                        ];
-                        var myDoughnut = new Chart(document.getElementById("serverstatus03").getContext("2d")).Doughnut(doughnutData);
-                    </script>
-                    <h3>60% USED</h3>
-                </div>
-            </div>
-            <!-- /col-md-4 -->
-        </div>
-        <!-- /row -->
+        </a>
     </div>
-    <!-- /col-lg-9 END SECTION MIDDLE -->
-    <!-- **********************************************************************************************************************************************************
-        RIGHT SIDEBAR CONTENT
-        *********************************************************************************************************************************************************** -->
-    <div class="col-lg-3 ds">
-        <!--COMPLETED ACTIONS DONUTS CHART-->
-        <div class="donut-main">
-            <h4>GOAL PROGRESS</h4>
-            <canvas id="newchart" height="130" width="130"></canvas>
-            <script>
-                var doughnutData = [{
-                    value: 70,
-                    color: "#4ECDC4"
-                },
-                {
-                    value: 30,
-                    color: "#fdfdfd"
-                }
-                ];
-                var myDoughnut = new Chart(document.getElementById("newchart").getContext("2d")).Doughnut(doughnutData);
-            </script>
-        </div>
-        <!--NEW EARNING STATS -->
-        <div class="panel terques-chart">
-            <div class="panel-body">
-                <div class="chart">
-                    <div class="centered">
-                        <span>TODAY EARNINGS</span>
-                        <strong>$ 890,00 | 15%</strong>
-                    </div>
-                    <br>
-                    <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,564,455]"></div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    INR <span data-counter="counterup" data-value="@Model.TotalExpense">0</span>
                 </div>
+                <div class="desc"> Current Expenses </div>
             </div>
-        </div>
-        <!--new earning end-->
-        <!-- RECENT ACTIVITIES SECTION -->
-        <h4 class="centered mt">RECENT ACTIVITY</h4>
-        <!-- First Activity -->
-        <div class="desc">
-            <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-            </div>
-            <div class="details">
-                <p>
-                    <muted>Just Now</muted>
-                    <br />
-                    <a href="#">Paul Rudd</a> purchased an item.<br />
-                </p>
-            </div>
-        </div>
-        <!-- Second Activity -->
-        <div class="desc">
-            <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-            </div>
-            <div class="details">
-                <p>
-                    <muted>2 Minutes Ago</muted>
-                    <br />
-                    <a href="#">James Brown</a> subscribed to your newsletter.<br />
-                </p>
-            </div>
-        </div>
-        <!-- Third Activity -->
-        <div class="desc">
-            <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-            </div>
-            <div class="details">
-                <p>
-                    <muted>3 Hours Ago</muted>
-                    <br />
-                    <a href="#">Diana Kennedy</a> purchased a year subscription.<br />
-                </p>
-            </div>
-        </div>
-        <!-- Fourth Activity -->
-        <div class="desc">
-            <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-            </div>
-            <div class="details">
-                <p>
-                    <muted>7 Hours Ago</muted>
-                    <br />
-                    <a href="#">Brando Page</a> purchased a year subscription.<br />
-                </p>
-            </div>
-        </div>
-        <!-- USERS ONLINE SECTION -->
-        <h4 class="centered mt">TEAM MEMBERS ONLINE</h4>
-        <!-- First Member -->
-        <div class="desc">
-            <div class="thumb">
-                <img class="img-circle" src="img/ui-divya.jpg" width="35px" height="35px" align="">
-            </div>
-            <div class="details">
-                <p>
-                    <a href="#">DIVYA MANIAN</a><br />
-                    <muted>Available</muted>
-                </p>
-            </div>
-        </div>
-        <!-- Second Member -->
-        <div class="desc">
-            <div class="thumb">
-                <img class="img-circle" src="img/ui-sherman.jpg" width="35px" height="35px" align="">
-            </div>
-            <div class="details">
-                <p>
-                    <a href="#">DJ SHERMAN</a><br />
-                    <muted>I am Busy</muted>
-                </p>
-            </div>
-        </div>
-        <!-- Third Member -->
-        <div class="desc">
-            <div class="thumb">
-                <img class="img-circle" src="img/ui-danro.jpg" width="35px" height="35px" align="">
-            </div>
-            <div class="details">
-                <p>
-                    <a href="#">DAN ROGERS</a><br />
-                    <muted>Available</muted>
-                </p>
-            </div>
-        </div>
-        <!-- Fourth Member -->
-        <div class="desc">
-            <div class="thumb">
-                <img class="img-circle" src="img/ui-zac.jpg" width="35px" height="35px" align="">
-            </div>
-            <div class="details">
-                <p>
-                    <a href="#">Zac Sniders</a><br />
-                    <muted>Available</muted>
-                </p>
-            </div>
-        </div>
-        <!-- CALENDAR-->
-        <div id="calendar" class="mb">
-            <div class="panel green-panel no-margin">
-                <div class="panel-body">
-                    <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
-                        <div class="arrow"></div>
-                        <h3 class="popover-title" style="disadding: none;"></h3>
-                        <div id="date-popover-content" class="popover-content"></div>
-                    </div>
-                    <div id="my-calendar"></div>
-                </div>
-            </div>
-        </div>
-        <!-- / calendar -->
+        </a>
     </div>
-    <!-- /col-lg-3 -->
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    +
+                    INR   <span data-counter="counterup" data-value="@Model.TotalInvestment"></span>
+                </div>
+                <div class="desc"> Total Investments </div>
+            </div>
+        </a>
+    </div>
 </div>
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->
+<div class="row">
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bar-chart font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Expenses</span>
+                    <span class="caption-helper">monthly stats...</span>
+                </div>
+                @*<div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                        <label class="btn red btn-outline btn-circle btn-sm active">
+                            <input type="radio" name="options" class="toggle" id="option1">New
+                        </label>
+                        <label class="btn red btn-outline btn-circle btn-sm">
+                            <input type="radio" name="options" class="toggle" id="option2">Returning
+                        </label>
+                    </div>
+                </div>*@
+            </div>
+            <div class="portlet-body">
+                <div id="site_statistics_loading">
+                    <img src="/Content/metronic/assets/global/img/loading.gif" alt="loading" />
+                </div>
+                <div id="site_statistics_content" class="display-none">
+                    <div id="site_statistics" class="chart"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-share font-red-sunglo hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Savings - Liquid</span>
+                    <span class="caption-helper">monthly stats...</span>
+                </div>
+                @*<div class="actions">
+                    <div class="btn-group">
+                        <a href="" class="btn dark btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            Filter Range
+                            <span class="fa fa-angle-down"> </span>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:;">
+                                    Q1 2014
+                                    <span class="label label-sm label-default"> past </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    Q2 2014
+                                    <span class="label label-sm label-default"> past </span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="javascript:;">
+                                    Q3 2014
+                                    <span class="label label-sm label-success"> current </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    Q4 2014
+                                    <span class="label label-sm label-warning"> upcoming </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+            </div>
+            <div class="portlet-body">
+                <div id="site_activities_loading">
+                    <img src="/Content/metronic/assets/global/img/loading.gif" alt="loading" />
+                </div>
+                <div id="site_activities_content" class="display-none">
+                    <div id="site_activities" style="height: 228px;"> </div>
+                </div>
+                <div style="margin: 20px 0 10px 30px">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+                            <span class="label label-sm label-success"> Revenue: </span>
+                            <h3>$13,234</h3>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+                            <span class="label label-sm label-info"> Tax: </span>
+                            <h3>$134,900</h3>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+                            <span class="label label-sm label-danger"> Shipment: </span>
+                            <h3>$1,134</h3>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+                            <span class="label label-sm label-warning"> Orders: </span>
+                            <h3>235090</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-cursor font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">General Stats</span>
+                </div>
+                <div class="actions">
+                    <a href="javascript:;" class="btn btn-sm btn-circle red easy-pie-chart-reload">
+                        <i class="fa fa-repeat"></i> Reload
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="easy-pie-chart">
+                            <div class="number transactions" data-percent="55">
+                                <span>+55</span>%
+                            </div>
+                            <a class="title" href="javascript:;">
+                                Transactions
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="margin-bottom-10 visible-sm"> </div>
+                    <div class="col-md-4">
+                        <div class="easy-pie-chart">
+                            <div class="number visits" data-percent="85">
+                                <span>+85</span>%
+                            </div>
+                            <a class="title" href="javascript:;">
+                                New Visits
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="margin-bottom-10 visible-sm"> </div>
+                    <div class="col-md-4">
+                        <div class="easy-pie-chart">
+                            <div class="number bounce" data-percent="46">
+                                <span>-46</span>%
+                            </div>
+                            <a class="title" href="javascript:;">
+                                Bounce
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-equalizer font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Server Stats</span>
+                    <span class="caption-helper">monthly stats...</span>
+                </div>
+                <div class="tools">
+                    <a href="" class="collapse"> </a>
+                    <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                    <a href="" class="reload"> </a>
+                    <a href="" class="remove"> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="sparkline-chart">
+                            <div class="number" id="sparkline_bar5"></div>
+                            <a class="title" href="javascript:;">
+                                Network
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="margin-bottom-10 visible-sm"> </div>
+                    <div class="col-md-4">
+                        <div class="sparkline-chart">
+                            <div class="number" id="sparkline_bar6"></div>
+                            <a class="title" href="javascript:;">
+                                CPU Load
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="margin-bottom-10 visible-sm"> </div>
+                    <div class="col-md-4">
+                        <div class="sparkline-chart">
+                            <div class="number" id="sparkline_line"></div>
+                            <a class="title" href="javascript:;">
+                                Load Rate
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light calendar ">
+            <div class="portlet-title ">
+                <div class="caption">
+                    <i class="icon-calendar font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Feeds</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="calendar"> </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+    <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="portlet light ">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class=" icon-social-twitter font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Monthly Budget</span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab_actions_pending" data-toggle="tab"> Recent </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ListIndex", "MonthlyPlanner")" data-toggle="tab"> View All </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_actions_pending">
+                        <!-- BEGIN: Actions -->
+                        <div class="mt-actions">
+                            @foreach (var item in Model.PlanList)
+                            {
+                                <div class="mt-action">
+                                   
+                                    <div class="mt-action-body">
+                                        <div class="mt-action-row">
+                                            <div class="mt-action-info ">
+                                                <div class="mt-action-icon ">
+                                                    <i class="icon-calendar"></i>
+                                                </div>
+                                                <div class="mt-action-details ">
+                                                    <span class="mt-action-author">@item.ForMonth </span>
+                                                    <p class="mt-action-desc">@item.FinancialYear</p>
+                                                </div>
+                                            </div>
+                                            @*<div class="mt-action-datetime ">
+                                                <span class="mt-action-date">@item.ForMonth - @item.FinancialYear</span>
+                                               
+                                            </div>*@
+                                            <div class="mt-action-buttons ">
+                                                <div class="btn-group btn-group-devided">
+                                                    <a href="@Url.Action("Edit", "MonthlyPlanner", new { planId = @item.PlanId })" class="btn btn-outline green btn-sm">View</a>
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+                        <!-- END: Actions -->
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- start: page -->
 @*<div class="row">
          <div class="col-md-6 col-lg-12 col-xl-6">
