@@ -68,6 +68,7 @@
 
         </div>
     </section>*@
+@Html.HiddenFor(x=>x.planId)
 <section class="panel" style="margin-top:50px !important">
     <header class="panel-heading">
         <div class="panel-actions">
@@ -204,7 +205,7 @@
                             </button>
                             <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
 
-
+                           @Html.HiddenFor(x=> item.planId)
                         </td>
                         @Html.Partial("_EditIncome", @item)
                     </tr>
@@ -361,7 +362,7 @@
                     <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
                     <a class="Delete" href="javascript:;">Delete</a>*@
                         </td>
-                    </tr>
+                    </tr> @item.planId
                     @Html.Partial("_EditExpense", @item)
                 }
             </tbody>
@@ -421,12 +422,12 @@
                                 </div>
 
                                 @*<div class="form-group">
-                                        @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>*@
+                    @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Credit Date</label>
                                     <div class="col-md-10">
@@ -458,11 +459,11 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                                 @*<div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Create" class="btn btn-default" />
-                                        </div>
-                                    </div>*@
-                            </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>*@
+                            </div> 
                         }
                     </div>
                 </div>
@@ -495,21 +496,21 @@
             <tbody>
                 @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 3))
                 {
-                    <tr>
-                        <td>@item.CategoryName</td>
-                        <td>@item.SubCategoryName</td>
-                        <td> &#x20B9 @item.ExpectedAmount</td>
-                        <td> &#x20B9 @item.ActualAmount</td>
-                        <td>@item.ForMonth</td>
-                        <td>@item.FinancialYear</td>
-                        <td class="actions">
-                            @*<a href="@Url.Action("Edit", "SavingsDetails", new { id = @item.SavingsId })"><i class="fa fa-pencil"></i></a>*@
-                            <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.SavingsId" data-target="#savingsModal2-@item.SavingsId">
-                                Edit
-                            </button>
-                            <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@item.CategoryName</td>
+                    <td>@item.SubCategoryName</td>
+                    <td> &#x20B9 @item.ExpectedAmount</td>
+                    <td> &#x20B9 @item.ActualAmount</td>
+                    <td>@item.ForMonth</td>
+                    <td>@item.FinancialYear</td>
+                    <td class="actions">
+                        @*<a href="@Url.Action("Edit", "SavingsDetails", new { id = @item.SavingsId })"><i class="fa fa-pencil"></i></a>*@
+                        <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.SavingsId" data-target="#savingsModal2-@item.SavingsId">
+                            Edit
+                        </button>
+                        <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                    </td> @item.planId
+                </tr>
                     @Html.Partial("_EditSavings", @item)
                 }
             </tbody>
@@ -569,12 +570,12 @@
                                 </div>
 
                                 @*<div class="form-group">
-                                        @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>*@
+                    @Html.LabelFor(model => model.CreditDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreditDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreditDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Credit Date</label>
                                     <div class="col-md-10">
@@ -606,11 +607,11 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                                 @*<div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Create" class="btn btn-default" />
-                                        </div>
-                                    </div>*@
-                            </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>*@
+                            </div> 
                         }
                     </div>
                 </div>
@@ -658,7 +659,7 @@
                             </button>
                             <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
                         </td>
-                    </tr>
+                    </tr> @item.planId
                     @Html.Partial("_EditInvestment", @item)
                 }
             </tbody>

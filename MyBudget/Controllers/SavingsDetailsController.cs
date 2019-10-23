@@ -138,7 +138,7 @@ namespace MyBudget.Controllers
                 savingsDetail.AmountAccumulated = isRecurring.ExpectedAmount * savingsDetail.MonthsPassed;
                 db.Entry(savingsDetail).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("ListIndex", "MonthlyPlanner");
+                return RedirectToAction("Edit", "MonthlyPlanner", new { planId = savingsDetail.planId });
             }
             return RedirectToAction("ListIndex", "MonthlyPlanner");
         }

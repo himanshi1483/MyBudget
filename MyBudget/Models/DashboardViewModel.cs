@@ -17,7 +17,7 @@ namespace MyBudget.Models
         public List<BankAccounts> BankAccounts { get; set; }
         public double TotalBalance { get; set; }
         public double TotalLiability { get; set; }
-
+        public double TotalOneTimeSavings { get; set; }
         public List<MonthlyPlan> PlanList { get; set; }
     }
 }

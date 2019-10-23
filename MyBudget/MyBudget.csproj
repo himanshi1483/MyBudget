@@ -607,25 +607,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904301047249_newT.cs" />
-    <Compile Include="Migrations\201904301047249_newT.Designer.cs">
-      <DependentUpon>201904301047249_newT.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905230837440_init3.cs" />
-    <Compile Include="Migrations\201905230837440_init3.Designer.cs">
-      <DependentUpon>201905230837440_init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907030843098_init5.cs" />
-    <Compile Include="Migrations\201907030843098_init5.Designer.cs">
-      <DependentUpon>201907030843098_init5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907031234033_init6.cs" />
-    <Compile Include="Migrations\201907031234033_init6.Designer.cs">
-      <DependentUpon>201907031234033_init6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907080923196_init8.cs" />
-    <Compile Include="Migrations\201907080923196_init8.Designer.cs">
-      <DependentUpon>201907080923196_init8.cs</DependentUpon>
+    <Compile Include="Migrations\201910221520476_init.cs" />
+    <Compile Include="Migrations\201910221520476_init.Designer.cs">
+      <DependentUpon>201910221520476_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BankAccounts.cs" />
@@ -2900,28 +2884,16 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904301047249_newT.resx">
-      <DependentUpon>201904301047249_newT.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905230837440_init3.resx">
-      <DependentUpon>201905230837440_init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907030843098_init5.resx">
-      <DependentUpon>201907030843098_init5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907031234033_init6.resx">
-      <DependentUpon>201907031234033_init6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907080923196_init8.resx">
-      <DependentUpon>201907080923196_init8.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201910221520476_init.resx">
+      <DependentUpon>201910221520476_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

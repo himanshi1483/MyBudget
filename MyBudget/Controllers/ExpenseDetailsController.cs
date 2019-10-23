@@ -119,7 +119,7 @@ namespace MyBudget.Controllers
             {
                 db.Entry(expenseDetail).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("ListIndex", "MonthlyPlanner");
+                return RedirectToAction("Edit", "MonthlyPlanner", new { planId = expenseDetail.planId });
             }
             return RedirectToAction("ListIndex", "MonthlyPlanner");
         }

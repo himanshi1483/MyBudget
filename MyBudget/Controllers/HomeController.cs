@@ -29,8 +29,8 @@ namespace MyBudget.Controllers
             var totalExpense = _expenseDetails.Sum(x => x.ActualAmount);
             var totalSavings = _savingDetails.Sum(x => x.AmountAccumulated);
             var totalInvestments = _investmentDetails.Sum(x => x.AmountAccumulated);
-
-            model.TotalIncome = totalIncomeThisMonth;
+            var t = (db.SubCategories.Where(x => x.Frequency == Enumerations.Frequency.Once).Sum(x => x.ExpectedAmount) != null) ? db.SubCategories.Where(x => x.Frequency == Enumerations.Frequency.Once).Sum(x => x.ExpectedAmount) : 0;
+            model.TotalOneTimeSavings = t;
             model.TotalExpense = totalExpense;
             model.TotalInvestment = totalInvestments;
             model.TotalSavings = totalSavings;

@@ -81,7 +81,7 @@ namespace MyBudget.Utility
                     string[] msg = d.Split(new string[] { "Message text: " }, StringSplitOptions.None);
                     model.SMSText = d;// msg[1];
                     string sa = @"""" + "/Date(" + m.InternalDate + "-0530 )/" + @"""";
-                    model.Date = JsonConvert.DeserializeObject<DateTime>(sa);
+                    model.Date = DateTime.Now;// JsonConvert.DeserializeObject<DateTime>(sa);
                     //model.Label = _labels.Where(x => x.Id == m.LabelIds)
                     if (db.SMSData.Count() > 0)
                     {
