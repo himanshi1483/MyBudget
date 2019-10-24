@@ -113,7 +113,7 @@ namespace MyBudget.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ExpenseId,ActualAmount,SubCategoryId,DebitDate,ForMonth,FinancialYear")] ExpenseDetail expenseDetail)
+        public async Task<ActionResult> Edit( ExpenseDetail expenseDetail)
         {
             if (ModelState.IsValid)
             {

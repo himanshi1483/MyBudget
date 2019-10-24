@@ -16,7 +16,7 @@ namespace MyBudget.Models
         public double TotalInvestmentThisMonth { get; set; }
         public double TotalSavingsThisMonth { get; set; }
         public List<BankAccounts> BankAccounts { get; set; }
-
+        public List<SubCategories> SubCategories { get; set; }
         public List<RecurringInvestment> RecurringInvestments { get; set; }
         public List<OneTimeInvestment> OneTimeInvestments { get; set; }
         public double TotalBalance { get; set; }

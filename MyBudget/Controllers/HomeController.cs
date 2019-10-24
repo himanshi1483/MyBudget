@@ -106,6 +106,8 @@ namespace MyBudget.Controllers
                 data1.MaturityAmount = data1.Amount;
                 model.OneTimeInvestments.Add(data1);
             }
+            model.SubCategories = new List<SubCategories>();
+            model.SubCategories = db.SubCategories.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)).ToList();
             return View(model);
         }
         public ActionResult Contact()

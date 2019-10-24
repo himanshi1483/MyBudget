@@ -372,7 +372,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <table class="table table-warning table-bordered mb-none" style="padding:2px !important" id="incomeTable">
+                <table class="table table-hover table-light" id="incomeTable">
                     <thead>
                         <tr>
                             @*<th></th>*@
@@ -403,10 +403,10 @@
                                 @*<td></td>
                                     <td></td>*@
                                 <td class="actions">
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.IncomeId" data-target="#incomeModal2-@item.IncomeId">
+                                    <button  style="padding:0"  class="btn btn-link" data-toggle="modal" data-bind="@item.IncomeId" data-target="#incomeModal2-@item.IncomeId">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#"  style="padding:0"  class="btn btn-link on-default remove-row"><i class="fa fa-trash-o"></i></a>
 
                                     @Html.HiddenFor(x => item.planId)
                                 </td>
@@ -441,7 +441,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <table id="savingsTable" class="table table-bordered table-striped mb-none" style="width:100%">
+                <table id="savingsTable" class="table table-hover table-light">
                     <thead>
                         <tr>
 
@@ -449,10 +449,10 @@
                                 Sub-Category
                             </th>
                             <th>
-                                Expected Amount
+                                Expected
                             </th>
                             <th>
-                                Actual Amount
+                                Actual
                             </th>
 
                             <th></th>
@@ -469,10 +469,10 @@
 
                                 <td class="actions">
                                     @*<a href="@Url.Action("Edit", "SavingsDetails", new { id = @item.SavingsId })"><i class="fa fa-pencil"></i></a>*@
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.SavingsId" data-target="#savingsModal2-@item.SavingsId">
+                                    <button class="btn btn-link"  style="padding:0"  data-toggle="modal" data-bind="@item.SavingsId" data-target="#savingsModal2-@item.SavingsId">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#"  style="padding:0"  class="btn btn-link on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                 </td>
                                 @Html.HiddenFor(x => item.planId)
                             </tr>
@@ -510,7 +510,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <table id="investTable" class="table table-bordered table-striped mb-none" style="width:100%">
+                <table id="investTable"  class="table table-hover table-light">
                     <thead>
                         <tr>
 
@@ -518,10 +518,10 @@
                                 Sub-Category
                             </th>
                             <th>
-                                Expected Amount
+                                Expected
                             </th>
                             <th>
-                                Actual Amount
+                                Actual
                             </th>
 
                             <th></th>
@@ -539,10 +539,10 @@
                                 <td class="actions">
                                     @*<a href="@Url.Action("Edit", "InvestmentDetails", new { id = @item.InvestmentId })"><i class="fa fa-pencil"></i></a>*@
 
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.InvestmentId" data-target="#investModal2-@item.InvestmentId">
+                                    <button class="btn btn-link"  style="padding:0"  data-toggle="modal" data-bind="@item.InvestmentId" data-target="#investModal2-@item.InvestmentId">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#"  style="padding:0"  class="btn btn-link on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             @Html.HiddenFor(x => item.planId)
@@ -577,7 +577,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <table id="expenseTable" class="table table-bordered table-striped mb-none" style="width:100%">
+                <table id="expenseTable" class="table table-hover table-light">
                     <thead>
                         <tr>
                             @*<th>
@@ -587,10 +587,10 @@
                                 Sub-Category
                             </th>
                             <th>
-                                Expected Amount
+                                Expected
                             </th>
                             <th>
-                                Actual Amount
+                                Actual
                             </th>
                             @*<th>
                                     Month
@@ -610,13 +610,13 @@
                                 <td> &#x20B9 @item.ExpectedAmount</td>
                                 <td> &#x20B9 @item.ActualAmount</td>
                                 @*<td>@item.ForMonth</td>
-                                    <td>@item.FinancialYear</td>*@
+                <td>@item.FinancialYear</td>*@
                                 <td class="actions">
                                     @*<a href="@Url.Action("Edit", "ExpenseDetails", new { id = @item.ExpenseId })"><i class="fa fa-pencil"></i></a>*@
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-bind="@item.ExpenseId" data-target="#expModal2-@item.ExpenseId">
+                                    <button class="btn btn-link" style="padding:0" data-toggle="modal" data-bind="@item.ExpenseId" data-target="#expModal2-@item.ExpenseId">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <a href="#" class="btn btn-default btn-sm on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#"  style="padding:0" class="btn btn-link on-default remove-row"><i class="fa fa-trash-o"></i></a>
 
                                 </td>
                             </tr>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My Finances</title>
     <!-- Favicons -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="/Content/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -35,8 +35,8 @@
         <div class="page-header-inner ">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="index.html">
-                    <img src="/Content/metronic/assets/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default" />
+                <a href="@Url.Action("Index", "Home")" style="text-decoration:none">
+                    <h3  class="font-white font-weight-bold">  My Finances</h3>
                 </a>
                 <div class="menu-toggler sidebar-toggler">
                     <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
