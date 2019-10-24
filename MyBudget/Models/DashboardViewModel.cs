@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static MyBudget.Utility.Enumerations;
 
 namespace MyBudget.Models
 {
@@ -15,9 +16,37 @@ namespace MyBudget.Models
         public double TotalInvestmentThisMonth { get; set; }
         public double TotalSavingsThisMonth { get; set; }
         public List<BankAccounts> BankAccounts { get; set; }
+
+        public List<RecurringInvestment> RecurringInvestments { get; set; }
+        public List<OneTimeInvestment> OneTimeInvestments { get; set; }
         public double TotalBalance { get; set; }
         public double TotalLiability { get; set; }
         public double TotalOneTimeSavings { get; set; }
         public List<MonthlyPlan> PlanList { get; set; }
+    }
+
+    public class RecurringInvestment
+    {
+        public int SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+        public double Amount { get; set; }
+        public double AccumulatedTillNow { get; set; }
+        public double MaturityAmount { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int TotalMonthsDuration { get; set; }
+        public int MonthsTillNow { get; set; }
+    }
+
+    public class OneTimeInvestment
+    {
+        public int SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+        public double Amount { get; set; }
+        public double MaturityAmount { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int TotalMonthsDuration { get; set; }
+        public int MonthsTillNow { get; set; }
     }
 }

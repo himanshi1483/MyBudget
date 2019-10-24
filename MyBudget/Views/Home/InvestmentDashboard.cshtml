@@ -1,0 +1,132 @@
+﻿@model MyBudget.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Investment Dashboard";
+}
+<style>
+    .widget-thumb .widget-thumb-wrap .widget-thumb-icon {
+    float: left;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 41px;
+    color: #fff;
+    text-align: center;
+    padding: 6px;
+    margin-right: 15px;
+}
+</style>
+<h1 class="page-title">
+    Investments and Savings Dashboard
+    @*<small>statistics, charts, recent events and reports</small>*@
+</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="index.html">Investments and Savings</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>Recurring</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-fit-height red-soft">
+                        Total Accumulated : INR @Model.RecurringInvestments.Sum(x => x.AccumulatedTillNow)
+
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        @foreach (var item in Model.RecurringInvestments)
+        {
+            int percent = @Convert.ToInt32(item.AccumulatedTillNow / (item.MaturityAmount) * 100);
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="dashboard-stat2 ">
+                    <div class="display">
+                        <div class="number">
+                            <h3 class="font-green-sharp">
+                                <span data-counter="counterup" data-value="@item.AccumulatedTillNow">0</span>
+                                <small class="font-green-sharp">INR</small>
+                            </h3>
+                            <small>@item.SubCategoryName</small>
+                        </div>
+                        <div class="icon">
+                            <i class="icon-pie-chart"></i>
+                        </div>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress">
+
+                            <span style="width:@percent%;" class="progress-bar progress-bar-success green-sharp">
+                                <span class="sr-only">@percent % progress</span>
+                            </span>
+                        </div>
+                        <div class="status">
+                            <div class="status-title"> progress </div>
+                            <div class="status-number">@percent % </div>
+                        </div>
+                        <br />
+                        <div class="status">
+                            <div class="status-title font-red-soft"> maturity amount </div>
+                            <div class="status-number font-red-soft">@item.MaturityAmount </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row widget-row">
+    <div class="col-md-12">
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="index.html">Investments and Savings</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>One-Time (Fixed Deposits, Lumpsum, etc.)</span>
+                </li>
+            </ul>
+            <div class="page-toolbar">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-fit-height red-soft">
+                        Total Accumulated : INR @Model.OneTimeInvestments.Sum(x => x.MaturityAmount)
+
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        @foreach (var item in Model.OneTimeInvestments)
+        {
+            <div class="col-md-3">
+                <!-- BEGIN WIDGET THUMB -->
+                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20" style="padding:14px !important">
+                    <h4 class="widget-thumb-heading" style="font-size:12px;font-weight:600">@item.SubCategoryName</h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon bg-red icon-layers"></i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle">INR</span>
+                            <span class="widget-thumb-body-stat" style="font-size:24px" data-counter="counterup" data-value="@item.MaturityAmount">0</span>
+
+                        </div>
+                    </div>
+                    <span class="font-blue-steel" style="font-size:11px;font-weight:600">Maturity Date</span>
+                    <span class="font-blue-steel"  style="font-size:11px;float:right;font-weight:600"> @item.EndDate.Value.ToLongDateString()</span>
+                </div>
+                <!-- END WIDGET THUMB -->
+            </div>
+        }
+    </div>
+</div>
