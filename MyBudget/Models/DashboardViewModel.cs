@@ -13,6 +13,8 @@ namespace MyBudget.Models
         public double TotalInvestment { get; set; }
         public double TotalSavings { get; set; }
         public double TotalExpenseThisMonth { get; set; }
+        public double TotalInvestmentThisYear { get; set; }
+        public double TotalSavingsThisYear { get; set; }
         public double TotalInvestmentThisMonth { get; set; }
         public double TotalSavingsThisMonth { get; set; }
         public List<BankAccounts> BankAccounts { get; set; }
@@ -23,8 +25,20 @@ namespace MyBudget.Models
         public double TotalLiability { get; set; }
         public double TotalOneTimeSavings { get; set; }
         public List<MonthlyPlan> PlanList { get; set; }
+
+        public List<YearlyDetail> YearlyInvestment { get; set; }
+        public List<YearlyDetail> YearlySavings { get; set; }
     }
 
+    public class YearlyDetail
+    {
+        public int SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+        public double Amount { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public Utility.Enumerations.Type Type { get; set; }
+    }
     public class RecurringInvestment
     {
         public int SubCategoryId { get; set; }

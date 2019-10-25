@@ -47,7 +47,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </span>
-                @Html.EditorFor(model => model.DebitDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DebitDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
                 @Html.ValidationMessageFor(model => model.DebitDate, "", new { @class = "text-danger" })
             </div>
         </div>

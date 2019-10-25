@@ -31,7 +31,8 @@ namespace MyBudget.Controllers
                             IsDefault = m.u.IsDefault,
                             Name = m.u.Name,
                             Owner = m.u.Owner,
-                            SubCategoryId = m.u.SubCategoryId
+                            SubCategoryId = m.u.SubCategoryId,
+                            Type = m.u.Type
                         }).ToList();
             return View(query);
         }
@@ -69,10 +70,11 @@ namespace MyBudget.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubCategoryId,Name,Frequency,ExpectedAmount,StartDate,EndDate,ParentCategoryId,Owner,IsDefault")] SubCategories subCategories)
+        public ActionResult Create(SubCategories subCategories)
         {
             if (ModelState.IsValid)
             {
+
                 db.SubCategories.Add(subCategories);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,7 +108,7 @@ namespace MyBudget.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubCategoryId,Name,Frequency,ExpectedAmount,StartDate,EndDate,ParentCategoryId,Owner,IsDefault")] SubCategories subCategories)
+        public ActionResult Edit(SubCategories subCategories)
         {
             if (ModelState.IsValid)
             {

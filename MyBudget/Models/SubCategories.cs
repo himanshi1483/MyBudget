@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using static MyBudget.Utility.Enumerations;
+using Type = MyBudget.Utility.Enumerations.Type;
 
 namespace MyBudget.Models
 {
@@ -20,6 +21,8 @@ namespace MyBudget.Models
 
         [NotMapped]
         public int TotalDurationInMonths { get; set; }
+
+        public Type Type { get; set; }
 
         public int ParentCategoryId { get; set; }
         [NotMapped]
