@@ -45,50 +45,46 @@
                                 @Html.DisplayNameFor(model => model.Frequency)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ExpectedAmount)
+                                @Html.DisplayNameFor(model => model.InvestedAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TypeOfInvestment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PortfolioNumber)
                             </th>
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.ParentCategoryName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Owner)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IsDefault)
-                            </th>
+
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Frequency)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ExpectedAmount)
-                                </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Frequency)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InvestedAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeOfInvestment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PortfolioNumber)
+                            </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ParentCategoryName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Owner)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IsDefault)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.SubCategoryId }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.SubCategoryId }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.SubCategoryId })
-                                </td>
-                            </tr>
+
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.SubCategoryId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.SubCategoryId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.SubCategoryId })
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

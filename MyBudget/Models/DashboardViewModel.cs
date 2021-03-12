@@ -19,12 +19,27 @@ namespace MyBudget.Models
         public List<SubCategories> SubCategories { get; set; }
         public List<RecurringInvestment> RecurringInvestments { get; set; }
         public List<OneTimeInvestment> OneTimeInvestments { get; set; }
+
+        public List<OneTimeInvestment> RetirementPlans { get; set; }
         public double TotalBalance { get; set; }
-        public double TotalLiability { get; set; }
+        public double TotalLiabilityCC { get; set; }
+        public double TotalLiabilityLoan { get; set; }
         public double TotalOneTimeSavings { get; set; }
         public List<MonthlyPlan> PlanList { get; set; }
+
+        public List<InvestmentModel> MyInvestments { get; set; }
     }
 
+    public class InvestmentModel
+    {
+        public InvestmentType InvestmentType { get; set; }
+
+        public double TotalTillNow { get; set; }
+        public List<RecurringInvestment> RecurringInvestments { get; set; }
+        public List<OneTimeInvestment> OneTimeInvestments { get; set; }
+
+
+    }
     public class RecurringInvestment
     {
         public int SubCategoryId { get; set; }
@@ -36,6 +51,7 @@ namespace MyBudget.Models
         public DateTime? EndDate { get; set; }
         public int TotalMonthsDuration { get; set; }
         public int MonthsTillNow { get; set; }
+        public InvestmentType InvestmentType { get; set; }
     }
 
     public class OneTimeInvestment

@@ -38,7 +38,8 @@ namespace MyBudget.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Categories();
+            return View(model);
         }
 
         // POST: Categories/Create

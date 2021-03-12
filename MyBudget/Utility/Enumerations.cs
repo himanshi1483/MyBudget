@@ -33,5 +33,14 @@
             LoanAccount,
             CreditCard
         }
+
+        public enum InvestmentType
+        {
+            NA,
+            MutualFunds,
+            RetirementPlans,
+            BankDeposits
+           
+        }
     }
 }

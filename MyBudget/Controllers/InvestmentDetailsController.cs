@@ -57,7 +57,8 @@ namespace MyBudget.Controllers
             {
                 ViewBag.SubCategories = items;
             }
-            return View();
+            var model = new InvestmentDetail();
+            return View(model);
         }
 
         // POST: InvestmentDetails/Create

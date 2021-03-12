@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="~/Theme/assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
 <!-- BEGIN DASHBOARD STATS 1-->
 <h1 class="page-title">
-    My Finance Dashboard
+    My Finance Dashboard @*- FY @DateTime.Now.Year - @DateTime.Now.AddYears(1).Year*@
     @*<small>statistics, charts, recent events and reports</small>*@
 </h1>
 <div class="row">
@@ -17,9 +17,9 @@
             </div>
             <div class="details">
                 <div class="number">
-                    INR  <span data-counter="counterup" data-value="@Model.TotalBalance">0</span>
+                    <small> <i class="fa fa-inr"></i></small> <span data-counter="counterup" data-value="@Model.TotalBalance">0</span>
                 </div>
-                <div class="desc"> Total Liquid Balance </div>
+                <div class="desc"> Liquid Balance </div>
             </div>
         </a>
     </div>
@@ -30,9 +30,9 @@
             </div>
             <div class="details">
                 <div class="number">
-                    INR   <span data-counter="counterup" data-value="@Model.TotalLiability">0</span>
+                    <small> <i class="fa fa-inr"></i></small>   <span data-counter="counterup" data-value="@Model.TotalLiabilityCC">0</span>
                 </div>
-                <div class="desc"> Total Credit Card Due </div>
+                <div class="desc"> Credit Card Due </div>
             </div>
         </a>
     </div>
@@ -43,9 +43,9 @@
             </div>
             <div class="details">
                 <div class="number">
-                    INR <span data-counter="counterup" data-value="@Model.TotalExpense">0</span>
+                    <small> <i class="fa fa-inr"></i></small> <span data-counter="counterup" data-value="@Model.TotalLiabilityLoan">0</span>
                 </div>
-                <div class="desc"> Current Expenses </div>
+                <div class="desc"> Loans and EMIs </div>
             </div>
         </a>
     </div>
@@ -57,9 +57,9 @@
             <div class="details">
                 <div class="number">
                     +
-                    INR   <span data-counter="counterup" data-value="@Model.TotalInvestment"></span>
+                    <small> <i class="fa fa-inr"></i></small>   <span data-counter="counterup" data-value="@Model.TotalInvestment"></span>
                 </div>
-                <div class="desc"> Total Investments </div>
+                <div class="desc">  Investments </div>
             </div>
         </a>
     </div>

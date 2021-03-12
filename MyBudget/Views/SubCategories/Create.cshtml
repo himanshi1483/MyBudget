@@ -1,99 +1,180 @@
 ﻿@model MyBudget.Models.SubCategories
 
-@{
-    ViewBag.Title = "Create";
-}
-
-<h2>Create</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>SubCategories</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Frequency, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(x => x.Frequency, "Frequency", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Frequency, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpectedAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpectedAmount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpectedAmount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ParentCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ParentCategoryId", new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"))
-                @*@Html.EditorFor(model => model.ParentCategoryId, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.ValidationMessageFor(model => model.ParentCategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Owner, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsDefault, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsDefault)
-                    @Html.ValidationMessageFor(model => model.IsDefault, "", new { @class = "text-danger" })
+@{ ViewBag.Title = "Create"; }
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+<link href="/Content/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="/Content/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+<link href="/Content/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/Content/metronic/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL STYLES -->
+<link href="/Content/metronic/assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components" type="text/css" />
+<link href="/Content/metronic/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+<!-- END THEME GLOBAL STYLES -->
+<!-- BEGIN THEME LAYOUT STYLES -->
+<link href="/Content/metronic/assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
+<link href="/Content/metronic/assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="/Content/metronic/assets/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
+<!-- END THEME LAYOUT STYLES -->
+<style>
+    .input-xlarge {
+        width: 555px !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Create New Record
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"> </a>
+                    <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                    <a href="javascript:;" class="reload"> </a>
+                    <a href="javascript:;" class="remove"> </a>
                 </div>
             </div>
-        </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm())
+                {@Html.AntiForgeryToken()
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="control-label">Name</label>
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Parent Category</label>
+                                        @Html.DropDownList("ParentCategoryId", new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"), new { @class = "form-control input-xlarge" })
+
+                                    </div>
+                                    <div class="form-group investDiv">
+                                        <label>Investment Type</label>
+                                        @Html.EnumDropDownListFor(x => x.TypeOfInvestment, "InvestmentType", new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Portfolio/Account Number</label>
+                                        @Html.EditorFor(x => x.PortfolioNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Frequency</label>
+                                        @Html.EnumDropDownListFor(x => x.Frequency, "Frequency", new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label investDiv">Invested Amount</label>
+                                        <label class="control-label  loanDiv">Loan Amount(Monthly)</label>
+                                        @Html.EditorFor(model => model.InvestedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    @*<div class="form-group">
+                                        
+                                        @Html.EditorFor(model => model.InvestedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>*@
+                                    <div class="form-group ">
+                                        <label>Expected Interest</label>
+                                        @Html.EditorFor(x => x.ExpectedInterest, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label investDiv">Expected Amount</label>
+                                        <label class="control-label loanDiv">Total Loan Amount</label>
+                                        @Html.EditorFor(model => model.ExpectedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                               
+                                    <div class="form-group">
+                                        <label class="control-label">Start Date</label>
+                                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">End Date</label>
+                                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="mt-checkbox">
+                                            <input type="checkbox">Default?  @Html.EditorFor(model => model.IsDefault)
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group last">
+                                        <label class="control-label">Owner</label>
+                                        @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn green">Submit</button>
+                                                    <button type="button" class="btn default">Cancel</button>
+                                                </div>}
             </div>
         </div>
     </div>
-}
+    <div class="col-md-3">
+    </div>
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
+<!-- BEGIN CORE PLUGINS -->
+<script src="/Content/metronic/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="/Content/metronic/assets/global/scripts/app.min.js" type="text/javascript"></script>
+<!-- END THEME GLOBAL SCRIPTS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/Content/metronic/assets/pages/scripts/form-samples.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="/Content/metronic/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/layouts/layout2/scripts/demo.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+<script src="/Content/metronic/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+<!-- END THEME LAYOUT SCRIPTS -->
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script src="~/Theme/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd/M/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0"
+        });
+        $(".investDiv").show();
+        $(".loanDiv").hide();
+    });
+</script>
+<script>
+
+    $(document.body).on("change", "#ParentCategoryId", function () {
+        if (this.value == 5) {
+            $(".investDiv").hide();
+            $(".loanDiv").show();
+        }
+        else {
+            $(".investDiv").show();
+            $(".loanDiv").hide();
+        }
+    });
+
+</script>

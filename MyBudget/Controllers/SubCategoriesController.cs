@@ -24,14 +24,16 @@ namespace MyBudget.Controllers
                         {
                             ParentCategoryName = m.uir.CategoryName,
                             ParentCategoryId = m.u.ParentCategoryId,
-                            ExpectedAmount = m.u.ExpectedAmount,
+                            InvestedAmount = m.u.InvestedAmount,
                             EndDate = m.u.EndDate,
                             StartDate = m.u.StartDate,
                             Frequency = m.u.Frequency,
                             IsDefault = m.u.IsDefault,
                             Name = m.u.Name,
                             Owner = m.u.Owner,
-                            SubCategoryId = m.u.SubCategoryId
+                            SubCategoryId = m.u.SubCategoryId,
+                            TypeOfInvestment = m.u.TypeOfInvestment,
+                            PortfolioNumber = m.u.PortfolioNumber
                         }).ToList();
             return View(query);
         }
@@ -59,9 +61,9 @@ namespace MyBudget.Controllers
             {
                 ViewBag.Categories = items;
             }
+            var model = new SubCategories();
 
-
-            return View();
+            return View(model);
         }
 
         // POST: SubCategories/Create
@@ -69,7 +71,7 @@ namespace MyBudget.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubCategoryId,Name,Frequency,ExpectedAmount,StartDate,EndDate,ParentCategoryId,Owner,IsDefault")] SubCategories subCategories)
+        public ActionResult Create(SubCategories subCategories)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +108,7 @@ namespace MyBudget.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubCategoryId,Name,Frequency,ExpectedAmount,StartDate,EndDate,ParentCategoryId,Owner,IsDefault")] SubCategories subCategories)
+        public ActionResult Edit(SubCategories subCategories)
         {
             if (ModelState.IsValid)
             {

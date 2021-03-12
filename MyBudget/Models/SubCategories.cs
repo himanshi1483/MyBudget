@@ -14,6 +14,7 @@ namespace MyBudget.Models
         public int SubCategoryId { get; set; }
         public string Name { get; set; }
         public Frequency Frequency { get; set; }
+        public double InvestedAmount { get; set; }
         public double ExpectedAmount { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -26,5 +27,9 @@ namespace MyBudget.Models
         public string ParentCategoryName { get; set; }
         public string Owner { get; set; }
         public bool IsDefault { get; set; }
+        public string PortfolioNumber { get; set; }
+
+        public decimal ExpectedInterest { get; set; }
+        public InvestmentType TypeOfInvestment { get; set; }
     }
 }
