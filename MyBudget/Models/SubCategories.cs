@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 using static MyBudget.Utility.Enumerations;
 using Type = MyBudget.Utility.Enumerations.Type;
 
@@ -19,6 +16,8 @@ namespace MyBudget.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
+        public DepositType DepositType { get; set; }
+
         [NotMapped]
         public int TotalDurationInMonths { get; set; }
 
@@ -27,6 +26,8 @@ namespace MyBudget.Models
         public int ParentCategoryId { get; set; }
         [NotMapped]
         public string ParentCategoryName { get; set; }
+
+
         public string Owner { get; set; }
         public bool IsDefault { get; set; }
     }

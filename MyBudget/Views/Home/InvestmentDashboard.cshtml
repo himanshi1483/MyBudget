@@ -247,7 +247,7 @@
             <div class="page-toolbar">
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-fit-height red-soft">
-                        Total Expected Principle Amount : INR @(Model.OneTimeInvestments.Sum(x => x.MaturityAmount) + Model.RecurringInvestments.Sum(x => x.MaturityAmount))
+                        Total Invested Amount : INR @(Model.OneTimeInvestments.Sum(x => x.Amount) + Model.RecurringInvestments.Sum(x => x.MaturityAmount))
 
                     </button>
                 </div>

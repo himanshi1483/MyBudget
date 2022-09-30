@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MyBudget.Utility
 {
@@ -51,6 +47,18 @@ namespace MyBudget.Utility
             TaxSavingMF = 3,
             [Display(Name = "Regular Mutual Fund")]
             RegularMF = 4
+        }
+
+        public enum DepositType
+        {
+            [Display(Name = "Bank Deposit")]
+            BankDeposit = 1,
+            [Display(Name = "Mutual Fund")]
+            MutualFund = 2,
+            [Display(Name = "Retirement Fund")]
+            RetirementFund = 3,
+            [Display(Name = "Others(Gold,etc)")]
+            Others = 4
         }
     }
 
