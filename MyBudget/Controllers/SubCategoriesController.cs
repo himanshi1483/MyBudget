@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MyBudget.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MyBudget.Models;
 
 namespace MyBudget.Controllers
 {
@@ -112,6 +109,15 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+                var prevModel = db.SubCategories.AsNoTracking().Where(x => x.SubCategoryId == subCategories.SubCategoryId).FirstOrDefault();
+                if (subCategories.StartDate == null)
+                {
+                    subCategories.StartDate = prevModel.StartDate;
+                }
+                if (subCategories.EndDate == null)
+                {
+                    subCategories.EndDate = prevModel.EndDate;
+                }
                 db.Entry(subCategories).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
