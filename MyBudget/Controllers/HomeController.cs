@@ -3,7 +3,6 @@ using MyBudget.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MyBudget.Controllers
@@ -13,9 +12,9 @@ namespace MyBudget.Controllers
         public ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-          //  ModelData.TrainData();
+            //  ModelData.TrainData();
             //GmailSettings gs = new GmailSettings();
-           // GmailSettings.GetMail();
+            // GmailSettings.GetMail();
             DashboardViewModel model = new DashboardViewModel();
             var _incomeDetails = db.IncomeDetails.ToList();
             var _expenseDetails = db.ExpenseDetails.ToList();
@@ -58,7 +57,7 @@ namespace MyBudget.Controllers
             var _savingDetails = db.SavingsDetails.ToList();
             var _investmentDetails = db.InvestmentDetails.ToList();
             var currentFinYear = DateTime.Now.Year + "-" + (DateTime.Now.Year + 1);
-            var totalSavingsThisYr = _savingDetails.Where(x=>x.FinancialYear == currentFinYear).Sum(x => x.ActualAmount);
+            var totalSavingsThisYr = _savingDetails.Where(x => x.FinancialYear == currentFinYear).Sum(x => x.ActualAmount);
             var totalInvestmentsThisYr = _investmentDetails.Where(x => x.FinancialYear == currentFinYear).Sum(x => x.ActualAmount);
             var totalSavings = _savingDetails.Sum(x => x.AmountAccumulated);
             var totalInvestments = _investmentDetails.Sum(x => x.AmountAccumulated);
@@ -70,17 +69,17 @@ namespace MyBudget.Controllers
             model.TotalSavingsThisYear = totalSavingsThisYr;
             //Recurring Deposits, Monthly SIPs, etc
             var parentCat = db.Categories.ToList();
-            var invCat = parentCat.Where(x => x.CategoryName == "Investment").Select(x => x.CategoryId).FirstOrDefault();
-            var savCat = parentCat.Where(x => x.CategoryName == "Savings").Select(x => x.CategoryId).FirstOrDefault();
+            var invCat = parentCat.Where(x => x.CategoryName == "Savings & Investments").Select(x => x.CategoryId).FirstOrDefault();
+            //var savCat = parentCat.Where(x => x.CategoryName == "Savings").Select(x => x.CategoryId).FirstOrDefault();
 
-            var recurr = db.SubCategories.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
+            var recurr = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
                                             && x.Frequency == Enumerations.Frequency.Monthly).ToList();
 
-           var _yearlyInv = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
-                                            && x.StartDate.Value.Year == DateTime.Now.Year).ToList();
+            var _yearlyInv = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
+                                             && x.StartDate.Value.Year == DateTime.Now.Year).ToList();
 
-            var _yearlySav = db.SubCategories.Where(x => (x.ParentCategoryId == savCat)
-                                            && x.StartDate.Value.Year == DateTime.Now.Year).ToList();
+            //var _yearlySav = db.SubCategories.Where(x => (x.ParentCategoryId == in)
+            //                                && x.StartDate.Value.Year == DateTime.Now.Year).ToList();
             model.YearlyInvestment = new List<YearlyDetail>();
             foreach (var item2 in _yearlyInv)
             {
@@ -94,18 +93,18 @@ namespace MyBudget.Controllers
                 model.YearlyInvestment.Add(invest);
             }
 
-            model.YearlySavings = new List<YearlyDetail>();
-            foreach (var item3 in _yearlySav)
-            {
-                var invest = new YearlyDetail();
-                invest.SubCategoryId = item3.SubCategoryId;
-                invest.SubCategoryName = item3.Name;
-                invest.StartDate = item3.StartDate;
-                invest.EndDate = item3.EndDate;
-                invest.Amount = item3.ExpectedAmount;
-                invest.Type = item3.Type;
-                model.YearlySavings.Add(invest);
-            }
+            //model.YearlySavings = new List<YearlyDetail>();
+            //foreach (var item3 in _yearlySav)
+            //{
+            //    var invest = new YearlyDetail();
+            //    invest.SubCategoryId = item3.SubCategoryId;
+            //    invest.SubCategoryName = item3.Name;
+            //    invest.StartDate = item3.StartDate;
+            //    invest.EndDate = item3.EndDate;
+            //    invest.Amount = item3.ExpectedAmount;
+            //    invest.Type = item3.Type;
+            //    model.YearlySavings.Add(invest);
+            //}
 
             model.RecurringInvestments = new List<RecurringInvestment>();
             foreach (var item in recurr)
@@ -116,6 +115,7 @@ namespace MyBudget.Controllers
                 data.StartDate = item.StartDate;
                 data.EndDate = item.EndDate;
                 data.Amount = item.ExpectedAmount;
+
                 data.TotalMonthsDuration = ((data.EndDate.Value.Year - data.StartDate.Value.Year) * 12) + data.EndDate.Value.Month - data.StartDate.Value.Month + 1;
                 data.MonthsTillNow = ((DateTime.Now.Year - data.StartDate.Value.Year) * 12) + DateTime.Now.Month - data.StartDate.Value.Month + 1;
                 data.AccumulatedTillNow = data.Amount * data.MonthsTillNow;
@@ -123,7 +123,7 @@ namespace MyBudget.Controllers
                 model.RecurringInvestments.Add(data);
             }
 
-            var oneTime = db.SubCategories.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
+            var oneTime = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
                                             && x.Frequency == Enumerations.Frequency.Once).ToList();
             model.OneTimeInvestments = new List<OneTimeInvestment>();
             foreach (var item in oneTime)
@@ -140,7 +140,7 @@ namespace MyBudget.Controllers
                 model.OneTimeInvestments.Add(data1);
             }
             model.SubCategories = new List<SubCategories>();
-            model.SubCategories = db.SubCategories.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)).ToList();
+            model.SubCategories = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)).ToList();
             return View(model);
         }
         public ActionResult Contact()
