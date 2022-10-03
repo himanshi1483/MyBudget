@@ -73,7 +73,7 @@ namespace MyBudget.Controllers
             //var savCat = parentCat.Where(x => x.CategoryName == "Savings").Select(x => x.CategoryId).FirstOrDefault();
 
             var recurr = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
-                                            && x.Frequency == Enumerations.Frequency.Monthly).ToList();
+                                            && x.Frequency != Enumerations.Frequency.Once).ToList();
 
             var _yearlyInv = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
                                              && x.StartDate.Value.Year == DateTime.Now.Year).ToList();
@@ -115,11 +115,23 @@ namespace MyBudget.Controllers
                 data.StartDate = item.StartDate;
                 data.EndDate = item.EndDate;
                 data.Amount = item.ExpectedAmount;
+                data.DepositType = item.DepositType;
+                if (item.Frequency == Enumerations.Frequency.Monthly)
+                {
+                    data.TotalMonthsDuration = ((data.EndDate.Value.Year - data.StartDate.Value.Year) * 12) + data.EndDate.Value.Month - data.StartDate.Value.Month + 1;
+                    data.MonthsTillNow = ((DateTime.Now.Year - data.StartDate.Value.Year) * 12) + DateTime.Now.Month - data.StartDate.Value.Month + 1;
+                    data.AccumulatedTillNow = data.Amount * data.MonthsTillNow;
+                    data.MaturityAmount = data.Amount * data.TotalMonthsDuration;
 
-                data.TotalMonthsDuration = ((data.EndDate.Value.Year - data.StartDate.Value.Year) * 12) + data.EndDate.Value.Month - data.StartDate.Value.Month + 1;
-                data.MonthsTillNow = ((DateTime.Now.Year - data.StartDate.Value.Year) * 12) + DateTime.Now.Month - data.StartDate.Value.Month + 1;
-                data.AccumulatedTillNow = data.Amount * data.MonthsTillNow;
-                data.MaturityAmount = data.Amount * data.TotalMonthsDuration;
+                }
+                else if (item.Frequency == Enumerations.Frequency.Yearly)
+                {
+                    data.TotalYearsDuration = ((data.EndDate.Value.Year - data.StartDate.Value.Year));
+                    data.YearsTillNow = (DateTime.Now.Year - data.StartDate.Value.Year);
+                    data.AccumulatedTillNow = data.Amount * data.YearsTillNow;
+                    data.MaturityAmount = data.Amount * data.TotalYearsDuration;
+                }
+
                 model.RecurringInvestments.Add(data);
             }
 
@@ -137,6 +149,7 @@ namespace MyBudget.Controllers
                 data1.TotalMonthsDuration = ((data1.EndDate.Value.Year - data1.StartDate.Value.Year) * 12) + data1.EndDate.Value.Month - data1.StartDate.Value.Month + 1;
                 data1.MonthsTillNow = ((DateTime.Now.Year - data1.StartDate.Value.Year) * 12) + DateTime.Now.Month - data1.StartDate.Value.Month + 1;
                 data1.MaturityAmount = data1.Amount;
+                data1.DepositType = item.DepositType;
                 model.OneTimeInvestments.Add(data1);
             }
             model.SubCategories = new List<SubCategories>();

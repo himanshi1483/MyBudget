@@ -19,78 +19,84 @@
                         @Html.HiddenFor(x => x.SubCategoryId)
                         @Html.AntiForgeryToken()
 
-                        <div class="form-body">
-                            <div class="form-group form-md-line-input  has-success">
-                                <label for="Name">Name</label>
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="form-body">
+                        <div class="form-group form-md-line-input  has-success">
+                            <label for="Name">Name</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-line-input has-success">
-                                <label for="Frequency">Frequency</label>
-                                @Html.EnumDropDownListFor(x => x.Frequency, "Frequency", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Frequency, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="Frequency">Frequency</label>
+                            @Html.EnumDropDownListFor(x => x.Frequency, "Frequency", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Frequency, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-line-input has-success">
-                                <label for="ExpectedAmount">Expected Amount</label>
-                                @Html.EditorFor(model => model.ExpectedAmount, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ExpectedAmount, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="ExpectedAmount">Expected Amount</label>
+                            @Html.EditorFor(model => model.ExpectedAmount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ExpectedAmount, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-line-input has-success">
-                                <label for="StartDate">Start Date</label>
-                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="StartDate">Start Date</label>
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-line-input has-success">
-                                <label for="EndDate">End Date</label>
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="EndDate">End Date</label>
 
-                                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-line-input has-success">
-                                <label for="ParentCategoryId">Parent Category</label>
-                                @Html.DropDownList("ParentCategoryId", new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"), new { @class = "form-control" })
-                                @*@Html.EditorFor(model => model.ParentCategoryId, new { htmlAttributes = new { @class = "form-control" } })*@
-                                @Html.ValidationMessageFor(model => model.ParentCategoryId, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="ParentCategoryId">Parent Category</label>
+                            @Html.DropDownList("ParentCategoryId", new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"), new { @class = "form-control" })
+                            @*@Html.EditorFor(model => model.ParentCategoryId, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.ParentCategoryId, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-line-input has-success">
-                                <label for="Type">Type</label>
-                                @Html.EnumDropDownListFor(x => x.Type, "Type", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="Type">Type</label>
+                            @Html.EnumDropDownListFor(x => x.Type, "Type", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-line-input has-success">
-                                <label for="Owner">Owner</label>
-                                @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="Type">DepositType</label>
+                            @Html.EnumDropDownListFor(x => x.DepositType, "DepositType", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DepositType, "", new { @class = "text-danger" })
+                        </div>
 
-                            <div class="form-group form-md-checkboxes">
-                                <div class="checkbox">
+                        <div class="form-group form-md-line-input has-success">
+                            <label for="Owner">Owner</label>
+                            @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
+                        </div>
 
-                                    <div class="md-checkbox">
-                                        @Html.EditorFor(model => model.IsDefault, new { @type = "checkbox", @class = "md-check" })
-                                        <label for="IsDefault">
-                                            <span></span>
-                                            <span class="check"></span>
-                                            <span class="box"></span> Is Default
-                                        </label>
-                                    </div>
-                                    @Html.ValidationMessageFor(model => model.IsDefault, "", new { @class = "text-danger" })
+                        <div class="form-group form-md-checkboxes">
+                            <div class="checkbox">
+
+                                <div class="md-checkbox">
+                                    @Html.EditorFor(model => model.IsDefault, new { @type = "checkbox", @class = "md-check" })
+                                    <label for="IsDefault">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Is Default
+                                    </label>
                                 </div>
-                            </div>
-
-                            <div class="form-group form-md-line-input">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Save" class="btn btn-default" />
-                                </div>
+                                @Html.ValidationMessageFor(model => model.IsDefault, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
+                        <div class="form-group form-md-line-input">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
                     }
 
                     <div>

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using static MyBudget.Utility.Enumerations;
 
 namespace MyBudget.Models
@@ -38,6 +36,7 @@ namespace MyBudget.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Utility.Enumerations.Type Type { get; set; }
+        public DepositType DepositType { get; set; }
     }
     public class RecurringInvestment
     {
@@ -50,6 +49,10 @@ namespace MyBudget.Models
         public DateTime? EndDate { get; set; }
         public int TotalMonthsDuration { get; set; }
         public int MonthsTillNow { get; set; }
+        public int TotalYearsDuration { get; set; }
+        public int YearsTillNow { get; set; }
+        public Frequency Frequency { get; set; }
+        public DepositType DepositType { get; set; }
     }
 
     public class OneTimeInvestment
@@ -62,5 +65,6 @@ namespace MyBudget.Models
         public DateTime? EndDate { get; set; }
         public int TotalMonthsDuration { get; set; }
         public int MonthsTillNow { get; set; }
+        public DepositType DepositType { get; set; }
     }
 }
