@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using static MyBudget.Utility.Enumerations;
-
-namespace MyBudget.Models
+﻿namespace MyBudget.Models
 {
     public class DashboardViewModel
     {
@@ -13,6 +7,8 @@ namespace MyBudget.Models
         public double TotalInvestment { get; set; }
         public double TotalSavings { get; set; }
         public double TotalExpenseThisMonth { get; set; }
+        public double TotalInvestmentThisYear { get; set; }
+        public double TotalSavingsThisYear { get; set; }
         public double TotalInvestmentThisMonth { get; set; }
         public double TotalSavingsThisMonth { get; set; }
         public List<BankAccounts> BankAccounts { get; set; }
@@ -27,18 +23,19 @@ namespace MyBudget.Models
         public double TotalOneTimeSavings { get; set; }
         public List<MonthlyPlan> PlanList { get; set; }
 
-        public List<InvestmentModel> MyInvestments { get; set; }
+        public List<YearlyDetail> YearlyInvestment { get; set; }
+        public List<YearlyDetail> YearlySavings { get; set; }
     }
 
-    public class InvestmentModel
+    public class YearlyDetail
     {
-        public InvestmentType InvestmentType { get; set; }
-
-        public double TotalTillNow { get; set; }
-        public List<RecurringInvestment> RecurringInvestments { get; set; }
-        public List<OneTimeInvestment> OneTimeInvestments { get; set; }
-
-
+        public int SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+        public double Amount { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public Utility.Enumerations.Type Type { get; set; }
+        public DepositType DepositType { get; set; }
     }
     public class RecurringInvestment
     {
@@ -51,7 +48,10 @@ namespace MyBudget.Models
         public DateTime? EndDate { get; set; }
         public int TotalMonthsDuration { get; set; }
         public int MonthsTillNow { get; set; }
-        public InvestmentType InvestmentType { get; set; }
+        public int TotalYearsDuration { get; set; }
+        public int YearsTillNow { get; set; }
+        public Frequency Frequency { get; set; }
+        public DepositType DepositType { get; set; }
     }
 
     public class OneTimeInvestment
@@ -64,5 +64,6 @@ namespace MyBudget.Models
         public DateTime? EndDate { get; set; }
         public int TotalMonthsDuration { get; set; }
         public int MonthsTillNow { get; set; }
+        public DepositType DepositType { get; set; }
     }
 }

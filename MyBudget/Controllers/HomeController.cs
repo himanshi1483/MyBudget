@@ -1,26 +1,18 @@
-﻿using MyBudget.Models;
-using MyBudget.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace MyBudget.Controllers
+﻿namespace MyBudget.Controllers
 {
     public class HomeController : Controller
     {
         public ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-          //  ModelData.TrainData();
+            //  ModelData.TrainData();
             //GmailSettings gs = new GmailSettings();
-           // GmailSettings.GetMail();
+            // GmailSettings.GetMail();
             DashboardViewModel model = new DashboardViewModel();
             var subCat = db.SubCategories.ToList();
-            var _investmentDetails = subCat.Where(x=>x.ParentCategoryId == 4).ToList();
+            var _investmentDetails = subCat.Where(x => x.ParentCategoryId == 4).ToList();
             var _bankAccounts = db.BankAccounts.ToList();
-            var totalInvestmentsThisMonth = _investmentDetails.Where(x=>x.Frequency == Enumerations.Frequency.Monthly).Sum(x => x.InvestedAmount);
+            var totalInvestmentsThisMonth = _investmentDetails.Where(x => x.Frequency == Enumerations.Frequency.Monthly).Sum(x => x.InvestedAmount);
             var totalInvestments = _investmentDetails.Sum(x => x.InvestedAmount);
             var yearly = subCat.Where(x => x.Frequency == Enumerations.Frequency.Once).Sum(x => (double?)x.ExpectedAmount) ?? 0;
             var monthly = subCat.Where(x => x.Frequency != Enumerations.Frequency.Once).Sum(x => (double?)x.ExpectedAmount) ?? 0;
@@ -37,7 +29,7 @@ namespace MyBudget.Controllers
             //liabilities
             var loans = subCat.Where(x => x.ParentCategoryId == 5).ToList();
 
-            var totalLiability = loans.Sum(x=>x.ExpectedAmount);
+            var totalLiability = loans.Sum(x => x.ExpectedAmount);
             double remainingLiability = 0;
             foreach (var item in loans)
             {
@@ -76,28 +68,58 @@ namespace MyBudget.Controllers
             model.MyInvestments = new List<InvestmentModel>();
             var _savingDetails = db.SavingsDetails.ToList();
             var _investmentDetails = db.InvestmentDetails.ToList();
-            var totalSavingsThisMonth = _savingDetails.Sum(x => x.ActualAmount);
-            var totalInvestmentsThisMonth = _investmentDetails.Sum(x => x.ActualAmount);
+            var currentFinYear = DateTime.Now.Year + "-" + (DateTime.Now.Year + 1);
+            var totalSavingsThisYr = _savingDetails.Where(x => x.FinancialYear == currentFinYear).Sum(x => x.ActualAmount);
+            var totalInvestmentsThisYr = _investmentDetails.Where(x => x.FinancialYear == currentFinYear).Sum(x => x.ActualAmount);
             var totalSavings = _savingDetails.Sum(x => x.AmountAccumulated);
             var totalInvestments = _investmentDetails.Sum(x => x.AmountAccumulated);
             var t = db.SubCategories.Where(x => x.Frequency == Enumerations.Frequency.Once).Sum(x => (double?)x.ExpectedAmount) ?? 0;
             model.TotalOneTimeSavings = t;
             model.TotalInvestment = totalInvestments;
             model.TotalSavings = totalSavings;
-            model.TotalInvestmentThisMonth = totalInvestmentsThisMonth;
-            model.TotalSavingsThisMonth = totalSavingsThisMonth;
-            var _investModel = new InvestmentModel();
+            model.TotalInvestmentThisYear = totalInvestmentsThisYr;
+            model.TotalSavingsThisYear = totalSavingsThisYr;
+            //Recurring Deposits, Monthly SIPs, etc
             var parentCat = db.Categories.ToList();
-            var subCat = db.SubCategories.ToList();
-            var invCat = parentCat.Where(x => x.CategoryName == "Investment").Select(x => x.CategoryId).FirstOrDefault();
-            var savCat = parentCat.Where(x => x.CategoryName == "Savings").Select(x => x.CategoryId).FirstOrDefault();
-            double sum = 0;
-            //MutualFUnds
+            var invCat = parentCat.Where(x => x.CategoryName == "Savings & Investments").Select(x => x.CategoryId).FirstOrDefault();
+            //var savCat = parentCat.Where(x => x.CategoryName == "Savings").Select(x => x.CategoryId).FirstOrDefault();
 
-            var recurr = subCat.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
-                                            && x.TypeOfInvestment == Enumerations.InvestmentType.MutualFunds 
+            var recurr = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
+                                            && x.Frequency != Enumerations.Frequency.Once).ToList();
+
+            var _yearlyInv = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)
+                                             && x.StartDate.Value.Year == DateTime.Now.Year).ToList();
+
+            //var _yearlySav = db.SubCategories.Where(x => (x.ParentCategoryId == in)
+            //                                && x.StartDate.Value.Year == DateTime.Now.Year).ToList();
+            model.YearlyInvestment = new List<YearlyDetail>();
+            foreach (var item2 in _yearlyInv)
+            {
+                var invest = new YearlyDetail();
+                invest.SubCategoryId = item2.SubCategoryId;
+                invest.SubCategoryName = item2.Name;
+                invest.StartDate = item2.StartDate;
+                invest.EndDate = item2.EndDate;
+                invest.Amount = item2.ExpectedAmount;
+                invest.Type = item2.Type;
+                model.YearlyInvestment.Add(invest);
+            }
+
+            //model.YearlySavings = new List<YearlyDetail>();
+            //foreach (var item3 in _yearlySav)
+            //{
+            //    var invest = new YearlyDetail();
+            //    invest.SubCategoryId = item3.SubCategoryId;
+            //    invest.SubCategoryName = item3.Name;
+            //    invest.StartDate = item3.StartDate;
+            //    invest.EndDate = item3.EndDate;
+            //    invest.Amount = item3.ExpectedAmount;
+            //    invest.Type = item3.Type;
+            //    model.YearlySavings.Add(invest);
+            //}
+
+            var recurr = db.SubCategories.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
                                             && x.Frequency == Enumerations.Frequency.Monthly).ToList();
-
             model.RecurringInvestments = new List<RecurringInvestment>();
             foreach (var item in recurr)
             {
@@ -106,11 +128,10 @@ namespace MyBudget.Controllers
                 data.SubCategoryName = item.Name;
                 data.StartDate = item.StartDate;
                 data.EndDate = item.EndDate;
-                data.Amount = item.InvestedAmount;
-                data.InvestmentType = item.TypeOfInvestment;
+                data.Amount = item.ExpectedAmount;
                 data.TotalMonthsDuration = ((data.EndDate.Value.Year - data.StartDate.Value.Year) * 12) + data.EndDate.Value.Month - data.StartDate.Value.Month + 1;
                 data.MonthsTillNow = ((DateTime.Now.Year - data.StartDate.Value.Year) * 12) + DateTime.Now.Month - data.StartDate.Value.Month + 1;
-                data.AccumulatedTillNow = (data.InvestmentType != Enumerations.InvestmentType.MutualFunds) ? ((data.MonthsTillNow > data.TotalMonthsDuration) ? data.Amount * data.TotalMonthsDuration : data.Amount * data.MonthsTillNow) : data.Amount * data.MonthsTillNow;
+                data.AccumulatedTillNow = data.Amount * data.MonthsTillNow;
                 data.MaturityAmount = data.Amount * data.TotalMonthsDuration;
                 model.RecurringInvestments.Add(data);
             }
@@ -118,9 +139,8 @@ namespace MyBudget.Controllers
             _investModel.RecurringInvestments = model.RecurringInvestments;
             sum = model.RecurringInvestments.Sum(x => x.AccumulatedTillNow);
 
-            var oneTime = subCat.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
-                              && x.TypeOfInvestment == Enumerations.InvestmentType.MutualFunds
-                              && x.Frequency == Enumerations.Frequency.Once).ToList();
+            var oneTime = db.SubCategories.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
+                                            && x.Frequency == Enumerations.Frequency.Once).ToList();
             model.OneTimeInvestments = new List<OneTimeInvestment>();
             foreach (var item in oneTime)
             {
@@ -133,124 +153,15 @@ namespace MyBudget.Controllers
                 data1.TotalMonthsDuration = ((data1.EndDate.Value.Year - data1.StartDate.Value.Year) * 12) + data1.EndDate.Value.Month - data1.StartDate.Value.Month + 1;
                 data1.MonthsTillNow = ((DateTime.Now.Year - data1.StartDate.Value.Year) * 12) + DateTime.Now.Month - data1.StartDate.Value.Month + 1;
                 data1.MaturityAmount = data1.Amount;
+                data1.DepositType = item.DepositType;
                 model.OneTimeInvestments.Add(data1);
             }
-            _investModel.OneTimeInvestments = new List<OneTimeInvestment>();
-            _investModel.OneTimeInvestments = model.OneTimeInvestments;
-            sum += model.OneTimeInvestments.Sum(x => x.MaturityAmount);
-            _investModel.TotalTillNow = sum;
-            _investModel.InvestmentType = Enumerations.InvestmentType.MutualFunds;
-            sum = 0;
-            model.MyInvestments.Add(_investModel);
-
-
-            //BankDeposits
-            _investModel = new InvestmentModel();
-            recurr = subCat.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
-                                           && x.TypeOfInvestment == Enumerations.InvestmentType.BankDeposits
-                                          && ((x.Frequency == Enumerations.Frequency.Monthly) || (x.Frequency == Enumerations.Frequency.Yearly))).ToList();
-
-            model.RecurringInvestments = new List<RecurringInvestment>();
-            foreach (var item in recurr)
-            {
-                var data = new RecurringInvestment();
-                data.SubCategoryId = item.SubCategoryId;
-                data.SubCategoryName = item.Name;
-                data.StartDate = item.StartDate;
-                data.EndDate = item.EndDate;
-                data.Amount = item.InvestedAmount;
-                data.InvestmentType = item.TypeOfInvestment;
-                data.TotalMonthsDuration = ((data.EndDate.Value.Year - data.StartDate.Value.Year) * 12) + data.EndDate.Value.Month - data.StartDate.Value.Month + 1;
-                data.MonthsTillNow = ((DateTime.Now.Year - data.StartDate.Value.Year) * 12) + DateTime.Now.Month - data.StartDate.Value.Month + 1;
-                data.AccumulatedTillNow = (data.InvestmentType != Enumerations.InvestmentType.MutualFunds) ? ((data.MonthsTillNow > data.TotalMonthsDuration) ? data.Amount * data.TotalMonthsDuration : data.Amount * data.MonthsTillNow) : data.Amount * data.MonthsTillNow;
-                data.MaturityAmount = item.ExpectedAmount;
-                model.RecurringInvestments.Add(data);
-            }
-            _investModel.RecurringInvestments = new List<RecurringInvestment>();
-            _investModel.RecurringInvestments = model.RecurringInvestments;
-            sum = model.RecurringInvestments.Sum(x => x.AccumulatedTillNow);
-
-            oneTime = subCat.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
-                              && x.TypeOfInvestment == Enumerations.InvestmentType.BankDeposits
-                              && x.Frequency == Enumerations.Frequency.Once).ToList();
-            model.OneTimeInvestments = new List<OneTimeInvestment>();
-            foreach (var item in oneTime)
-            {
-                var data1 = new OneTimeInvestment();
-                data1.SubCategoryId = item.SubCategoryId;
-                data1.SubCategoryName = item.Name;
-                data1.StartDate = item.StartDate;
-                data1.EndDate = item.EndDate;
-                data1.Amount = item.InvestedAmount;
-                data1.TotalMonthsDuration = ((data1.EndDate.Value.Year - data1.StartDate.Value.Year) * 12) + data1.EndDate.Value.Month - data1.StartDate.Value.Month + 1;
-                data1.MonthsTillNow = ((DateTime.Now.Year - data1.StartDate.Value.Year) * 12) + DateTime.Now.Month - data1.StartDate.Value.Month + 1;
-                data1.MaturityAmount = item.ExpectedAmount;
-                model.OneTimeInvestments.Add(data1);
-            }
-            _investModel.OneTimeInvestments = new List<OneTimeInvestment>();
-            _investModel.OneTimeInvestments = model.OneTimeInvestments;
-            _investModel.InvestmentType = Enumerations.InvestmentType.BankDeposits;
-            sum += model.OneTimeInvestments.Sum(x => x.MaturityAmount);
-            _investModel.TotalTillNow = sum;
-            sum = 0;
-            model.MyInvestments.Add(_investModel);
-
-
-            //RetirementPLans
-            _investModel = new InvestmentModel();
-            recurr = subCat.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
-                                          && x.TypeOfInvestment == Enumerations.InvestmentType.RetirementPlans
-                                          && ((x.Frequency == Enumerations.Frequency.Monthly) || (x.Frequency == Enumerations.Frequency.Yearly))).ToList();
-            
-            model.RecurringInvestments = new List<RecurringInvestment>();
-            foreach (var item in recurr)
-            {
-                var data = new RecurringInvestment();
-                data.SubCategoryId = item.SubCategoryId;
-                data.SubCategoryName = item.Name;
-                data.StartDate = item.StartDate;
-                data.EndDate = item.EndDate;
-                data.Amount = item.InvestedAmount;
-                data.InvestmentType = item.TypeOfInvestment;
-                data.TotalMonthsDuration = ((data.EndDate.Value.Year - data.StartDate.Value.Year) * 12) + data.EndDate.Value.Month - data.StartDate.Value.Month + 1;
-                data.MonthsTillNow = ((DateTime.Now.Year - data.StartDate.Value.Year) * 12) + DateTime.Now.Month - data.StartDate.Value.Month + 1;
-                var yearlyFreq = ((DateTime.Now.Year - data.StartDate.Value.Year)) + DateTime.Now.Year - data.StartDate.Value.Year;
-                data.AccumulatedTillNow = (item.Frequency == Enumerations.Frequency.Monthly) ? ((data.InvestmentType != Enumerations.InvestmentType.MutualFunds) ? ((data.MonthsTillNow > data.TotalMonthsDuration) ? data.Amount * data.TotalMonthsDuration : data.Amount * data.MonthsTillNow) : data.Amount * data.MonthsTillNow) : data.Amount * yearlyFreq;
-                data.MaturityAmount = item.ExpectedAmount;
-                model.RecurringInvestments.Add(data);
-            }
-            _investModel.RecurringInvestments = new List<RecurringInvestment>();
-            _investModel.RecurringInvestments = model.RecurringInvestments;
-            sum = model.RecurringInvestments.Sum(x => x.AccumulatedTillNow);
-            oneTime = subCat.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)
-                              && x.TypeOfInvestment == Enumerations.InvestmentType.RetirementPlans
-                              && x.Frequency == Enumerations.Frequency.Once).ToList();
-            model.OneTimeInvestments = new List<OneTimeInvestment>();
-            foreach (var item in oneTime)
-            {
-                var data1 = new OneTimeInvestment();
-                data1.SubCategoryId = item.SubCategoryId;
-                data1.SubCategoryName = item.Name;
-                data1.StartDate = item.StartDate;
-                data1.EndDate = item.EndDate;
-                data1.Amount = item.InvestedAmount;
-                data1.TotalMonthsDuration = ((data1.EndDate.Value.Year - data1.StartDate.Value.Year) * 12) + data1.EndDate.Value.Month - data1.StartDate.Value.Month + 1;
-                data1.MonthsTillNow = ((DateTime.Now.Year - data1.StartDate.Value.Year) * 12) + DateTime.Now.Month - data1.StartDate.Value.Month + 1;
-                data1.MaturityAmount = item.ExpectedAmount;//data1.Amount;
-                model.OneTimeInvestments.Add(data1);
-            }
-            _investModel.OneTimeInvestments = new List<OneTimeInvestment>();
-            _investModel.OneTimeInvestments = model.OneTimeInvestments;
-            _investModel.InvestmentType = Enumerations.InvestmentType.RetirementPlans;
-            sum += model.OneTimeInvestments.Sum(x => x.MaturityAmount);
-            _investModel.TotalTillNow = sum;
-            sum = 0;
-            model.MyInvestments.Add(_investModel);
-            model.SubCategories = subCat;
+            model.SubCategories = new List<SubCategories>();
+            model.SubCategories = db.SubCategories.Where(x => (x.ParentCategoryId == invCat || x.ParentCategoryId == savCat)).ToList();
             return View(model);
         }
 
-       
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

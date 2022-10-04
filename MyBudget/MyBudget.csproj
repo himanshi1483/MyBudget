@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.props" Condition="Exists('..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.props')" />
   <Import Project="..\packages\Microsoft.DiaSymReader.Native.1.7.0\build\Microsoft.DiaSymReader.Native.props" Condition="Exists('..\packages\Microsoft.DiaSymReader.Native.1.7.0\build\Microsoft.DiaSymReader.Native.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -53,6 +54,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.40.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.40.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -564,12 +571,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -608,9 +609,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910221520476_init.cs" />
-    <Compile Include="Migrations\201910221520476_init.Designer.cs">
-      <DependentUpon>201910221520476_init.cs</DependentUpon>
+    <Compile Include="Migrations\201910250811390_init001.cs" />
+    <Compile Include="Migrations\201910250811390_init001.Designer.cs">
+      <DependentUpon>201910250811390_init001.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209301434435_test.cs" />
+    <Compile Include="Migrations\202209301434435_test.designer.cs">
+      <DependentUpon>202209301434435_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210030709411_init3.cs" />
+    <Compile Include="Migrations\202210030709411_init3.designer.cs">
+      <DependentUpon>202210030709411_init3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202103100854117_initnew.cs" />
     <Compile Include="Migrations\202103100854117_initnew.Designer.cs">
@@ -663,6 +672,187 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\metronic\admin_2_rounded\app_calendar.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_inbox.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_inbox_compose.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_inbox_inbox.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_inbox_reply.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_inbox_view.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_ticket.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_ticket_config.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_ticket_details.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_ticket_staff.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_todo.html" />
+    <Content Include="Content\metronic\admin_2_rounded\app_todo_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_amcharts.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_echarts.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_flotcharts.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_flowchart.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_google.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_highcharts.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_highmaps.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_highstock.html" />
+    <Content Include="Content\metronic\admin_2_rounded\charts_morris.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_fileinput.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_maxlength.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_multiselect_dropdown.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_select.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_select_splitter.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_switch.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_tagsinput.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_bootstrap_touchspin.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_clipboard.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_code_editors.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_color_pickers.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_context_menu.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_date_time_pickers.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_editors.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_form_tools.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_ion_sliders.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_knob_dials.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_multi_select.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_noui_sliders.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_select2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\components_typeahead.html" />
+    <Content Include="Content\metronic\admin_2_rounded\dashboard_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\dashboard_3.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ecommerce_index.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ecommerce_orders.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ecommerce_orders_view.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ecommerce_products.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ecommerce_products_edit.html" />
+    <Content Include="Content\metronic\admin_2_rounded\elements_cards.html" />
+    <Content Include="Content\metronic\admin_2_rounded\elements_lists.html" />
+    <Content Include="Content\metronic\admin_2_rounded\elements_overlay.html" />
+    <Content Include="Content\metronic\admin_2_rounded\elements_ribbons.html" />
+    <Content Include="Content\metronic\admin_2_rounded\elements_steps.html" />
+    <Content Include="Content\metronic\admin_2_rounded\favicon.ico" />
+    <Content Include="Content\metronic\admin_2_rounded\form_controls.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_controls_md.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_dropzone.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_editable.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_fileupload.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_icheck.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_image_crop.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_input_mask.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_layouts.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_repeater.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_validation.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_validation_md.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_validation_states_md.html" />
+    <Content Include="Content\metronic\admin_2_rounded\form_wizard.html" />
+    <Content Include="Content\metronic\admin_2_rounded\index.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_ajax_page.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_ajax_page_content_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_ajax_page_content_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_ajax_page_content_3.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_ajax_page_content_4.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_ajax_page_content_5.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_blank_page.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_boxed_page.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_disabled_menu.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_footer_fixed.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_full_height_content.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_full_height_portlet.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_language_bar.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_sidebar_closed.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_sidebar_fixed.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_sidebar_menu_accordion.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_sidebar_menu_compact.html" />
+    <Content Include="Content\metronic\admin_2_rounded\layout_sidebar_reversed.html" />
+    <Content Include="Content\metronic\admin_2_rounded\maps_google.html" />
+    <Content Include="Content\metronic\admin_2_rounded\maps_vector.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_cookie_consent_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_cookie_consent_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_about.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_blog.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_blog_post.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_contact.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_faq.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_help.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_invoice.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_invoice_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_portfolio_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_portfolio_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_portfolio_3.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_portfolio_4.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_pricing.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_pricing_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_search.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_search_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_search_3.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_search_4.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_general_search_5.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_system_404_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_system_404_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_system_404_3.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_system_500_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_system_500_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_system_coming_soon.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_lock_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_lock_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_login_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_login_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_login_3.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_login_4.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_login_5.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_login_6.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_profile_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_profile_1_account.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_profile_1_help.html" />
+    <Content Include="Content\metronic\admin_2_rounded\page_user_profile_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_ajax.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_ajax_content_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_ajax_content_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_ajax_content_3.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_ajax_content_error.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_boxed.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_draggable.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_light.html" />
+    <Content Include="Content\metronic\admin_2_rounded\portlet_solid.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_bootstrap.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_ajax.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_buttons.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_colreorder.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_editable.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_fixedheader.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_managed.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_responsive.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_rowreorder.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_datatables_scroller.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_static_basic.html" />
+    <Content Include="Content\metronic\admin_2_rounded\table_static_responsive.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_alerts_api.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_blockui.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_bootbox.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_bootstrap_growl.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_buttons.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_buttons_spinner.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_colors.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_confirmations.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_datepaginator.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_extended_modals.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_extended_modals_ajax_sample.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_general.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_icons.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_idle_timeout.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_modals.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_modals_ajax_sample.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_nestable.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_notific8.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_page_progress_style_1.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_page_progress_style_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_session_timeout.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_socicons.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_sweetalert.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_tabs_accordions_navs.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_tiles.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_timeline.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_timeline_2.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_timeline_horizontal.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_toastr.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_tree.html" />
+    <Content Include="Content\metronic\admin_2_rounded\ui_typography.html" />
     <Content Include="Content\metronic\assets\apps\css\inbox-rtl.min.css" />
     <Content Include="Content\metronic\assets\apps\css\inbox.css" />
     <Content Include="Content\metronic\assets\apps\css\inbox.min.css" />
@@ -6738,8 +6928,14 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910221520476_init.resx">
-      <DependentUpon>201910221520476_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910250811390_init001.resx">
+      <DependentUpon>201910250811390_init001.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209301434435_test.resx">
+      <DependentUpon>202209301434435_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210030709411_init3.resx">
+      <DependentUpon>202210030709411_init3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103100854117_initnew.resx">
       <DependentUpon>202103100854117_initnew.cs</DependentUpon>
@@ -6803,10 +6999,13 @@
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.ML.1.0.0\build\netstandard2.0\Microsoft.ML.targets" Condition="Exists('..\packages\Microsoft.ML.1.0.0\build\netstandard2.0\Microsoft.ML.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.targets" Condition="Exists('..\packages\Microsoft.AspNetCore.Mvc.Razor.Extensions.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

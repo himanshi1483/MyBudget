@@ -65,6 +65,8 @@ namespace MyBudget.Models
         public int SubCategoryId { get; set; }
         [NotMapped]
         public string SubCategoryName { get; set; }
+
+
         public int MonthsPassed { get; set; }
         public double AmountAccumulated { get; set; }
         public DateTime DebitDate { get; set; }

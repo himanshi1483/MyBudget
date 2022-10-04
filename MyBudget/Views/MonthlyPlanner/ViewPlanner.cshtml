@@ -50,7 +50,7 @@
             <div class="modal-body">
                 @using (Html.BeginForm("Create", "InvestmentDetails", FormMethod.Post))
                 {
-                    @Html.AntiForgeryToken()
+                    @*@Html.AntiForgeryToken()*@
 
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -128,7 +128,7 @@
             <div class="modal-body">
                 @using (Html.BeginForm("Create", "IncomeDetails", FormMethod.Post))
                 {
-                    @Html.AntiForgeryToken()
+                    @*@Html.AntiForgeryToken()*@
 
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -206,7 +206,7 @@
             <div class="modal-body">
                 @using (Html.BeginForm("Create", "ExpenseDetails", FormMethod.Post))
                 {
-                    @Html.AntiForgeryToken()
+                    @*@Html.AntiForgeryToken()*@
 
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -284,7 +284,7 @@
             <div class="modal-body">
                 @using (Html.BeginForm("Create", "SavingsDetails", FormMethod.Post))
                 {
-                    @Html.AntiForgeryToken()
+                    @*@Html.AntiForgeryToken()*@
 
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

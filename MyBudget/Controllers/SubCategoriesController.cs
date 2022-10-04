@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using MyBudget.Models;
-
-namespace MyBudget.Controllers
+﻿namespace MyBudget.Controllers
 {
     public class SubCategoriesController : Controller
     {
@@ -30,10 +20,12 @@ namespace MyBudget.Controllers
                             Frequency = m.u.Frequency,
                             IsDefault = m.u.IsDefault,
                             Name = m.u.Name,
-                            Owner = m.u.Owner,
+                            Owner = m.u.Owner
                             SubCategoryId = m.u.SubCategoryId,
                             TypeOfInvestment = m.u.TypeOfInvestment,
-                            PortfolioNumber = m.u.PortfolioNumber
+                            PortfolioNumber = m.u.PortfolioNumber,
+                            Type = m.u.Type,
+                            SubCategoryId = m.u.SubCategoryId
                         }).ToList();
             return View(query);
         }
@@ -75,6 +67,7 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 db.SubCategories.Add(subCategories);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -112,6 +105,15 @@ namespace MyBudget.Controllers
         {
             if (ModelState.IsValid)
             {
+                var prevModel = db.SubCategories.AsNoTracking().Where(x => x.SubCategoryId == subCategories.SubCategoryId).FirstOrDefault();
+                if (subCategories.StartDate == null)
+                {
+                    subCategories.StartDate = prevModel.StartDate;
+                }
+                if (subCategories.EndDate == null)
+                {
+                    subCategories.EndDate = prevModel.EndDate;
+                }
                 db.Entry(subCategories).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
