@@ -16,6 +16,8 @@ namespace MyBudget.Models
         public Frequency Frequency { get; set; }
         public double InvestedAmount { get; set; }
         public double ExpectedAmount { get; set; }
+
+        public double ExpectedMonthlyAmount { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 

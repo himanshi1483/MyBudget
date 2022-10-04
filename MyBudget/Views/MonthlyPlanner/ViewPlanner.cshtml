@@ -638,3 +638,73 @@
     </div>
 
 </div>
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-credit-card font-red-sunglo"></i>
+                    <span class="caption-subject font-red-sunglo bold uppercase">Loan/EMI Details</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default" data-toggle="modal" data-target="#investModal" href="javascript:;">
+                        <i class="icon-plus"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table id="loanTable" class="table table-hover table-light">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Sub-Category
+                            </th>
+                            <th>
+                                Expected
+                            </th>
+                            <th>
+                                Actual
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model._MonthlyList.Where(x => x.CategoryId == 5))
+                        {
+                            <tr>
+
+                                <td>@item.SubCategoryName</td>
+                                <td> &#x20B9 @item.ExpectedAmount</td>
+                                <td> &#x20B9 @item.ActualAmount</td>
+
+                                <td class="actions">
+                                    @*<a href="@Url.Action("Edit", "InvestmentDetails", new { id = @item.InvestmentId })"><i class="fa fa-pencil"></i></a>*@
+
+                                    <button class="btn btn-link" style="padding:0" data-toggle="modal" data-bind="@item.InvestmentId" data-target="#investModal2-@item.InvestmentId">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <a href="#" style="padding:0" class="btn btn-link on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            @Html.HiddenFor(x => item.planId)
+                            @Html.Partial("_EditInvestment", @item)
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+
+                            <th class="bg-grey-salt bg-font-grey-salt">Total</th>
+                            <th class="bg-purple-soft bg-font-purple-soft"></th>
+                            <th class="bg-red-sunglo bg-font-red-sunglo"></th>
+                            <th class="bg-grey-salt bg-font-grey-salt"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

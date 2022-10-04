@@ -342,8 +342,9 @@
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.5.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.2\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
@@ -622,6 +623,18 @@
     <Compile Include="Migrations\202103101124533_newFields2.cs" />
     <Compile Include="Migrations\202103101124533_newFields2.Designer.cs">
       <DependentUpon>202103101124533_newFields2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103150744445_initNewCol.cs" />
+    <Compile Include="Migrations\202103150744445_initNewCol.Designer.cs">
+      <DependentUpon>202103150744445_initNewCol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103151003412_initNewTable.cs" />
+    <Compile Include="Migrations\202103151003412_initNewTable.Designer.cs">
+      <DependentUpon>202103151003412_initNewTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103151005123_initNewTable1.cs" />
+    <Compile Include="Migrations\202103151005123_initNewTable1.Designer.cs">
+      <DependentUpon>202103151005123_initNewTable1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BankAccounts.cs" />
@@ -6736,6 +6749,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103101124533_newFields2.resx">
       <DependentUpon>202103101124533_newFields2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103150744445_initNewCol.resx">
+      <DependentUpon>202103150744445_initNewCol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103151003412_initNewTable.resx">
+      <DependentUpon>202103151003412_initNewTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103151005123_initNewTable1.resx">
+      <DependentUpon>202103151005123_initNewTable1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

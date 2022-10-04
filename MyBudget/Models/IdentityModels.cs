@@ -41,6 +41,7 @@ namespace MyBudget.Models
         public System.Data.Entity.DbSet<MyBudget.Models.SavingsDetail> SavingsDetails { get; set; }
 
         public System.Data.Entity.DbSet<MyBudget.Models.InvestmentDetail> InvestmentDetails { get; set; }
+        public System.Data.Entity.DbSet<MyBudget.Models.LoanDetail> LoanDetails { get; set; }
 
         public System.Data.Entity.DbSet<MyBudget.Models.BankAccounts> BankAccounts { get; set; }
         public System.Data.Entity.DbSet<MyBudget.Models.MonthlyPlan> MonthlyPlans { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using MyBudget.Models;
+using MyBudget.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -354,6 +355,23 @@ namespace MyBudget.Controllers
             }
             model.InvestmentDetails = _investList;
 
+            //default loan
+            var _defaultLoans = db.SubCategories.Where(x => x.ParentCategoryId == 5).ToList();
+            var _loanList = new List<LoanDetail>();
+            foreach (var item in _defaultLoans)
+            {
+                var _addInvestments = new LoanDetail();
+                _addInvestments.SubCategoryId = item.SubCategoryId;
+                _addInvestments.ActualAmount = 0;
+                _addInvestments.DebitDate = DateTime.Now;
+                _addInvestments.FinancialYear = model.FinancialYear;
+                _addInvestments.ForMonth = model.ForMonth;
+                _addInvestments.SubCategoryName = item.Name;
+                db.LoanDetails.Add(_addInvestments);
+                _loanList.Add(_addInvestments);
+            }
+            model.LoanDetails = _loanList;
+
             db.SaveChanges();
 
             var newPlan = new MonthlyPlan();
@@ -370,7 +388,7 @@ namespace MyBudget.Controllers
                                  CategoryId = y.y.ParentCategoryId,
                                  CategoryName = y.x.CategoryName,
                                  SubCategoryId = y.y.SubCategoryId,
-                                 ExpectedAmount = y.y.ExpectedAmount,
+                                 ExpectedAmount = y.y.ExpectedMonthlyAmount,
                                  SubCategoryName = y.y.Name
                              }).ToList();
 
@@ -431,10 +449,26 @@ namespace MyBudget.Controllers
                     ExpectedAmount = y.y.ExpectedAmount
                 }).ToList();
 
+            var _loanData = model.LoanDetails.Join(categories, x => x.SubCategoryId, y => y.SubCategoryId, (x, y) => new { x, y }).Select
+             (y => new MonthlyPlannerViewModel
+             {
+                 InvestmentId = y.x.LoanId,
+                 CategoryId = y.y.CategoryId,
+                 CategoryName = y.y.CategoryName,
+                 SubCategoryId = y.y.SubCategoryId,
+                 SubCategoryName = y.y.SubCategoryName,
+                 ActualAmount = y.x.ActualAmount,
+                 DebitDate = y.x.DebitDate,
+                 FinancialYear = y.x.FinancialYear,
+                 ForMonth = y.x.ForMonth,
+                 ExpectedAmount = y.y.ExpectedAmount
+             }).ToList();
+
             model._MonthlyList = _incomeData;
             model._MonthlyList.AddRange(_expenseData);
             model._MonthlyList.AddRange(_savingsData);
             model._MonthlyList.AddRange(_investmentData);
+            model._MonthlyList.AddRange(_loanData);
 
             return View("ViewPlanner", model);
 
@@ -458,6 +492,7 @@ namespace MyBudget.Controllers
             var _expenseDetails = db.ExpenseDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
             var _savingDetails = db.SavingsDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
             var _investmentDetails = db.InvestmentDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
+            var _loanDetails = db.LoanDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
             var items = db.SubCategories.Where(x => x.ParentCategoryId == 1).ToList();
             if (items != null)
             {
@@ -469,8 +504,9 @@ namespace MyBudget.Controllers
                     CategoryId = y.y.ParentCategoryId,
                     CategoryName = y.x.CategoryName,
                     SubCategoryId = y.y.SubCategoryId,
-                    ExpectedAmount = y.y.ExpectedAmount,
-                    SubCategoryName = y.y.Name
+                    ExpectedAmount = y.y.ExpectedMonthlyAmount,
+                    SubCategoryName = y.y.Name,
+                    InvestmentType = y.y.TypeOfInvestment
                 }).ToList();
 
             var _incomeData = _incomeDetails.Join(categories, x => x.SubCategoryId, y => y.SubCategoryId, (x, y) => new { x, y }).Select
@@ -534,12 +570,28 @@ namespace MyBudget.Controllers
                     ExpectedAmount = y.y.ExpectedAmount,
                     planId = planId.Value
                 }).ToList();
-
+            var _loanData = _loanDetails.Join(categories, x => x.SubCategoryId, y => y.SubCategoryId, (x, y) => new { x, y }).Select
+              (y => new MonthlyPlannerViewModel
+              {
+                  InvestmentId = y.x.LoanId,
+                  CategoryId = y.y.CategoryId,
+                  CategoryName = y.y.CategoryName,
+                  SubCategoryId = y.y.SubCategoryId,
+                  SubCategoryName = y.y.SubCategoryName,
+                  ActualAmount = y.x.ActualAmount,
+                  DebitDate = y.x.DebitDate,
+                  FinancialYear = y.x.FinancialYear,
+                  ForMonth = y.x.ForMonth,
+                  ExpectedAmount = y.y.ExpectedAmount,
+                  planId = planId.Value,
+                  InvestmentType = Enumerations.InvestmentType.NA
+              }).ToList();
             model._MonthlyList = _incomeData;
             model._MonthlyList.AddRange(_expenseData);
             model._MonthlyList.AddRange(_savingsData);
             model._MonthlyList.AddRange(_investmentData);
-          
+            model._MonthlyList.AddRange(_loanData);
+
             return View("ViewPlanner", model);
         }
     }

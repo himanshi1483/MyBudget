@@ -13,6 +13,8 @@ namespace MyBudget.Models
         public List<ExpenseDetail> ExpenseDetails { get; set; }
         public List<SavingsDetail> SavingsDetails { get; set; }
         public List<InvestmentDetail> InvestmentDetails { get; set; }
+
+        public List<LoanDetail> LoanDetails { get; set; }
         public List<MonthlyPlan> PlanList { get; set; }
         public List<MonthlyPlannerViewModel> _MonthlyList { get; set; }
         public int IncomeId { get; set; }
@@ -33,7 +35,7 @@ namespace MyBudget.Models
         public double TotalInvestment { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-
+        public InvestmentType InvestmentType { get; set; }
         public string FinancialYear { get; set; }
         public Month ForMonth { get; set; }
         public int planId { get; set; }

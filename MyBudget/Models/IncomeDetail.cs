@@ -73,4 +73,21 @@ namespace MyBudget.Models
         [NotMapped]
         public int planId { get; set; }
     }
+
+    public class LoanDetail
+    {
+        [Key]
+        public int LoanId { get; set; }
+        public double ActualAmount { get; set; }
+        public int SubCategoryId { get; set; }
+        [NotMapped]
+        public string SubCategoryName { get; set; }
+        public int MonthsPassed { get; set; }
+        public double AmountAccumulated { get; set; }
+        public DateTime DebitDate { get; set; }
+        public Month ForMonth { get; set; }
+        public string FinancialYear { get; set; }
+        [NotMapped]
+        public int planId { get; set; }
+    }
 }
