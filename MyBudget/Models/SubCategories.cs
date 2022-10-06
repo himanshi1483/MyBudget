@@ -36,6 +36,6 @@ namespace MyBudget.Models
         public string PortfolioNumber { get; set; }
 
         public decimal ExpectedInterest { get; set; }
-        public InvestmentType TypeOfInvestment { get; set; }
+        //public DepositType TypeOfInvestment { get; set; }
     }
 }

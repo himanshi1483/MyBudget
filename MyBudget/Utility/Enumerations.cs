@@ -1,4 +1,6 @@
-﻿namespace MyBudget.Utility
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyBudget.Utility
 {
     public class Enumerations
     {

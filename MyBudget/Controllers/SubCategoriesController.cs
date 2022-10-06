@@ -1,4 +1,10 @@
-﻿namespace MyBudget.Controllers
+﻿using MyBudget.Models;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
+
+namespace MyBudget.Controllers
 {
     public class SubCategoriesController : Controller
     {
@@ -20,12 +26,12 @@
                             Frequency = m.u.Frequency,
                             IsDefault = m.u.IsDefault,
                             Name = m.u.Name,
-                            Owner = m.u.Owner
+                            Owner = m.u.Owner,
                             SubCategoryId = m.u.SubCategoryId,
-                            TypeOfInvestment = m.u.TypeOfInvestment,
+                            DepositType = m.u.DepositType,
                             PortfolioNumber = m.u.PortfolioNumber,
                             Type = m.u.Type,
-                            SubCategoryId = m.u.SubCategoryId
+                            //SubCategoryId = m.u.SubCategoryId
                         }).ToList();
             return View(query);
         }

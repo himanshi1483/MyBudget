@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MyBudget.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using MyBudget.Models;
 
 namespace MyBudget.Controllers
 {
@@ -52,7 +50,7 @@ namespace MyBudget.Controllers
         // GET: InvestmentDetails/Create
         public ActionResult Create()
         {
-            var items = db.SubCategories.Where(x => x.ParentCategoryId == 3).ToList();
+            var items = db.SubCategories.Where(x => x.ParentCategoryId == 2).ToList();
             if (items != null)
             {
                 ViewBag.SubCategories = items;
@@ -129,10 +127,10 @@ namespace MyBudget.Controllers
                     if (yearsDiff == 0)
                         investmentDetail.MonthsPassed = DateTime.Today.Month - isRecurring.StartDate.Value.Month;
                     else
-                        investmentDetail.MonthsPassed = (yearsDiff*12)+(DateTime.Today.Month - isRecurring.StartDate.Value.Month);
+                        investmentDetail.MonthsPassed = (yearsDiff * 12) + (DateTime.Today.Month - isRecurring.StartDate.Value.Month);
 
                 }
-                else if(isRecurring.Frequency == Utility.Enumerations.Frequency.Once)
+                else if (isRecurring.Frequency == Utility.Enumerations.Frequency.Once)
                 {
                     investmentDetail.MonthsPassed = 1;
                 }

@@ -4,7 +4,6 @@ using MyBudget.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MyBudget.Controllers
@@ -108,8 +107,8 @@ namespace MyBudget.Controllers
             model._MonthlyList.AddRange(_savingsData);
             model._MonthlyList.AddRange(_investmentData);
             model.PlanList = _monthlyPlan;
-          
-            return View("Index",model);
+
+            return View("Index", model);
         }
 
         public ActionResult ListIndex()
@@ -155,7 +154,7 @@ namespace MyBudget.Controllers
                                      Value = x.ToString() + "-" + (x + 1).ToString()
                                  }), "Value", "Text");
 
-          
+
             var categories = db.Categories.Join(db.SubCategories, x => x.CategoryId, y => y.ParentCategoryId,
                               (x, y) => new { x, y }).Select(y => new MonthlyPlannerViewModel
                               {
@@ -257,7 +256,7 @@ namespace MyBudget.Controllers
             ViewBag.Years = new SelectList(Enumerable.Range(DateTime.Today.Year, 20).Select(x =>
                                    new SelectListItem()
                                    {
-                                       Text = x.ToString() + "-" + (x+1).ToString(),
+                                       Text = x.ToString() + "-" + (x + 1).ToString(),
                                        Value = x.ToString() + "-" + (x + 1).ToString()
                                    }), "Value", "Text");
             return View(model);
@@ -274,7 +273,7 @@ namespace MyBudget.Controllers
                                        Value = x.ToString() + "-" + (x + 1).ToString()
                                    }), "Value", "Text");
             var plans = db.MonthlyPlans.ToList();
-            if(plans.Any(x=>x.ForMonth == model.ForMonth && x.FinancialYear == model.FinancialYear))
+            if (plans.Any(x => x.ForMonth == model.ForMonth && x.FinancialYear == model.FinancialYear))
             {
                 ViewBag.Message = "Plan for this month already exists.";
                 return View();
@@ -488,7 +487,7 @@ namespace MyBudget.Controllers
                                    Text = x.ToString() + "-" + (x + 1).ToString(),
                                    Value = x.ToString() + "-" + (x + 1).ToString()
                                }), "Value", "Text");
-            var _incomeDetails = db.IncomeDetails.Where(x=>x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
+            var _incomeDetails = db.IncomeDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
             var _expenseDetails = db.ExpenseDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
             var _savingDetails = db.SavingsDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
             var _investmentDetails = db.InvestmentDetails.Where(x => x.FinancialYear == model.FinancialYear && x.ForMonth == model.ForMonth).ToList();
@@ -506,7 +505,7 @@ namespace MyBudget.Controllers
                     SubCategoryId = y.y.SubCategoryId,
                     ExpectedAmount = y.y.ExpectedMonthlyAmount,
                     SubCategoryName = y.y.Name,
-                    InvestmentType = y.y.TypeOfInvestment
+                    DepositType = y.y.DepositType
                 }).ToList();
 
             var _incomeData = _incomeDetails.Join(categories, x => x.SubCategoryId, y => y.SubCategoryId, (x, y) => new { x, y }).Select
@@ -584,7 +583,7 @@ namespace MyBudget.Controllers
                   ForMonth = y.x.ForMonth,
                   ExpectedAmount = y.y.ExpectedAmount,
                   planId = planId.Value,
-                  InvestmentType = Enumerations.InvestmentType.NA
+                  DepositType = Enumerations.DepositType.Others
               }).ToList();
             model._MonthlyList = _incomeData;
             model._MonthlyList.AddRange(_expenseData);

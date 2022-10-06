@@ -1,8 +1,8 @@
-namespace MyBudget.Migrations
+﻿namespace MyBudget.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    public partial class init001 : DbMigration
+    public partial class init0011 : DbMigration
     {
         public override void Up()
         {

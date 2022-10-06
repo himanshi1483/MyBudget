@@ -1,4 +1,8 @@
-﻿namespace MyBudget.Models
+﻿using System;
+using System.Collections.Generic;
+using static MyBudget.Utility.Enumerations;
+
+namespace MyBudget.Models
 {
     public class DashboardViewModel
     {
@@ -25,8 +29,22 @@
 
         public List<YearlyDetail> YearlyInvestment { get; set; }
         public List<YearlyDetail> YearlySavings { get; set; }
+
+        public List<MyInvestments> MyInvestments { get; set; }
     }
 
+    public class MyInvestments
+    {
+        public DepositType DepositType { get; set; }
+        public List<BankAccounts> BankAccounts { get; set; }
+        public List<SubCategories> SubCategories { get; set; }
+        public List<RecurringInvestment> RecurringInvestments { get; set; }
+        public List<OneTimeInvestment> OneTimeInvestments { get; set; }
+
+        public List<OneTimeInvestment> RetirementPlans { get; set; }
+
+        public double TotalTillNow { get; set; }
+    }
     public class YearlyDetail
     {
         public int SubCategoryId { get; set; }

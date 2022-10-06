@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using static MyBudget.Utility.Enumerations;
 
 namespace MyBudget.Models
@@ -35,7 +33,7 @@ namespace MyBudget.Models
         public double TotalInvestment { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public InvestmentType InvestmentType { get; set; }
+        public DepositType DepositType { get; set; }
         public string FinancialYear { get; set; }
         public Month ForMonth { get; set; }
         public int planId { get; set; }
