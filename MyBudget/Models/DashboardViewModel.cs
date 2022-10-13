@@ -30,7 +30,7 @@ namespace MyBudget.Models
         public List<YearlyDetail> YearlyInvestment { get; set; }
         public List<YearlyDetail> YearlySavings { get; set; }
 
-        public List<MyInvestments> MyInvestments { get; set; }
+        public List<InvestmentDetail> MyInvestments { get; set; }
     }
 
     public class MyInvestments
@@ -83,5 +83,7 @@ namespace MyBudget.Models
         public int TotalMonthsDuration { get; set; }
         public int MonthsTillNow { get; set; }
         public DepositType DepositType { get; set; }
+
+        public decimal ExpectedInterest { get; set; }
     }
 }

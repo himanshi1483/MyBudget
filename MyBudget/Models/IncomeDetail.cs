@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 using static MyBudget.Utility.Enumerations;
 
 namespace MyBudget.Models
@@ -65,8 +62,6 @@ namespace MyBudget.Models
         public int SubCategoryId { get; set; }
         [NotMapped]
         public string SubCategoryName { get; set; }
-
-
         public int MonthsPassed { get; set; }
         public double AmountAccumulated { get; set; }
         public DateTime DebitDate { get; set; }
@@ -74,6 +69,8 @@ namespace MyBudget.Models
         public string FinancialYear { get; set; }
         [NotMapped]
         public int planId { get; set; }
+
+        public DepositType DepositType { get; set; }
     }
 
     public class LoanDetail

@@ -72,7 +72,7 @@ namespace MyBudget.Controllers
         public ActionResult InvestmentDashboard1()
         {
             DashboardViewModel model = new DashboardViewModel();
-            model.MyInvestments = new List<MyInvestments>();
+            //model.MyInvestments = new List<MyInvestments>();
             var _savingDetails = db.SavingsDetails.ToList();
             var _investmentDetails = db.InvestmentDetails.ToList();
             var currentFinYear = DateTime.Now.Year + "-" + (DateTime.Now.Year + 1);
@@ -179,6 +179,11 @@ namespace MyBudget.Controllers
             DashboardViewModel model = new DashboardViewModel();
             var _savingDetails = db.SavingsDetails.ToList();
             var _investmentDetails = db.InvestmentDetails.ToList();
+            model.MyInvestments = _investmentDetails.ToList();
+            //foreach (var item in _investmentDetails)
+            //{
+            //    item.Deposit = if(item.SubCategoryId.)
+            //}
             var currentFinYear = DateTime.Now.Year + "-" + (DateTime.Now.Year + 1);
             var totalSavingsThisYr = _savingDetails.Where(x => x.FinancialYear == currentFinYear).Sum(x => x.ActualAmount);
             var totalInvestmentsThisYr = _investmentDetails.Where(x => x.FinancialYear == currentFinYear).Sum(x => x.ActualAmount);
@@ -263,13 +268,26 @@ namespace MyBudget.Controllers
                 data1.Amount = item.ExpectedAmount;
                 data1.TotalMonthsDuration = ((data1.EndDate.Value.Year - data1.StartDate.Value.Year) * 12) + data1.EndDate.Value.Month - data1.StartDate.Value.Month + 1;
                 data1.MonthsTillNow = ((DateTime.Now.Year - data1.StartDate.Value.Year) * 12) + DateTime.Now.Month - data1.StartDate.Value.Month + 1;
-                data1.MaturityAmount = data1.Amount;
+                data1.MaturityAmount = item.ExpectedInterest != 0 ? CalculateCompount(item.ExpectedAmount, item.ExpectedInterest, data1.TotalMonthsDuration / 12, 2) : item.ExpectedAmount;
+                //data1.MaturityAmount = item.ExpectedInterest != 0 ? ((Convert.ToDouble(item.ExpectedInterest) * (data1.TotalMonthsDuration / 12) * data1.Amount) / 100) + item.ExpectedAmount : item.ExpectedAmount;
+                data1.ExpectedInterest = item.ExpectedInterest;
                 data1.DepositType = item.DepositType;
                 model.OneTimeInvestments.Add(data1);
             }
             model.SubCategories = new List<SubCategories>();
             model.SubCategories = db.SubCategories.Where(x => (x.ParentCategoryId == invCat)).ToList();
             return View(model);
+        }
+
+        public double CalculateCompount(double p, decimal roi, int t, int n)
+        {
+            double total = 0;
+            for (int t1 = 1; t1 < t + 1; t1++)
+            {
+                total = p * Math.Pow((1 + Convert.ToDouble(roi / 100) / n),
+                                         (n * t));
+            }
+            return Math.Round(total, 0);
         }
         public ActionResult Contact()
         {

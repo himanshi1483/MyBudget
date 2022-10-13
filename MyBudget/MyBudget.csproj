@@ -630,6 +630,10 @@
     <Compile Include="Migrations\202210041452559_init0011.designer.cs">
       <DependentUpon>202210041452559_init0011.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202210080827168_init5.cs" />
+    <Compile Include="Migrations\202210080827168_init5.designer.cs">
+      <DependentUpon>202210080827168_init5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BankAccounts.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -6945,6 +6949,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210041452559_init0011.resx">
       <DependentUpon>202210041452559_init0011.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210080827168_init5.resx">
+      <DependentUpon>202210080827168_init5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
